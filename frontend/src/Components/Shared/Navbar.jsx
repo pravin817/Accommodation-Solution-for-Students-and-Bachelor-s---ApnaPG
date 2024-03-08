@@ -1,17 +1,11 @@
-import { Link } from "react-router-dom";
-
 const Navbar = () => {
   return (
-    <div>
-      <Link to="/">
-        <p>Home</p>
-      </Link>
-
-      <Link to="/about">
-        <p>About</p>
-      </Link>
-    </div>
-  );
+    <nav>
+      <div>Logo goes Here</div>
+      <div>Filter Options</div>
+      <div>Authentication + Users options</div>
+    </nav>
+  ); 
 };
 
 export default Navbar;
