@@ -2,16 +2,30 @@ import { useState, useEffect, useRef } from "react";
 import { Link } from "react-router-dom";
 
 // Import the icons
-import searchIcon from "../../assets/BasicIcon/Search.svg";
-import hamburgerMenu from "../../assets/BasicIcon/HamburgerMenu.svg";
-import userProfile from "../../assets/BasicIcon/UserProfile.png";
+import searchIcon from "../../assets/BasicIcon/search.svg";
+import hamburgerMenu from "../../assets/BasicIcon/hamburgerMenu.svg";
+import userProfile from "../../assets/BasicIcon/userProfile.png";
+import AuthenticationPopUp from "../PopUp/AuthenticationPopUp";
 
 const Navbar = () => {
   const [showUserMenu, setShowUserMenu] = useState(false);
+  const [popup, setPopup] = useState(false);
 
   const userMenuRef = useRef(null);
 
-  useEffect(() => {}, []);
+  // Close the user menu when clicked outside of the menu
+  useEffect(() => {
+    const handleOutSideClick = (event) => {
+      if (userMenuRef.current && !userMenuRef.current.contains(event.target)) {
+        setShowUserMenu(false);
+      }
+    };
+
+    document.addEventListener("mouseup", handleOutSideClick);
+    return () => {
+      document.removeEventListener("mouseup", handleOutSideClick);
+    };
+  }, []);
 
   return (
     <nav className=" max-w-screen-2xl xl:mx-auto">
@@ -23,7 +37,7 @@ const Navbar = () => {
           </Link>
         </div>
         {/* search bar */}
-        <div className="mx-auto">
+        <div className="mx-auto max-w-sm">
           <div className="border-[1px] border-[#dddddd] rounded-full px-3 py-2 flex items-center shadow hover:shadow-md transition-all cursor-pointer">
             <div className="flex flex-row items-center nav__search__button">
               <p className="text-[#717171] mr-5">Search Room now...</p>
@@ -41,7 +55,7 @@ const Navbar = () => {
           <div
             className="border-[1px] border-[#dddddd] rounded-full py-1 px-2 flex flex-row gap-2 hover:shadow-md transition-all cursor-pointer relative"
             onClick={() => {
-              setShowUserMenu(!showUserMenu);
+              setShowUserMenu((preValue) => !preValue);
             }}
           >
             <img src={hamburgerMenu} alt="User Menu" className="w-4" />
@@ -54,8 +68,23 @@ const Navbar = () => {
               ref={userMenuRef}
               className="flex flex-col border-[1px] border-[#ddddd] rounded-lg py-2 w-[230px] absolute top-[74px] right-9 shadow-md transition-all user-menu"
             >
-              <Link>Sign up</Link>
-              <Link>Login</Link>
+              <Link
+                className="font-medium"
+                onClick={() => {
+                  setShowUserMenu(false);
+                  setPopup(true);
+                }}
+              >
+                Sign up
+              </Link>
+              <Link
+                onClick={() => {
+                  setShowUserMenu(false);
+                  setPopup(true);
+                }}
+              >
+                Login
+              </Link>
               <hr className="h-[1.5px] bg-[#ddddd] my-1" />
               <Link>Rent your Room</Link>
               <Link>Help</Link>
@@ -63,6 +92,7 @@ const Navbar = () => {
           )}
         </div>
       </div>
+      <AuthenticationPopUp popup={popup} setPopup={setPopup} />
     </nav>
   );
 };
