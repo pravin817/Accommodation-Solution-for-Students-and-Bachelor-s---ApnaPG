@@ -1,3 +1,4 @@
+import { useState, useEffect, useRef } from "react";
 import { Link } from "react-router-dom";
 
 // Import the icons
@@ -6,6 +7,12 @@ import hamburgerMenu from "../../assets/BasicIcon/HamburgerMenu.svg";
 import userProfile from "../../assets/BasicIcon/UserProfile.png";
 
 const Navbar = () => {
+  const [showUserMenu, setShowUserMenu] = useState(false);
+
+  const userMenuRef = useRef(null);
+
+  useEffect(() => {}, []);
+
   return (
     <nav className=" max-w-screen-2xl xl:mx-auto">
       <div className="xl:px-10 grid grid-cols-3 py-4">
@@ -31,10 +38,29 @@ const Navbar = () => {
           <div className=" bg-[#ffffff] hover:bg-[#f0f0f0] transition-all rounded-full p-3 cursor-pointer mr-3">
             <p className="text-sm font-medium text-[#222222]">Rent room now</p>
           </div>
-          <div className="border-[1px] border-[#dddddd] rounded-full py-1 px-2 flex flex-row gap-2 hover:shadow-md transition-all cursor-pointer">
+          <div
+            className="border-[1px] border-[#dddddd] rounded-full py-1 px-2 flex flex-row gap-2 hover:shadow-md transition-all cursor-pointer relative"
+            onClick={() => {
+              setShowUserMenu(!showUserMenu);
+            }}
+          >
             <img src={hamburgerMenu} alt="User Menu" className="w-4" />
             <img src={userProfile} alt="User Profile" className="w-8" />
           </div>
+
+          {/* show the user menu based on the condition  */}
+          {showUserMenu && (
+            <div
+              ref={userMenuRef}
+              className="flex flex-col border-[1px] border-[#ddddd] rounded-lg py-2 w-[230px] absolute top-[74px] right-9 shadow-md transition-all user-menu"
+            >
+              <Link>Sign up</Link>
+              <Link>Login</Link>
+              <hr className="h-[1.5px] bg-[#ddddd] my-1" />
+              <Link>Rent your Room</Link>
+              <Link>Help</Link>
+            </div>
+          )}
         </div>
       </div>
     </nav>

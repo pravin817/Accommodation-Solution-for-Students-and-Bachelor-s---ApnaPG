@@ -14,7 +14,7 @@ body {
   font-family: "poppins", sans-serif;
 }
 
-/* Main page custom css  */
+/* Navbar CSS  */
 .nav-search-button>p {
   padding-inline: 12px;
   font-size: 14px;
@@ -24,4 +24,20 @@ body {
   border-right: 1.5px solid #dddddd;
   font-weight: 500;
   color: #222222;
+}
+
+.user-menu>a {
+  padding: 10px 16px;
+  width: 100%;
+  font-size: 14px;
+  color: #222222;
+  opacity: 0.9;
+}
+
+.user-menu>a:hover {
+  background-color: #f7f7f7;
+  transition: all 0.2s ease-in;
+  /* width: 90%; */
+  /* margin: 10px 16px; */
+
 }
