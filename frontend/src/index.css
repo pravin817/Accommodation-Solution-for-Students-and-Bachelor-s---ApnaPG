@@ -44,6 +44,12 @@ p {
 
 }
 
+input[type="checkbox"] {
+  box-sizing: border-box;
+  padding: 0;
+  accent-color: #222222;
+}
+
 /* popup Sign in and sign up css  */
 
 /* .placeholder-shrink {
@@ -109,5 +115,5 @@ p {
     top: 10vh;
     opacity: 1;
   }
-  
+
 }

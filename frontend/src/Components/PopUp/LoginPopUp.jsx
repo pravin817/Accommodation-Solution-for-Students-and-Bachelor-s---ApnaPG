@@ -4,33 +4,16 @@ import backIcon from "../../assets/BasicIcon/backIcon.png";
 import { PulseLoader } from "react-spinners";
 import { Link } from "react-router-dom";
 
-const LoginPopUp = ({ onBack }) => {
+const LoginPopUp = () => {
   const [password, setPassword] = useState("");
   const [passwordVisible, setPasswordVisible] = useState(false);
   const [isLoading, setIsLoading] = useState(false);
-
-  // handle the backclick functionality
-  const handleBackClick = () => {
-    console.log("back clicked");
-    onBack();
-  };
 
   const togglePasswordVisibility = () => {
     setPasswordVisible(!passwordVisible);
   };
   return (
     <div className="flex flex-col gap-4">
-      {/* Top Bar Added  */}
-      <div className="flex items-center justify-between w-full py-4 border-b-[1px] px-8">
-        <img
-          src={backIcon}
-          alt="back Icon"
-          className="w-8 hover:bg-[#f1f1f1] transition-colors rounded-full p-2 cursor-pointer"
-          onClick={handleBackClick}
-        />
-        <p className="text-base font-semibold text-[#222222]">Log In</p>
-        <div className="w-[24px]"></div>
-      </div>
       {/* Form Section */}
       <div className="px-8 pt-1">
         <form>
@@ -78,4 +61,3 @@ const LoginPopUp = ({ onBack }) => {
 };
 
 export default LoginPopUp;
-
