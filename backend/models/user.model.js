@@ -38,6 +38,12 @@ const userSchema = new mongoose.Schema(
       type: String,
       default: "visitors",
     },
+    accessToken: {
+      type: String,
+    },
+    refreshToken: {
+      type: String,
+    },
   },
   { timestamps: { createdAt: "created_at", updatedAt: "updated_at" } }
 );
