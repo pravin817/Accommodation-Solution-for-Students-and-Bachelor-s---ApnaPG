@@ -46,7 +46,7 @@ const signup = async (req, res) => {
 
     if (user) {
       res.status(201).json({
-        message: "User signed up successfully",
+        message: "User created successfully",
         success: 1,
         user,
       });
