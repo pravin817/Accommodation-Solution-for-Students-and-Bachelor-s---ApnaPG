@@ -8,12 +8,14 @@ import backIcon from "../../assets/BasicIcon/backIcon.png";
 import LoginPopUp from "./LoginPopUp";
 import WelcomePopUp from "./WelcomePopUp";
 import CreateUserPopUp from "./CreateUserPopUp";
+import CreateProfilePopUp from "./CreateProfilePopUp";
 
 const AuthenticationPopUp = ({ popup, setPopup }) => {
   const [showCreateUserPopup, setShowCreateUserPopup] = useState(false);
   const [showLoginPopup, setShowLoginPopup] = useState(false);
   const [defaultPopup, setDefaultPopup] = useState(true);
   const [loginEmail, setLoginEmail] = useState(null);
+  const [profilePopup, setProfilePopup] = useState(false);
 
   const popUpRef = useRef(null);
 
@@ -45,7 +47,7 @@ const AuthenticationPopUp = ({ popup, setPopup }) => {
             ref={popUpRef}
             className={`absolute left-[27.5%] right-[27.5%] top-[12%]  w-[45vw] bg-[#ffffff] shadow-2xl rounded-xl  overflow-hidden
             ${
-              showLoginPopup
+              showLoginPopup || profilePopup
                 ? "h-[60vh] popup-container-login"
                 : "h-[80vh] popup-container"
             }
@@ -58,6 +60,15 @@ const AuthenticationPopUp = ({ popup, setPopup }) => {
                   src={closeIcon}
                   alt="close icon"
                   className="w-8 hover:bg-[#f1f1f1] transition-colors rounded-full p-2 cursor-pointer"
+                  onClick={() => {
+                    setPopup(false);
+                  }}
+                />
+              ) : profilePopup ? (
+                <img
+                  src={backIcon}
+                  alt="close Icon"
+                  className="w-8 hover:bg-[#f1f1f1] transition-colors rounded-fyll p-2 cursor-pointer"
                   onClick={() => {
                     setPopup(false);
                   }}
@@ -79,6 +90,8 @@ const AuthenticationPopUp = ({ popup, setPopup }) => {
                   ? "Log in"
                   : showCreateUserPopup
                   ? "Finish signing up"
+                  : profilePopup
+                  ? "Create you ApnaPG profile"
                   : "Log in or sign up"}
               </p>
               <div className="w-[14px]"> </div>
@@ -100,12 +113,24 @@ const AuthenticationPopUp = ({ popup, setPopup }) => {
                 <LoginPopUp
                   onBack={handleCloseLoginPopup}
                   loginEmail={loginEmail}
+                  showLoginPopup={setShowLoginPopup}
                 />
               )}
               {!showCreateUserPopup ? null : (
                 <CreateUserPopUp
                   onBack={handleCloseLoginPopup}
                   loginEmail={loginEmail}
+                  setProfilePopup={setProfilePopup}
+                  showCreatePopUp={setShowCreateUserPopup}
+                  setPopup={setPopup}
+                />
+              )}
+
+              {/* go to create user profile */}
+              {!profilePopup ? null : (
+                <CreateProfilePopUp
+                  setShowCreateUserPopup={setShowCreateUserPopup}
+                  setPopup={setPopup}
                 />
               )}
             </div>

@@ -1,4 +1,5 @@
 import axios from "axios";
+import { toast } from "react-hot-toast";
 
 export const API = "http://localhost:8080/api/v1/";
 
@@ -50,7 +51,7 @@ api.interceptors.response.use(
         return api(originalRequest);
       } catch (refreshError) {
         console.error("Failed to refresh access token:", refreshError);
-        // toast.error("Please log in!");
+        toast.error("Please log in!");
         throw refreshError;
       }
     }

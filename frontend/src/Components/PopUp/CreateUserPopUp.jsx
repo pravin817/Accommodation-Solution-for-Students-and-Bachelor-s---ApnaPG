@@ -5,8 +5,15 @@ import { Link } from "react-router-dom";
 import { PulseLoader } from "react-spinners";
 import errorIcon from "../../assets/BasicIcon/errorIcon.png";
 import { API } from "../../backend";
+import { toast } from "react-hot-toast";
 
-const CreateUserPopUp = ({}) => {
+const CreateUserPopUp = ({
+  onBack,
+  loginEmail,
+  setProfilePopup,
+  showCreatePopUp,
+  setPopup,
+}) => {
   const [inputDateFocused, setInputDateFocused] = useState(false);
   const [passwordVisible, setPasswordVisible] = useState(false);
   const [isLoading, setIsLoading] = useState(false);
@@ -53,8 +60,8 @@ const CreateUserPopUp = ({}) => {
       let accessToken = localStorage.getItem("accessToken");
       let refreshToken = localStorage.getItem("refreshToken");
 
-      if (responseData?.success) {
-        // console.log(refreshToken);
+      if (responseData?.success === 1) {
+        toast.success(responseData?.message);
         if (!accessToken) {
           localStorage.setItem(
             "accessToken",
@@ -76,6 +83,13 @@ const CreateUserPopUp = ({}) => {
         }
       }
 
+      showCreatePopUp(false);
+      setPopup(false);
+
+      setTimeout(() => {
+        setProfilePopup(true);
+        setPopup(true);
+      }, 2500);
       setTimeout(() => {
         reset();
       }, 100);
@@ -83,6 +97,8 @@ const CreateUserPopUp = ({}) => {
       console.log(error);
       localStorage.removeItem("accessToken");
       localStorage.removeItem("refreshToken");
+      toast.error("Network Error! Please try again later.");
+      setIsLoading(false);
     } finally {
       setIsLoading(false);
     }
@@ -170,6 +186,7 @@ const CreateUserPopUp = ({}) => {
           <input
             className="w-full border-[1.4px] border-[#dddddd] p-3 rounded-lg"
             type="email"
+            defaultValue={loginEmail}
             placeholder="Email"
             {...register("email", { required: true })}
             aria-invalid={errors.email ? "true" : "false"}
@@ -184,7 +201,7 @@ const CreateUserPopUp = ({}) => {
                 alt="Last name is requires"
                 className="w-5"
               />
-              <p className="text-xs text-[#c13515]">Email date is required</p>
+              <p className="text-xs text-[#c13515]">Email is required</p>
             </div>
           )}
           <p
@@ -280,7 +297,7 @@ const CreateUserPopUp = ({}) => {
         <div className=" flex flex-row items-center gap-5">
           <input type="checkbox" className="h-5 w-5" />
           <p className=" text-xs">
-            I don’t want to receive marketing messages from Motel.
+            I don’t want to receive marketing messages from ApnaPG.
           </p>
         </div>
         <div>
