@@ -6,7 +6,7 @@ import { PulseLoader } from "react-spinners";
 import errorIcon from "../../assets/BasicIcon/errorIcon.png";
 import { API } from "../../backend";
 
-const CreateUserProfile = () => {
+const CreateUserPopUp = ({}) => {
   const [inputDateFocused, setInputDateFocused] = useState(false);
   const [passwordVisible, setPasswordVisible] = useState(false);
   const [isLoading, setIsLoading] = useState(false);
@@ -48,11 +48,41 @@ const CreateUserProfile = () => {
       });
 
       console.log(response);
+
+      const responseData = response?.data;
+      let accessToken = localStorage.getItem("accessToken");
+      let refreshToken = localStorage.getItem("refreshToken");
+
+      if (responseData?.success) {
+        // console.log(refreshToken);
+        if (!accessToken) {
+          localStorage.setItem(
+            "accessToken",
+            JSON.stringify(responseData?.accessToken)
+          );
+        } else if (accessToken) {
+          accessToken = responseData?.accessToken;
+          localStorage.setItem("accessToken", JSON.stringify(accessToken));
+        }
+        if (!refreshToken) {
+          localStorage.setItem(
+            "refreshToken",
+            JSON.stringify(responseData?.refreshToken)
+          );
+        } else if (refreshToken) {
+          refreshToken = responseData?.refreshToken;
+          console.log(refreshToken);
+          localStorage.setItem("refreshToken", JSON.stringify(refreshToken));
+        }
+      }
+
       setTimeout(() => {
         reset();
       }, 100);
     } catch (error) {
       console.log(error);
+      localStorage.removeItem("accessToken");
+      localStorage.removeItem("refreshToken");
     } finally {
       setIsLoading(false);
     }
@@ -278,4 +308,4 @@ const CreateUserProfile = () => {
   );
 };
 
-export default CreateUserProfile;
+export default CreateUserPopUp;

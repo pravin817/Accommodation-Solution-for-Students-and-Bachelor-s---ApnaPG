@@ -12,6 +12,7 @@ const WelcomePopUp = ({
   setDefaultPopup,
   setShowLoginPopup,
   setShowCreateUserPopup,
+  setLoginEmail,
 }) => {
   const { handleSubmit, register, reset } = useForm();
   const [inputFocused, setInputFocused] = useState(false);
@@ -29,7 +30,9 @@ const WelcomePopUp = ({
   const handleCheckEmail = async (data) => {
     console.log(data);
     console.log("The Authentications :", data.email);
+
     const email = data.email;
+    setLoginEmail(email);
     setIsLoading(true);
 
     try {
@@ -46,7 +49,7 @@ const WelcomePopUp = ({
       console.log(res.data);
 
       // If the user is alreday registered
-      if (res.data.success) {
+      if (res?.data?.success) {
         setDefaultPopup(false);
         setShowLoginPopup(true);
       } else {

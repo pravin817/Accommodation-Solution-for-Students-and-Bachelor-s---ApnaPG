@@ -1,26 +1,19 @@
 import { useState, useEffect, useRef } from "react";
-import { Link } from "react-router-dom";
-import PropTypes from "prop-types";
-import { useForm } from "react-hook-form";
-import axios from "axios";
-import { PulseLoader } from "react-spinners";
-import { API } from "../../backend";
 
 // Import the icons
 import closeIcon from "../../assets/BasicIcon/closeIcon.svg";
 import backIcon from "../../assets/BasicIcon/backIcon.png";
-import googleIcon from "../../assets/BasicIcon/googleIcon.svg";
-import facebookIcon from "../../assets/BasicIcon/facebookIcon.svg";
 
 // Import the components
 import LoginPopUp from "./LoginPopUp";
-import CreateUserProfile from "./CreateUserProfile";
 import WelcomePopUp from "./WelcomePopUp";
+import CreateUserPopUp from "./CreateUserPopUp";
 
 const AuthenticationPopUp = ({ popup, setPopup }) => {
   const [showCreateUserPopup, setShowCreateUserPopup] = useState(false);
   const [showLoginPopup, setShowLoginPopup] = useState(false);
   const [defaultPopup, setDefaultPopup] = useState(true);
+  const [loginEmail, setLoginEmail] = useState(null);
 
   const popUpRef = useRef(null);
 
@@ -45,9 +38,6 @@ const AuthenticationPopUp = ({ popup, setPopup }) => {
   }, []);
 
   return (
-    // <>
-    //   <LoginPopUp />
-    // </>
     <>
       {popup !== true ? null : (
         <div className="absolute inset-0 w-screen h-screen bg-[#0000005c] popup-overlay">
@@ -62,7 +52,6 @@ const AuthenticationPopUp = ({ popup, setPopup }) => {
             `}
           >
             {/* show the proper components based on the state */}
-
             <div className=" flex items-center w-full py-4 border-b-[1px] px-8 sticky top-0 bg-[#ffffff]">
               {defaultPopup ? (
                 <img
@@ -104,13 +93,20 @@ const AuthenticationPopUp = ({ popup, setPopup }) => {
                   setDefaultPopup={setDefaultPopup}
                   setShowLoginPopup={setShowLoginPopup}
                   setShowCreateUserPopup={setShowCreateUserPopup}
+                  setLoginEmail={setLoginEmail}
                 />
               )}
               {!showLoginPopup ? null : (
-                <LoginPopUp onBack={handleCloseLoginPopup} />
+                <LoginPopUp
+                  onBack={handleCloseLoginPopup}
+                  loginEmail={loginEmail}
+                />
               )}
               {!showCreateUserPopup ? null : (
-                <CreateUserProfile onBack={handleCloseLoginPopup} />
+                <CreateUserPopUp
+                  onBack={handleCloseLoginPopup}
+                  loginEmail={loginEmail}
+                />
               )}
             </div>
           </div>
@@ -118,12 +114,6 @@ const AuthenticationPopUp = ({ popup, setPopup }) => {
       )}
     </>
   );
-};
-
-// set the propsType
-AuthenticationPopUp.propTypes = {
-  popup: PropTypes.bool,
-  setPopup: PropTypes.bool,
 };
 
 export default AuthenticationPopUp;
