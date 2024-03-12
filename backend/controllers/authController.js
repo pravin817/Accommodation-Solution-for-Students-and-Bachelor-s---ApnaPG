@@ -47,7 +47,7 @@ const signup = async (req, res) => {
     if (user) {
       res.status(201).json({
         message: "User signed up successfully",
-        success: true,
+        success: 1,
         user,
       });
     } else {
@@ -57,7 +57,7 @@ const signup = async (req, res) => {
     console.log(error);
     res.status(500).json({
       message: "Failed to signup the user. Please try again later.",
-      success: false,
+      success: 0,
       error,
     });
   }
@@ -66,14 +66,14 @@ const signup = async (req, res) => {
 // login user
 const login = async (req, res) => {
   const payload = req.body;
-  // console.log("login : ", payload);
+  const email = payload.email;
+  const password = payload.password;
 
-  // get the username(emailId) and password
-  const { emailId, password } = payload;
+  // console.log("login : ", payload);
 
   // define the finding criteria
   const findCriteria = {
-    emailId,
+    emailId: email,
   };
 
   // get the userDetails
@@ -112,15 +112,15 @@ const login = async (req, res) => {
 
       res.status(200).json({
         message: "User logged in successfully",
-        success: true,
+        success: 1,
         accessToken: accessToken,
         refreshToken: refreshToken,
-        user: updatedUser,
+        user_details: updatedUser,
       });
     } else if (!isMatched) {
       res.status(401).json({
         message: "Invalid credentials",
-        success: false,
+        success: 0,
       });
     } else {
       res.send("Not Allowed!!!");
@@ -129,7 +129,7 @@ const login = async (req, res) => {
     console.log(error);
     res.status(500).json({
       message: "Failed to login the user. Please try again later.",
-      success: false,
+      success: 0,
       error,
     });
   }
@@ -144,7 +144,7 @@ const refreshToken = async (req, res) => {
   if (!refreshToken) {
     res.status(404).json({
       message: "Please log In",
-      success: false,
+      success: 0,
     });
   } else {
     // verify the refreshtoken
@@ -188,7 +188,7 @@ const refreshToken = async (req, res) => {
     } catch (error) {
       res.status(401).json({
         message: "Invalid refresh token",
-        success: false,
+        success: 0,
         error,
       });
     }
@@ -213,27 +213,81 @@ const checkEmail = async (req, res) => {
     if (isEmailExist.length !== 0) {
       res.status(200).json({
         message: "user Exist",
-        success: true,
+        success: 1,
       });
     } else {
       res.status(200).json({
         message: "User Email not exist",
-        success: false,
+        success: 0,
       });
     }
   } catch (error) {
     console.log(error);
     res.status(500).json({
       message: "Error while searching for the user",
-      success: false,
+      success: 0,
       error,
     });
+  }
+};
+
+// post route
+const postUser = async (req, res) => {
+  res.send(req.user);
+};
+
+// Logout the user
+const logOutUser = async (req, res) => {
+  const userId = req.user;
+  console.log(userId);
+  try {
+    const userDetails = await User.updateOne(
+      {
+        _id: userId,
+      },
+      {
+        $unset: {
+          accessToken: "",
+          refreshToken: "",
+        },
+      }
+    );
+    res.send("User logout successfully");
+  } catch (error) {
+    console.log("User logout Error :-> ", error);
+    res.status(500).json({
+      message: "Failed to logout the user. Please try again later.",
+      success: 0,
+      error,
+    });
+  }
+};
+
+// Get the user Details
+const getUserDetails = async (req, res) => {
+  try {
+    const userId = req.user;
+    const findCriteria = {
+      _id: new mongoose.Types.ObjectId(userId),
+    };
+
+    const userDetails = await User.findById(findCriteria);
+    res.status(200).json({
+      message: "User details found successfully",
+      success: 1,
+      user_details: userDetails,
+    });
+  } catch (error) {
+    console.log("Error while getting the user details :-> ", error);
   }
 };
 
 module.exports = {
   signup,
   login,
+  logOutUser,
   refreshToken,
   checkEmail,
+  postUser,
+  getUserDetails,
 };

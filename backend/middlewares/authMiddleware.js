@@ -26,3 +26,6 @@ const verifyJwtToken = async (req, res, next) => {
       .json({ message: "Access denied, Invalid Token", success: false });
   }
 };
+
+
+module.exports = verifyJwtToken;
