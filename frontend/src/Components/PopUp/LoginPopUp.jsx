@@ -13,12 +13,17 @@ import { toast } from "react-hot-toast";
 import errorIcon from "../../assets/BasicIcon/errorIcon.png";
 
 // The login popup component
-const LoginPopUp = ({ loginEmail, showLoginPopup }) => {
+const LoginPopUp = ({
+  loginEmail,
+  setShowLoginPopup,
+  setPopup,
+  setDefaultPopup,
+}) => {
   const [passwordVisible, setPasswordVisible] = useState(false);
   const [isLoading, setIsLoading] = useState(false);
   const [showErrorMessage, setShowErrorMessage] = useState(false);
 
-  const { handleSubmit, register, reset } = useForm();
+  const { handleSubmit, register } = useForm();
 
   // Get the user from the redux
   const user = useSelector((state) => state.user);
@@ -52,47 +57,49 @@ const LoginPopUp = ({ loginEmail, showLoginPopup }) => {
 
       // If error occurs then show the error message
       if (userData?.success === 0) {
-        setShowErrorMessage(true);
         toast.error(userData?.message);
-        return;
-      } else {
+        setShowErrorMessage(true);
+        // return;
+      } else if (userData?.success === 1) {
+        // dispatch the user login action
+        dispatch(userLogin(userData));
+
+        // get the access and refresh token
+        let accessToken = localStorage.getItem("accessToken");
+        let refreshToken = localStorage.getItem("refreshToken");
+
+        // If there is not the access and refreshtoken in the localstroage then set it up
+        if (!accessToken) {
+          localStorage.setItem(
+            "accessToken",
+            JSON.stringify(userData?.accessToken)
+          );
+        } else if (accessToken) {
+          accessToken = userData?.accessToken;
+          localStorage.setItem("accessToken", JSON.stringify(accessToken));
+        }
+
+        // refresh token
+        if (!refreshToken) {
+          localStorage.setItem(
+            "refreshToken",
+            JSON.stringify(userData?.refreshToken)
+          );
+        } else if (refreshToken) {
+          refreshToken = userData?.refreshToken;
+          localStorage.setItem("refreshToken", JSON.stringify(refreshToken));
+        }
+
         setShowErrorMessage(false);
-        toast.success(userData?.message);
-      }
-
-      // dispatch the user login action
-      dispatch(userLogin(userData));
-
-      // get the access and refresh token
-      let accessToken = localStorage.getItem("accessToken");
-      let refreshToken = localStorage.getItem("refreshToken");
-
-      // If there is not the access and refreshtoken in the localstroage then set it up
-      if (!accessToken) {
-        localStorage.setItem(
-          "accessToken",
-          JSON.stringify(userData?.accessToken)
-        );
-      } else if (accessToken) {
-        accessToken = userData?.accessToken;
-        localStorage.setItem("accessToken", JSON.stringify(accessToken));
-      }
-
-      // refresh token
-      if (!refreshToken) {
-        localStorage.setItem(
-          "refreshToken",
-          JSON.stringify(userData?.refreshToken)
-        );
-      } else if (refreshToken) {
-        refreshToken = userData?.refreshToken;
-        localStorage.setItem("refreshToken", JSON.stringify(refreshToken));
+        setDefaultPopup(true);
+        setPopup(false);
+        // toast.success(userData?.message);
       }
 
       // close the login Form popup
       // showLoginPopup(false);
 
-      console.log("User login response", userData);
+      // console.log("User login response", userData);
     } catch (error) {
       setIsLoading(false);
       console.log("Error while login the user", error);

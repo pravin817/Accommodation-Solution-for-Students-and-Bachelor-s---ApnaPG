@@ -10,9 +10,9 @@ const userReducer = (state = initialState, { type, payload }) => {
     case "USER_SIGN_UP":
       return {
         ...state,
-        userDetails: payload.data.user_details,
-        loginResponse: payload.data.success,
-        responseMessage: payload.data?.message,
+        userDetails: payload.user_details,
+        loginResponse: payload.success,
+        responseMessage: payload.message,
       };
 
     case "USER_LOG_IN":
@@ -32,6 +32,11 @@ const userReducer = (state = initialState, { type, payload }) => {
         userDetails: null,
         loginResponse: 0,
         responseMessage: "",
+      };
+
+    case "GET_USER_DETAILS":
+      return {
+        userDetails: payload.data,
       };
     default:
       return state;

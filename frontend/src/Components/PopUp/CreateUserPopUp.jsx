@@ -6,6 +6,8 @@ import { PulseLoader } from "react-spinners";
 import errorIcon from "../../assets/BasicIcon/errorIcon.png";
 import { API } from "../../backend";
 import { toast } from "react-hot-toast";
+import { useDispatch } from "react-redux";
+import { userSignUp } from "../../redux/actions/userActions";
 
 const CreateUserPopUp = ({
   onBack,
@@ -23,6 +25,8 @@ const CreateUserPopUp = ({
     reset,
     formState: { errors },
   } = useForm();
+
+  const dispatch = useDispatch();
 
   const handleDateFocus = () => {
     setInputDateFocused(true);
@@ -57,6 +61,7 @@ const CreateUserPopUp = ({
       console.log(response);
 
       const responseData = response?.data;
+      dispatch(userSignUp(responseData));
       let accessToken = localStorage.getItem("accessToken");
       let refreshToken = localStorage.getItem("refreshToken");
 

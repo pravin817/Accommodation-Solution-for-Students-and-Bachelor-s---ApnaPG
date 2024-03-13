@@ -30,6 +30,10 @@ const AuthenticationPopUp = ({ popup, setPopup }) => {
     const handleOutSideClick = (event) => {
       if (popUpRef.current && !popUpRef.current.contains(event.target)) {
         setPopup(false);
+        setShowCreateUserPopup(false);
+        setShowLoginPopup(false);
+        setProfilePopup(false);
+        setDefaultPopup(true);
       }
     };
 
@@ -113,7 +117,9 @@ const AuthenticationPopUp = ({ popup, setPopup }) => {
                 <LoginPopUp
                   onBack={handleCloseLoginPopup}
                   loginEmail={loginEmail}
-                  showLoginPopup={setShowLoginPopup}
+                  setDefaultPopup={setDefaultPopup}
+                  setShowLoginPopup={setShowLoginPopup}
+                  setPopup={setPopup}
                 />
               )}
               {!showCreateUserPopup ? null : (
@@ -129,8 +135,9 @@ const AuthenticationPopUp = ({ popup, setPopup }) => {
               {/* go to create user profile */}
               {!profilePopup ? null : (
                 <CreateProfilePopUp
-                  setShowCreateUserPopup={setShowCreateUserPopup}
+                  setShowProfilePopup={setProfilePopup}
                   setPopup={setPopup}
+                  setDefaultPopup={setDefaultPopup}
                 />
               )}
             </div>

@@ -1,5 +1,11 @@
 import { useState, useEffect, useRef } from "react";
 import { Link } from "react-router-dom";
+import { useSelector, useDispatch } from "react-redux";
+import {
+  getUser,
+  userLogin,
+  userLogOut,
+} from "../../redux/actions/userActions";
 
 // Import the icons
 import searchIcon from "../../assets/BasicIcon/search.svg";
@@ -12,6 +18,21 @@ const Navbar = () => {
   const [popup, setPopup] = useState(false);
 
   const userMenuRef = useRef(null);
+
+  // get the user
+  const user = useSelector((state) => state.user.userDetails);
+  console.log("user : ", user);
+
+  const dispatch = useDispatch();
+
+  const handleLogOut = () => {
+    dispatch(userLogOut());
+  };
+
+  // get the user details
+  useEffect(() => {
+    dispatch(getUser());
+  }, [dispatch]);
 
   // Close the user menu when clicked outside of the menu
   useEffect(() => {
@@ -59,37 +80,89 @@ const Navbar = () => {
             }}
           >
             <img src={hamburgerMenu} alt="User Menu" className="w-4" />
-            <img src={userProfile} alt="User Profile" className="w-8" />
+
+            {/* show the user name based on the condition */}
+            {user ? (
+              <p className=" bg-[#222222] text-[#efefef] px-3 py-2 rounded-full text-xs">
+                {user.name?.firstName?.slice(0, 1)}
+              </p>
+            ) : (
+              <img src={userProfile} alt="User Profile" className="w-8" />
+            )}
           </div>
 
           {/* show the user menu based on the condition  */}
-          {showUserMenu && (
-            <div
-              ref={userMenuRef}
-              className="flex flex-col border-[1px] border-[#ddddd] rounded-lg py-2 w-[230px] absolute top-[74px] right-9 shadow-md transition-all user-menu"
-            >
-              <Link
-                className="font-medium"
-                onClick={() => {
-                  setShowUserMenu(false);
-                  setPopup(true);
-                }}
-              >
-                Sign up
-              </Link>
-              <Link
-                onClick={() => {
-                  setShowUserMenu(false);
-                  setPopup(true);
-                }}
-              >
-                Login
-              </Link>
-              <hr className="h-[1.5px] bg-[#ddddd] my-1" />
-              <Link>Rent your Room</Link>
-              <Link>Help</Link>
+          {showUserMenu ? (
+            <div>
+              {!user ? (
+                <div
+                  ref={userMenuRef}
+                  className="shadow-md absolute right-9 top-[74px] bg-[#ffffff] border-[1px] border-[#dddddd] rounded-lg flex flex-col py-2 w-[230px] transition-all user__menu"
+                >
+                  <Link
+                    className="font-medium"
+                    onClick={() => {
+                      setShowUserMenu(false);
+                      setPopup(true);
+                    }}
+                  >
+                    Sign up
+                  </Link>
+                  <Link
+                    onClick={() => {
+                      setShowUserMenu(false);
+                      setPopup(true);
+                    }}
+                  >
+                    Login
+                  </Link>
+                  <hr className="h-[1.5px] bg-[#ddddd] my-1" />
+                  <Link>Rent your Room</Link>
+                  <Link>Help</Link>
+                </div>
+              ) : (
+                <div
+                  ref={userMenuRef}
+                  className="shadow-md absolute right-9 top-[70px] bg-[#ffffff] border-[1px] border-[#dddddd] rounded-lg flex flex-col py-2 w-[230px] transition-all user__menu"
+                >
+                  <Link
+                    className="font-medium"
+                    onClick={() => {
+                      setShowUserMenu(false);
+                    }}
+                  >
+                    Notifications
+                  </Link>
+
+                  <Link
+                    className="font-medium"
+                    onClick={() => {
+                      setShowUserMenu(false);
+                    }}
+                  >
+                    Trips
+                  </Link>
+
+                  <Link
+                    className="font-medium"
+                    onClick={() => {
+                      setShowUserMenu(false);
+                    }}
+                  >
+                    WishLists
+                  </Link>
+
+                  <hr className="h-[1.5px] bg-[#dddddd] my-1" />
+
+                  <Link>Rent Your Room</Link>
+                  <Link>Account</Link>
+                  <hr className="h-[1.5px] bg-[#dddddd] my-1" />
+                  <Link>Help</Link>
+                  <Link onClick={handleLogOut}>Log Out</Link>
+                </div>
+              )}
             </div>
-          )}
+          ) : null}
         </div>
       </div>
       <AuthenticationPopUp popup={popup} setPopup={setPopup} />

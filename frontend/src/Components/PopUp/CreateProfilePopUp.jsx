@@ -1,6 +1,10 @@
 import { Link } from "react-router-dom";
 
-const CreateProfilePopup = ({ setShowProfilePopup, setPopup }) => {
+const CreateProfilePopup = ({
+  setShowProfilePopup,
+  setPopup,
+  setDefaultPopup,
+}) => {
   return (
     <div className="flex flex-col gap-4">
       <div className="px-8 pt-1 bg-[#fafafa] h-[60vh]">
@@ -25,6 +29,7 @@ const CreateProfilePopup = ({ setShowProfilePopup, setPopup }) => {
             onClick={() => {
               setShowProfilePopup(false);
               setPopup(false);
+              setDefaultPopup(true);
             }}
           >
             Continue
