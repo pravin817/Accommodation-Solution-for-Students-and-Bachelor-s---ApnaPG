@@ -158,7 +158,16 @@ const Navbar = () => {
                   <Link>Account</Link>
                   <hr className="h-[1.5px] bg-[#dddddd] my-1" />
                   <Link>Help</Link>
-                  <Link onClick={handleLogOut}>Log Out</Link>
+                  <Link
+                    onClick={() => {
+                      handleLogOut();
+
+                      // Reload the page to avoid the UX issues
+                      // window.reload();
+                    }}
+                  >
+                    Log Out
+                  </Link>
                 </div>
               )}
             </div>

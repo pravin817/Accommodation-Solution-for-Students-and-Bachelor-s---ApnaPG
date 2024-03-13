@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { useForm } from "react-hook-form";
 import axios from "axios";
 import { Link } from "react-router-dom";
@@ -13,10 +13,12 @@ const WelcomePopUp = ({
   setShowLoginPopup,
   setShowCreateUserPopup,
   setLoginEmail,
+  signInDivRef,
 }) => {
   const { handleSubmit, register, reset } = useForm();
   const [inputFocused, setInputFocused] = useState(false);
   const [isLoading, setIsLoading] = useState(false);
+  const [isLoggedIn, setIsLoggedIn] = useState(false);
 
   const handleInputFocus = () => {
     setInputFocused(true);
@@ -64,6 +66,52 @@ const WelcomePopUp = ({
       setIsLoading(false);
     }
   };
+
+  const handleFacebookLogin = () => {
+    console.log("Facebook login clicked");
+    // Loading the Facebook SDK asynchronously
+    window.fbAsyncInit = function () {
+      window.FB.init({
+        appId: "1025897438850966",
+        cookie: true,
+        xfbml: true,
+        version: "v13.0",
+      });
+
+      // Check login status
+      window.FB.getLoginStatus(function (response) {
+        if (response.status === "connected") {
+          // User is logged in and authenticated
+          setIsLoggedIn(true);
+        } else {
+          // User is not logged in or not authenticated
+          // Prompt the user to log in with Facebook
+          window.FB.login(function (response) {
+            if (response.authResponse) {
+              // User successfully logged in and authenticated
+              setIsLoggedIn(true);
+            } else {
+              // User canceled the login or didn't authorize the app
+              setIsLoggedIn(false);
+            }
+          });
+        }
+      });
+    };
+
+    // Load the Facebook SDK script
+    (function (d, s, id) {
+      var js,
+        fjs = d.getElementsByTagName(s)[0];
+      if (d.getElementById(id)) return;
+      js = d.createElement(s);
+      js.id = id;
+      js.src =
+        "https://connect.facebook.net/en_US/sdk.js#xfbml=1&version=v13.0&appId=1025897438850966&autoLogAppEvents=1";
+      fjs.parentNode.insertBefore(js, fjs);
+    })(document, "script", "facebook-jssdk");
+  };
+
   return (
     <div className="flex flex-col gap-4">
       {/* welcome user on the popup */}
@@ -115,7 +163,10 @@ const WelcomePopUp = ({
           </p>
         </div>
 
-        <div className="w-full flex flex-row items-center border border-[#222222] rounded-lg py-[10px] bg-[#ffffff] hover:bg-[#f7f7f7] cursor-pointer transition-colors">
+        <div
+          className="w-full flex flex-row items-center border border-[#222222] rounded-lg py-[10px] bg-[#ffffff] hover:bg-[#f7f7f7] transition-colors cursor-pointer"
+          onClick={handleFacebookLogin}
+        >
           <img
             src={facebookIcon}
             alt="Log in With Facebook"

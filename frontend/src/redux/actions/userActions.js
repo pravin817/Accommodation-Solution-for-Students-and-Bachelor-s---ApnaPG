@@ -23,7 +23,7 @@ export const getUser = () => async (dispatch) => {
   if (response.data.success === 1) {
     dispatch({
       type: "GET_USER_DETAILS",
-      payload: response,
+      payload: response.data.user_details,
     });
   } else {
     dispatch({ type: "USER_LOG_OUT" });
