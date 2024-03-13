@@ -24,6 +24,7 @@ const LoginPopUp = ({
 }) => {
   const [passwordVisible, setPasswordVisible] = useState(false);
   const [isLoading, setIsLoading] = useState(false);
+  const [guestPassword, setGuestPassword] = useState(false);
 
   const {
     handleSubmit,
@@ -151,6 +152,7 @@ const LoginPopUp = ({
                 pattern: /^.{8,}$/,
               })}
               onChange={handleShowError}
+              value={guestPassword ? "guest@12345" : ""}
             />
 
             <span
@@ -173,6 +175,27 @@ const LoginPopUp = ({
               </div>
             )}
           </div>
+
+          <div
+            className="flex flex-row items-center gap-5 mb-4 ml-[2px] cursor-pointer"
+            onClick={() => {
+              setGuestPassword(!guestPassword);
+            }}
+          >
+            <input
+              type="checkbox"
+              className="h-4 w-4"
+              id="addGuestEmailPasswordCheckbox"
+              checked={guestPassword}
+              onChange={() => {
+                setGuestPassword(!guestPassword);
+              }}
+            />
+            <span htmlFor="addGuestEmailPasswordCheckbox">
+              Add guest email password
+            </span>
+          </div>
+
           <button
             className={`w-full bg-[#ff385c] hover:bg-[#d90b63] transition-all duration-300 text-white font-medium rounded-lg p-3 disabled:bg-[#dddddd] ${
               isLoading ? "cursor-not-allowed" : "cursor-pointer"

@@ -19,6 +19,7 @@ const WelcomePopUp = ({
   const [inputFocused, setInputFocused] = useState(false);
   const [isLoading, setIsLoading] = useState(false);
   const [isLoggedIn, setIsLoggedIn] = useState(false);
+  const [testEmail, setTestEmail] = useState(false);
 
   const handleInputFocus = () => {
     setInputFocused(true);
@@ -115,7 +116,7 @@ const WelcomePopUp = ({
   return (
     <div className="flex flex-col gap-4">
       {/* welcome user on the popup */}
-      <div className="px-8 pt-1">
+      <div className="px-8 pt-4">
         <h2 className="font-medium text-[22px] text-[#222222]">
           Welcome to
           <span className="text-[#ff385c] font-semibold">Apna</span>
@@ -126,6 +127,7 @@ const WelcomePopUp = ({
           <input
             type="email"
             placeholder="Enter Email"
+            value={testEmail ? "guest@gmail.com" : ""}
             className={`w-full border-[1.5px] border-[#dddddd] p-3 rounded-lg transition-all duration-300 mt-3 ${
               inputFocused ? "placeholder-shrink" : "placeholder-restore"
             }`}
@@ -139,6 +141,22 @@ const WelcomePopUp = ({
             <br />
             <Link className="font-semibold underline">Privacy Policy</Link>
           </p>
+
+          <div
+            className="flex flex-row items-center gap-5 mb-4 ml-[2px] cursor-pointer"
+            onClick={() => {
+              setTestEmail(!testEmail);
+            }}
+          >
+            <input
+              type="checkbox"
+              className="h-4 w-4"
+              id="addGuestEmailCheckbox"
+              checked={testEmail}
+              onChange={() => setTestEmail(!testEmail)}
+            />
+            <span htmlFor="addGuestEmailCheckbox">Add guest email</span>
+          </div>
 
           <button className="bg-[#ff385c] hover:bg-[#d90b63] transition-all duration-300 text-white font-medium rounded-lg p-3 w-full">
             Continue
