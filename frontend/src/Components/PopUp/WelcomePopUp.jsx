@@ -19,7 +19,6 @@ const WelcomePopUp = ({
   const [inputFocused, setInputFocused] = useState(false);
   const [isLoading, setIsLoading] = useState(false);
   const [isLoggedIn, setIsLoggedIn] = useState(false);
-  const [testEmail, setTestEmail] = useState(false);
 
   const handleInputFocus = () => {
     setInputFocused(true);
@@ -122,12 +121,10 @@ const WelcomePopUp = ({
           <span className="text-[#ff385c] font-semibold">Apna</span>
           <span className="text-black font-semibold">PG</span>
         </h2>
-
         <form onSubmit={handleSubmit(handleCheckEmail)}>
           <input
             type="email"
             placeholder="Enter Email"
-            value={testEmail ? "guest@gmail.com" : ""}
             className={`w-full border-[1.5px] border-[#dddddd] p-3 rounded-lg transition-all duration-300 mt-3 ${
               inputFocused ? "placeholder-shrink" : "placeholder-restore"
             }`}
@@ -142,26 +139,16 @@ const WelcomePopUp = ({
             <Link className="font-semibold underline">Privacy Policy</Link>
           </p>
 
-          <div
-            className="flex flex-row items-center gap-5 mb-4 ml-[2px] cursor-pointer"
-            onClick={() => {
-              setTestEmail(!testEmail);
-            }}
-          >
-            <input
-              type="checkbox"
-              className="h-4 w-4"
-              id="addGuestEmailCheckbox"
-              checked={testEmail}
-              onChange={() => setTestEmail(!testEmail)}
-            />
-            <span htmlFor="addGuestEmailCheckbox">Add guest email</span>
-          </div>
-
           <button className="bg-[#ff385c] hover:bg-[#d90b63] transition-all duration-300 text-white font-medium rounded-lg p-3 w-full">
             Continue
           </button>
         </form>
+        <div className=" pt-4 px-8 italic pb-7">
+          <ul className=" list-disc text-xs text-[#222222] opacity-80">
+            <p>You can use below guest credentials to try!</p>
+            <li>Email: guest@gmail.com</li>
+          </ul>
+        </div>
       </div>
 
       {/* social media login section */}

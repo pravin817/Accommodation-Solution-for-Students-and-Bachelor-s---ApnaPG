@@ -24,7 +24,6 @@ const LoginPopUp = ({
 }) => {
   const [passwordVisible, setPasswordVisible] = useState(false);
   const [isLoading, setIsLoading] = useState(false);
-  const [guestPassword, setGuestPassword] = useState(false);
 
   const {
     handleSubmit,
@@ -152,7 +151,6 @@ const LoginPopUp = ({
                 pattern: /^.{8,}$/,
               })}
               onChange={handleShowError}
-              value={guestPassword ? "guest@12345" : ""}
             />
 
             <span
@@ -174,26 +172,6 @@ const LoginPopUp = ({
                 </p>
               </div>
             )}
-          </div>
-
-          <div
-            className="flex flex-row items-center gap-5 mb-4 ml-[2px] cursor-pointer"
-            onClick={() => {
-              setGuestPassword(!guestPassword);
-            }}
-          >
-            <input
-              type="checkbox"
-              className="h-4 w-4"
-              id="addGuestEmailPasswordCheckbox"
-              checked={guestPassword}
-              onChange={() => {
-                setGuestPassword(!guestPassword);
-              }}
-            />
-            <span htmlFor="addGuestEmailPasswordCheckbox">
-              Add guest email password
-            </span>
           </div>
 
           <button
@@ -219,6 +197,13 @@ const LoginPopUp = ({
       <Link className="underline text-[#222222] text-sm font-medium pt-3 px-8">
         Forgot Password?
       </Link>
+
+      <div className=" pt-4 px-8 italic pb-7">
+        <ul className=" list-disc text-xs text-[#222222] opacity-80">
+          <p>You can use below guest credentials to try!</p>
+          <p>Password: guest@12345</p>
+        </ul>
+      </div>
     </div>
   );
 };
