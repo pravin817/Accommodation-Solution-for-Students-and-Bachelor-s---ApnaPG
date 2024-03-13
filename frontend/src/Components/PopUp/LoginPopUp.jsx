@@ -18,10 +18,11 @@ const LoginPopUp = ({
   setShowLoginPopup,
   setPopup,
   setDefaultPopup,
+  setShowErrorMessage,
+  showErrorMessage,
 }) => {
   const [passwordVisible, setPasswordVisible] = useState(false);
   const [isLoading, setIsLoading] = useState(false);
-  const [showErrorMessage, setShowErrorMessage] = useState(false);
 
   const { handleSubmit, register } = useForm();
 
@@ -57,7 +58,7 @@ const LoginPopUp = ({
 
       // If error occurs then show the error message
       if (userData?.success === 0) {
-        toast.error(userData?.message);
+        // toast.error(userData?.message);
         setShowErrorMessage(true);
         // return;
       } else if (userData?.success === 1) {
@@ -122,11 +123,16 @@ const LoginPopUp = ({
       <div className="px-8 pt-1">
         {/* Show the error message if the user login fails */}
         {!showErrorMessage ? null : (
-          <div className="flex gap-2 items-center bg-[#ffedf0] border-l-4 border-[#ff385c] p-2 rounded-lg">
-            <img src={errorIcon} alt="error icon" className="w-5" />
-            <p className="text-[#ff385c] text-sm font-medium">
-              Incorrect password, please try again
-            </p>
+          <div className="flex flex-row gap-3 items-center px-3 py-2 border-[#dddddd] border rounded-xl mt-6 mb-2">
+            <img src={errorIcon} alt="error Icon" className="w-14" />
+            <div className="flex flex-col gap-[2px]">
+              <h6 className="text-sm text-[#222222] font-semibold">
+                Let&apos;s try again
+              </h6>
+              <p className="text-[#717171] text-sm opacity-80">
+                Incorrect login credentials, please try again
+              </p>
+            </div>
           </div>
         )}
         <form onSubmit={handleSubmit(handleUserLogin)}>

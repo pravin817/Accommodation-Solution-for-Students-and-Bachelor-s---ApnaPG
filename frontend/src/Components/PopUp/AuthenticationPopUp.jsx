@@ -16,6 +16,7 @@ const AuthenticationPopUp = ({ popup, setPopup }) => {
   const [defaultPopup, setDefaultPopup] = useState(true);
   const [loginEmail, setLoginEmail] = useState(null);
   const [profilePopup, setProfilePopup] = useState(false);
+  const [showErrorMessage, setShowErrorMessage] = useState(false);
 
   const popUpRef = useRef(null);
 
@@ -51,8 +52,10 @@ const AuthenticationPopUp = ({ popup, setPopup }) => {
             ref={popUpRef}
             className={`absolute left-[27.5%] right-[27.5%] top-[12%]  w-[45vw] bg-[#ffffff] shadow-2xl rounded-xl  overflow-hidden
             ${
-              showLoginPopup || profilePopup
+              (showLoginPopup || profilePopup) && !showErrorMessage
                 ? "h-[60vh] popup-container-login"
+                : (showLoginPopup || profilePopup) && showErrorMessage
+                ? "h-[80vh]"
                 : "h-[80vh] popup-container"
             }
             `}
@@ -120,6 +123,8 @@ const AuthenticationPopUp = ({ popup, setPopup }) => {
                   setDefaultPopup={setDefaultPopup}
                   setShowLoginPopup={setShowLoginPopup}
                   setPopup={setPopup}
+                  showErrorMessage={showErrorMessage}
+                  setShowErrorMessage={setShowErrorMessage}
                 />
               )}
               {!showCreateUserPopup ? null : (
