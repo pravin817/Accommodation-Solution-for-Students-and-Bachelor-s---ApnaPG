@@ -6,10 +6,10 @@ const verifyJwtToken = async (req, res, next) => {
 
   // Bearer TOKEN
   const token = authHeader ? authHeader.split(" ")[1] : null;
-  console.log(token);
+  console.log(`The jwt token is: ${token}`);
 
   if (!token) {
-    res.send("token is not valid");
+    return res.send("token is not valid");
   }
 
   // verify the jwtToken
