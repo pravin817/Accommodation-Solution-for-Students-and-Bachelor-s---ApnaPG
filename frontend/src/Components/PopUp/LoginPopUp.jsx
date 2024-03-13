@@ -11,6 +11,7 @@ import { useSelector, useDispatch } from "react-redux";
 import { userLogin } from "../../redux/actions/userActions";
 import { toast } from "react-hot-toast";
 import errorIcon from "../../assets/BasicIcon/errorIcon.png";
+import errorMessageIcon from "../../assets/BasicIcon/errorIcon2.png";
 
 // The login popup component
 const LoginPopUp = ({
@@ -24,7 +25,11 @@ const LoginPopUp = ({
   const [passwordVisible, setPasswordVisible] = useState(false);
   const [isLoading, setIsLoading] = useState(false);
 
-  const { handleSubmit, register } = useForm();
+  const {
+    handleSubmit,
+    register,
+    formState: { errors },
+  } = useForm();
 
   // Get the user from the redux
   const user = useSelector((state) => state.user);
@@ -124,7 +129,7 @@ const LoginPopUp = ({
         {/* Show the error message if the user login fails */}
         {!showErrorMessage ? null : (
           <div className="flex flex-row gap-3 items-center px-3 py-2 border-[#dddddd] border rounded-xl mt-6 mb-2">
-            <img src={errorIcon} alt="error Icon" className="w-14" />
+            <img src={errorMessageIcon} alt="error Icon" className="w-14" />
             <div className="flex flex-col gap-[2px]">
               <h6 className="text-sm text-[#222222] font-semibold">
                 Let&apos;s try again
@@ -141,7 +146,10 @@ const LoginPopUp = ({
               type={passwordVisible ? "text" : "password"}
               placeholder="Password"
               className="w-full border-[1.5px] border-[#dddddd] p-3 rounded-lg transition-all duration-300"
-              {...register("password", { required: true })}
+              {...register("password", {
+                required: true,
+                pattern: /^.{8,}$/,
+              })}
               onChange={handleShowError}
             />
 
@@ -151,6 +159,17 @@ const LoginPopUp = ({
             >
               {passwordVisible ? "Hide" : "Show"}
             </span>
+            {errors.password && (
+              <div
+                role="alert"
+                className="flex flex-row items-center gap-2 mt-1"
+              >
+                <img src={errorIcon} alt="Error Icon" className="w-5" />
+                <p className="text-xs text-[#c13515]">
+                  Password must be atleast 8 characters long
+                </p>
+              </div>
+            )}
           </div>
           <button
             className={`w-full bg-[#ff385c] hover:bg-[#d90b63] transition-all duration-300 text-white font-medium rounded-lg p-3 disabled:bg-[#dddddd] ${
