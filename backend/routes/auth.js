@@ -17,5 +17,5 @@ router.post("/refresh-token", refreshToken);
 router.post("/check-email", checkEmail);
 router.post("/post", verifyJwtToken, postUser);
 router.post("/logout", verifyJwtToken, logOutUser);
-router.post("/profile-details", verifyJwtToken, getUserDetails);
+router.post("/get-user-details", verifyJwtToken, getUserDetails);
 module.exports = router;
