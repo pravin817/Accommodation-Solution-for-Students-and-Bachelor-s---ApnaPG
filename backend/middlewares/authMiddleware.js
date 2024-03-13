@@ -9,23 +9,19 @@ const verifyJwtToken = async (req, res, next) => {
   console.log(token);
 
   if (!token) {
-    res.status(401).json({ message: "Unauthorized access", success: false });
+    res.send("token is not valid");
   }
 
   // verify the jwtToken
-
   try {
-    let decode = jwt.verify(token, process.env.ACCESS_TOKEN_SECRET);
-    console.log(decode._id);
-    req.user = decode._id;
+    let decoded = jwt.verify(token, process.env.ACCESS_TOKEN_SECRET);
+    console.log(decoded._id);
+    req.user = decoded._id;
     next();
   } catch (error) {
-    console.log(error);
-    res
-      .status(500)
-      .json({ message: "Access denied, Invalid Token", success: false });
+    console.error(error);
+    return res.status(401).send("Access denied. Invalid token.");
   }
 };
-
 
 module.exports = verifyJwtToken;
