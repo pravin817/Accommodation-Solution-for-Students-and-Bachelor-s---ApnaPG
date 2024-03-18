@@ -9,6 +9,7 @@ import { Link } from "react-router-dom";
 import { useSelector, useDispatch } from "react-redux";
 import { userLogin } from "../../redux/actions/userActions";
 import { toast } from "react-hot-toast";
+
 import errorIcon from "../../assets/BasicIcon/errorIcon.png";
 import errorMessageIcon from "../../assets/BasicIcon/errorIcon2.png";
 
@@ -127,7 +128,7 @@ const LoginPopUp = ({
       <div className="px-8 pt-1">
         {/* Show the error message if the user login fails */}
         {!showErrorMessage ? null : (
-          <div className="flex flex-row gap-3 items-center px-3 py-2 border-[#dddddd] border rounded-xl mt-6 mb-2">
+          <div className="flex flex-row gap-3 items-center px-3 py-2 border-[#dddddd] border rounded-xl mt-6 mb-3">
             <img src={errorMessageIcon} alt="error Icon" className="w-14" />
             <div className="flex flex-col gap-[2px]">
               <h6 className="text-sm text-[#222222] font-semibold">
