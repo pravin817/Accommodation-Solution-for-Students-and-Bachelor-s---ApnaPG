@@ -1,8 +1,8 @@
 import { createBrowserRouter } from "react-router-dom";
 import MainLayout from "../Layouts/MainLayout";
 import { API } from "../backend";
-import About from "../Pages/About";
 import UserProfile from "../Pages/UserProfile/UserProfile";
+import EditProfile from "../Pages/UserProfile/EditProfile";
 
 const router = createBrowserRouter([
   {
@@ -12,6 +12,11 @@ const router = createBrowserRouter([
       {
         path: "/users/show/:id",
         element: <UserProfile />,
+        loader: ({ params }) => fetch(`${API}${params.id}`),
+      },
+      {
+        path: "/users/show/:id/editMode=true",
+        element: <EditProfile />,
         loader: ({ params }) => fetch(`${API}${params.id}`),
       },
     ],

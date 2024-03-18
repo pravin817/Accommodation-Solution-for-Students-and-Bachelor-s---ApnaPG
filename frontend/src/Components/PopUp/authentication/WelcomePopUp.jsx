@@ -2,11 +2,11 @@ import { useState, useEffect } from "react";
 import { useForm } from "react-hook-form";
 import axios from "axios";
 import { Link } from "react-router-dom";
-import { API } from "../../backend";
+import { API } from "../../../backend";
 
 // Import the icons
-import googleIcon from "../../assets/BasicIcon/googleIcon.svg";
-import facebookIcon from "../../assets/BasicIcon/facebookIcon.svg";
+import googleIcon from "../../../assets/BasicIcon/googleIcon.svg";
+import facebookIcon from "../../../assets/BasicIcon/facebookIcon.svg";
 
 const WelcomePopUp = ({
   setDefaultPopup,

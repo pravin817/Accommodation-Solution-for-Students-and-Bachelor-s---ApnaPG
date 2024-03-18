@@ -3,11 +3,11 @@ import { useState } from "react";
 import { useForm } from "react-hook-form";
 import { Link } from "react-router-dom";
 import { PulseLoader } from "react-spinners";
-import errorIcon from "../../assets/BasicIcon/errorIcon.png";
-import { API } from "../../backend";
+import errorIcon from "../../../assets/BasicIcon/errorIcon.png";
+import { API } from "../../../backend";
 import { toast } from "react-hot-toast";
 import { useDispatch } from "react-redux";
-import { userSignUp } from "../../redux/actions/userActions";
+import { userSignUp } from "../../../redux/actions/userActions";
 
 const CreateUserPopUp = ({
   onBack,

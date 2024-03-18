@@ -1,10 +1,13 @@
 import { Link } from "react-router-dom";
+import { useSelector } from "react-redux";
 
 const CreateProfilePopup = ({
   setShowProfilePopup,
   setPopup,
   setDefaultPopup,
 }) => {
+  // get the user Id
+  const userId = useSelector((state) => state.user.userDetails?.id);
   return (
     <div className="flex flex-col gap-4">
       <div className="px-8 pt-1 bg-[#fafafa] h-[60vh]">
@@ -25,6 +28,7 @@ const CreateProfilePopup = ({
         </div>
         <div className=" px-5 mt-5 w-full flex justify-center">
           <Link
+            to={`/user/show/${userId}`}
             className=" bg-[#282828] text-[#ffffff] text-center font-medium block w-full py-2 rounded-md hover:bg-[#000000] transition-colors duration-300"
             onClick={() => {
               setShowProfilePopup(false);

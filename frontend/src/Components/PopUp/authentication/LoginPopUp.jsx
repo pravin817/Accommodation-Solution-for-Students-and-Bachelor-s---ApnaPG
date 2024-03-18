@@ -1,17 +1,17 @@
 import { useState } from "react";
-import api from "../../backend";
-import { API } from "../../backend";
+import api from "../../../backend";
+import { API } from "../../../backend";
 import { useForm } from "react-hook-form";
 import axios from "axios";
 import { useNavigate } from "react-router-dom";
 import { PulseLoader } from "react-spinners";
 import { Link } from "react-router-dom";
 import { useSelector, useDispatch } from "react-redux";
-import { userLogin } from "../../redux/actions/userActions";
+import { userLogin } from "../../../redux/actions/userActions";
 import { toast } from "react-hot-toast";
 
-import errorIcon from "../../assets/BasicIcon/errorIcon.png";
-import errorMessageIcon from "../../assets/BasicIcon/errorIcon2.png";
+import errorIcon from "../../../assets/BasicIcon/errorIcon.png";
+import errorMessageIcon from "../../../assets/BasicIcon/errorIcon2.png";
 
 // The login popup component
 const LoginPopUp = ({

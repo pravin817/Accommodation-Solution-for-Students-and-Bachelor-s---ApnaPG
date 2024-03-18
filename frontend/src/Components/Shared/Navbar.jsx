@@ -11,7 +11,7 @@ import {
 import searchIcon from "../../assets/BasicIcon/search.svg";
 import hamburgerMenu from "../../assets/BasicIcon/hamburgerMenu.svg";
 import userProfile from "../../assets/BasicIcon/userProfile.png";
-import AuthenticationPopUp from "../PopUp/AuthenticationPopUp";
+import AuthenticationPopUp from "../PopUp/authentication/AuthenticationPopUp";
 
 const Navbar = () => {
   const [showUserMenu, setShowUserMenu] = useState(false);
@@ -36,7 +36,7 @@ const Navbar = () => {
   // get the user details
   useEffect(() => {
     dispatch(getUser());
-  }, [dispatch]);
+  }, []);
 
   // Close the user menu when clicked outside of the menu
   useEffect(() => {
