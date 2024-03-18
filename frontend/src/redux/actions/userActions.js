@@ -18,7 +18,7 @@ export const userLogin = (userData) => async (dispatch) => {
 // get the user details
 export const getUser = () => async (dispatch) => {
   const response = await api.post("auth/get-user-details");
-  console.log(response);
+  console.log(response.data);
 
   if (response.data.success === 1) {
     dispatch({
