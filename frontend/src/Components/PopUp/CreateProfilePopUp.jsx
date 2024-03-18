@@ -23,7 +23,7 @@ const CreateProfilePopup = ({
             Discover places to stay and unique experiences around the world.
           </p>
         </div>
-        <div className=" px-5 mt-6 w-full flex justify-center">
+        <div className=" px-5 mt-5 w-full flex justify-center">
           <Link
             className=" bg-[#282828] text-[#ffffff] text-center font-medium block w-full py-2 rounded-md hover:bg-[#000000] transition-colors duration-300"
             onClick={() => {

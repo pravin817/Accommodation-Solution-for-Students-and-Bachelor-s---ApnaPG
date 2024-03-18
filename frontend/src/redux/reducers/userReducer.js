@@ -36,7 +36,7 @@ const userReducer = (state = initialState, { type, payload }) => {
 
     case "GET_USER_DETAILS":
       return {
-        userDetails: payload,
+        userDetails: payload.data,
       };
     default:
       return state;

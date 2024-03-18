@@ -90,7 +90,7 @@ const Navbar = () => {
             <p className="text-sm font-medium text-[#222222]">Rent room now</p>
           </div>
           <div
-            className="border-[1px] border-[#dddddd] rounded-full py-1 px-2 flex flex-row gap-2 hover:shadow-md transition-all cursor-pointer relative"
+            className="border-[1px] border-[#dddddd] rounded-full py-1 px-2 flex flex-row gap-3 hover:shadow-md transition-all cursor-pointer relative"
             onClick={() => {
               setShowUserMenu((preValue) => !preValue);
             }}
