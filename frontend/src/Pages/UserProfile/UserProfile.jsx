@@ -32,7 +32,7 @@ const UserProfile = () => {
         )}
         <section
           className="xl:min-h-[400px] flex flex-col flex-1 justify-center items-center 
-         profile__container"
+         profile-container"
         >
           <div className=" max-w-sm">
             <div className=" h-[1.2px] bg-[#dddddd] my-7"> </div>

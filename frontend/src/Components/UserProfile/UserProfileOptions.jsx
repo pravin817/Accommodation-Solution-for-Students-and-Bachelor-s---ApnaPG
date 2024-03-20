@@ -1,5 +1,5 @@
 import { userProfileOptions } from "./userProfileApi";
-const UserProfile = ({ setShowPopup, setSelectedOption }) => {
+const UserProfileOptions = ({ setShowPopup, setSelectedOption }) => {
   console.log("userProfileOptions: ", userProfileOptions);
   return (
     <>
@@ -38,4 +38,4 @@ const UserProfile = ({ setShowPopup, setSelectedOption }) => {
   );
 };
 
-export default UserProfile;
+export default UserProfileOptions;
