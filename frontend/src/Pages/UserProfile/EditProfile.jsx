@@ -5,6 +5,7 @@ import cameraIcon from "../../assets/BasicIcon/cameraIcon.png";
 import UserProfilePopup from "../../Components/PopUp/userProfilePopup/UserProfilePopup";
 
 import UserProfileOptions from "../../Components/UserProfile/UserProfileOptions";
+import UserAbout from "../../Components/UserProfile/UserAbout";
 
 const EditProfile = () => {
   const [showPopup, setShowPopup] = useState(false);
@@ -39,6 +40,7 @@ const EditProfile = () => {
               setShowPopup={setShowPopup}
               setSelectedOption={setSelectedOption}
             />
+            <UserAbout setShowPopup={setShowPopup} />
           </section>
         </section>
       </main>

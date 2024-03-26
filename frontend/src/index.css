@@ -81,6 +81,14 @@ input[type="checkbox"] {
   animation: loginSlideIn 0.4s cubic-bezier(0.68, -0.55, 0.27, 1.55) forwards;
 }
 
+.profile-container {
+  flex: 0 0 350px;
+}
+
+.profile-container-div {
+  flex: 0 0 auto;
+}
+
 /* Animations goes Here  */
 
 @keyframes fadeIn {

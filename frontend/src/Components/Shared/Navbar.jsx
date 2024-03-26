@@ -1,5 +1,5 @@
 import { useState, useEffect, useRef } from "react";
-import { Link, useLocation } from "react-router-dom";
+import { Link, useLocation, useNavigate } from "react-router-dom";
 import { useSelector, useDispatch } from "react-redux";
 import {
   getUser,
@@ -22,6 +22,7 @@ const Navbar = () => {
   const inUserProfile = pathName.includes("/users/show/");
 
   const userMenuRef = useRef(null);
+  const navigate = useNavigate();
 
   // get the user
   const user = useSelector((state) => state.user.userDetails);
@@ -87,7 +88,11 @@ const Navbar = () => {
         {/* user profile */}
         <div className="flex justify-end items-center">
           <div className=" bg-[#ffffff] hover:bg-[#f0f0f0] transition-all rounded-full p-3 cursor-pointer mr-3">
-            <p className="text-sm font-medium text-[#222222]">Rent room now</p>
+            <Link to="/host/rooms">
+              <p className="text-sm font-medium text-[#222222]">
+                Rent your room
+              </p>
+            </Link>
           </div>
           <div
             className="border-[1px] border-[#dddddd] rounded-full py-1 px-2 flex flex-row gap-3 hover:shadow-md transition-all cursor-pointer relative"
