@@ -24,9 +24,9 @@ const signup = async (req, res) => {
       throw new Error("please provide the mobile number");
     }
 
-    if (!payload.birthDate) {
-      throw new Error("please provide the birth date");
-    }
+    // if (!payload.birthDate) {
+    //   throw new Error("please provide the birth date");
+    // }
 
     // Hashed the password before storing to the database
     const hashedPasword = await bcrypt.hash(payload.password, saltRounds);
@@ -38,7 +38,7 @@ const signup = async (req, res) => {
       },
       emailId: payload.emailId,
       mobileNo: payload.mobileNo,
-      birthDate: payload.birthDate,
+      // birthDate: payload.birthDate,
       password: hashedPasword,
     };
 

@@ -152,7 +152,7 @@ const CreateUserPopUp = ({
             Make sure it matches the name on your government ID.
           </p>
         </div>
-        <div>
+        {/* <div>
           <input
             className="w-full border-[1.4px] border-[#dddddd] p-3 rounded-lg"
             type={`${inputDateFocused ? "date" : "text"}`}
@@ -186,7 +186,7 @@ const CreateUserPopUp = ({
             To sign up, you need to be at least 18. Your birthday won’t be
             shared with other people who use ApnaPG.
           </p>
-        </div>
+        </div> */}
         <div>
           <input
             className="w-full border-[1.4px] border-[#dddddd] p-3 rounded-lg"

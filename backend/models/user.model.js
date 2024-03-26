@@ -26,10 +26,10 @@ const userSchema = new mongoose.Schema(
       required: [true, "Mobile Number is required"],
       unique: true,
     },
-    birthDate: {
-      type: String,
-      default: "0000/00/00",
-    },
+    // birthDate: {
+    //   type: String,
+    //   default: "0000/00/00",
+    // },
     password: {
       type: String,
       required: [true, "Password is required"],
