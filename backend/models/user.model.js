@@ -44,6 +44,84 @@ const userSchema = new mongoose.Schema(
     refreshToken: {
       type: String,
     },
+    profileImg: {
+      type: String,
+    },
+    profileDetails: {
+      profileType: {
+        type: String,
+        default: "visitors",
+      },
+      profile: {
+        school: {
+          name: {
+            type: String,
+          },
+          value: {
+            type: String,
+          },
+        },
+        profession: {
+          name: {
+            type: String,
+          },
+          value: {
+            type: String,
+          },
+        },
+        presentAddress: {
+          name: {
+            type: String,
+          },
+          value: {
+            type: String,
+          },
+        },
+        favoriteSong: {
+          name: {
+            type: String,
+          },
+          value: {
+            type: String,
+          },
+        },
+        obsessedWith: {
+          name: {
+            type: String,
+          },
+          value: {
+            type: String,
+          },
+        },
+        funFact: {
+          name: {
+            type: String,
+          },
+          value: {
+            type: String,
+          },
+        },
+        spendTime: {
+          name: {
+            type: String,
+          },
+          value: {
+            type: String,
+          },
+        },
+        pets: {
+          name: {
+            type: String,
+          },
+          value: {
+            type: String,
+          },
+        },
+      },
+      about: {
+        type: String,
+      },
+    },
   },
   { timestamps: { createdAt: "created_at", updatedAt: "updated_at" } }
 );
