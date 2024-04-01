@@ -153,7 +153,7 @@ const WelcomePopUp = ({
 
       {/* social media login section */}
       {/* divider  */}
-      <div className="flex flex-row items-center p-8">
+      <div className="flex flex-row items-center p-2">
         <div className="h-[1.2px] w-full inline-block bg-[#dddddd]"></div>
         <p className="text-xs inline-block mx-2">or</p>
         <div className="h-[1.2px] w-full inline-block bg-[#dddddd]"></div>

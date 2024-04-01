@@ -39,9 +39,9 @@ export const getUser = () => async (dispatch, getState) => {
 
   try {
     const response = await api.post(`/auth/get-user-details`);
-    console.log(response.data, "GET USER DETAILS");
+    // console.log(response.data, "GET USER DETAILS");
 
-    if (response.data.success === 1) {
+    if (response.data.success) {
       dispatch({
         type: "GET_USER_DETAILS",
         payload: response.data.user_details,

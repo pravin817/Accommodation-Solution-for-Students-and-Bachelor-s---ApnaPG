@@ -12,7 +12,7 @@ const HostYourRoom = () => {
       <section className=" grid grid-cols-1 lg:grid-cols-2 gap-7 pb-10 items-center">
         <RoomHostingDetails setLatAndLong={setLatAndLong} />
         <div className=" w-full h-[300px] md:h-[400px] lg:h-[450px] mx-auto">
-          <Map latAndLong={latAndLong} key="motelMap" />
+          <Map latAndLong={latAndLong} key="ApnaPGMap" />
         </div>
       </section>
       <RoomListingGuide />
