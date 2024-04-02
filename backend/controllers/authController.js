@@ -422,7 +422,7 @@ const userProfileDetails = async (req, res) => {
 // Update the user profile details about
 const userProfileAbout = async (req, res) => {
   try {
-    const userId = req.body.user;
+    const userId = req.user;
     const payload = req.body;
 
     const { profileDetailsAbout, fieldName } = payload;
@@ -435,7 +435,7 @@ const userProfileAbout = async (req, res) => {
     const userDetails = await User.findById(findCriteria).limit(1);
 
     // extract the user profile details
-    const userProfile = userDetails.profileDetails;
+    const userProfile = userDetails?.profileDetails;
 
     if (typeof userProfile === "object") {
       // If the field name is present in the user profile details
