@@ -50,7 +50,7 @@ export const userProfileOptions = [
     fieldName: "favoriteSong",
   },
   {
-    name: "I'm obsessed with",
+    name: "I`m obsessed with",
     img: loveIcon,
     popUpContent: {
       header: "What are you obsessed with?",

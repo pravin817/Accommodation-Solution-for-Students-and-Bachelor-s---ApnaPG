@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import { useState, useEffect } from "react";
 import { useForm } from "react-hook-form";
 import { useSelector } from "react-redux";
 import { toast } from "react-hot-toast";
@@ -14,13 +14,15 @@ const UserAbout = () => {
   // get user profile details
   const user = useSelector((state) => state.user?.userDetails?.profileDetails);
 
+  console.log("User Profile Details from UserAbout: ", user);
+  console.log("Test ,", user?.about);
   const handleAboutForm = async (data) => {
     const dataToBeSend = { ...data, fieldName: "about" };
 
     try {
       setIsLoading(true);
-      const postUserAboutData = await api.post(
-        "/auth/profile-deatils-about",
+      const response = await api.post(
+        "/auth/profile-details-about",
         dataToBeSend,
         {
           headers: {
@@ -29,14 +31,14 @@ const UserAbout = () => {
         }
       );
 
-      if (postUserAboutData.success === true) {
-        toast.success(postUserAboutData.data.message);
+      if (response.data.success) {
+        toast.success(response.data.message);
       }
 
       setTimeout(() => {
         reset();
         setShowAboutInput(false);
-      });
+      }, 150);
     } catch (error) {
       console.log(error);
       setIsLoading(false);
@@ -44,10 +46,20 @@ const UserAbout = () => {
       setIsLoading(false);
     }
   };
+
+  //Get the user about
+  useEffect(() => {
+    if (!user?.about) {
+      setAboutData(null);
+    }
+
+    if (user?.about) {
+      setAboutData(user.about);
+    }
+  }, [user]);
   return (
     <section>
       <h1 className="text-2xl text-[#222222] font-semibold my-9">About You</h1>
-
       <div className="border-[1.3px] border-dashed border-[#b0b0b0] bg-white py-6 px-4 rounded-xl">
         {aboutData ? (
           <p className="text-[#717171]">{aboutData}</p>

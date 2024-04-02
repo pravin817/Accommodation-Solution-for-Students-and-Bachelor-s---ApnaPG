@@ -1,7 +1,7 @@
 import { useState } from "react";
 import { useSelector } from "react-redux";
+import { Link } from "react-router-dom";
 import cameraIcon from "../../assets/BasicIcon/cameraIcon.png";
-// import UserProfile from "./UserProfile";
 import UserProfilePopup from "../../Components/PopUp/userProfilePopup/UserProfilePopup";
 
 import UserProfileOptions from "../../Components/UserProfile/UserProfileOptions";
@@ -15,12 +15,12 @@ const EditProfile = () => {
   const user = useSelector((state) => state.user.userDetails);
   console.log("User Details from editProfile: ", user);
   return (
-    <>
-      <main className="max-w-[1200px] mx-auto xl:px-10 py-12 flex min-h-[80vh] relative border">
+    <div>
+      <main className=" max-w-[1200px] mx-auto xl:px-10 py-12 flex min-h-[80vh] relative">
         <section className="flex flex-row gap-16 items-start flex-auto">
-          {user?.photoUrl ? (
+          {user?.userImage ? (
             <figure>
-              <img src={user?.photoUrl} alt="user Image" />
+              <img src={user?.userImage?.profile_Url} alt="user Image" />
             </figure>
           ) : (
             <div className="flex flex-col gap-4 items-center justify-center w-[350px] h-[220px] p-7 sticky top-[128px]">
@@ -35,7 +35,7 @@ const EditProfile = () => {
               </div>
             </div>
           )}
-          <section className="xl:min-h-[400px] flex flex-col flex-1 profile-container">
+          <section className="xl:min-h-[400px] flex flex-col flex-1 ">
             <UserProfileOptions
               setShowPopup={setShowPopup}
               setSelectedOption={setSelectedOption}
@@ -45,6 +45,18 @@ const EditProfile = () => {
         </section>
       </main>
 
+      <div className="border-t border-[#dddddd] py-5 bg-[#ffffff] w-full flex flex-row-reverse">
+        <Link
+          to={`/users/show/${user?._id}`}
+          className="px-7 py-3 bg-[#282828] hover:bg-[#000000] text-white rounded-lg mx-6 font-medium"
+          onClick={() => {
+            window.reload();
+          }}
+        >
+          Done
+        </Link>
+      </div>
+
       {showPopup && (
         <UserProfilePopup
           showPopup={showPopup}
@@ -52,7 +64,7 @@ const EditProfile = () => {
           popupData={selectedOption}
         />
       )}
-    </>
+    </div>
   );
 };
 

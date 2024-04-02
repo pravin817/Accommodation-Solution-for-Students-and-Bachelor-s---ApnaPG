@@ -33,12 +33,12 @@ const UserProfileOptions = ({ setShowPopup, setSelectedOption }) => {
                 key={index}
                 className="border-b border-[#dedede] cursor-pointer"
                 onClick={() => {
+                  window.scrollTo({ top: 0, behavior: "smooth" });
                   setSelectedOption(option);
                   setShowPopup((prev) => !prev);
-                  window.scrollTo({ top: 0, behavior: "smooth" });
                 }}
               >
-                <div className="flex flex-row gap-3 items-center py-6 hover:bg-[#f7f7f7] rounded-xl">
+                <div className=" flex flex-row gap-3 items-center py-6 px-2 hover:bg-[#f7f7f7] rounded-xl">
                   <img src={option.img} alt="Options" className="w-7" />
                   {savedProfileData ? (
                     <div className="text-base text-[#717171]">
