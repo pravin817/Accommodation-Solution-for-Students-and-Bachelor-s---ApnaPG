@@ -1,12 +1,10 @@
 import { useSelector } from "react-redux";
 import { Link } from "react-router-dom";
-import ShowUserProfileData from "../../Components/UserProfile/ShowUserProfileData";
+// import ShowUserProfileData from "../../components/userProfile/ShowUserProfileData";
+import ProfileData from "../../components/userProfile/ShowUserProfileData";
 
 const UserProfile = () => {
-  // get the user details
   const user = useSelector((state) => state.user?.userDetails);
-  console.log(user);
-
   return (
     <main className=" max-w-[1200px] mx-auto xl:px-10 py-12 flex min-h-[80vh] relative">
       <div className=" flex flex-auto">
@@ -40,7 +38,7 @@ const UserProfile = () => {
               <div className="flex flex-col gap-4 justify-center items-center min-w-[100%] shadow-xl rounded-3xl p-7 border sticky top-[128px] profile__container__div">
                 <div className=" min-w-[114px] min-h-[114px] bg-[#222222] rounded-full flex justify-center itmes-center">
                   <p className="text-4xl text-white font-semibold m-auto">
-                    {user?.name.firstName.slice(0, 1)}
+                    {user?.name?.firstName?.slice(0, 1)}
                   </p>
                 </div>
                 <div className=" flex flex-col justify-center items-center">
@@ -57,11 +55,12 @@ const UserProfile = () => {
             </div>
           )}
           {user?.profileDetails?.profile ? (
-            <ShowUserProfileData />
+            // <ShowUserProfileData />
+            <ProfileData />
           ) : (
             <section
               className="xl:min-h-[400px] flex flex-col flex-1 justify-center items-center 
-         profile-container"
+         profile__container"
             >
               <div className=" max-w-sm">
                 <div className=" h-[1.2px] bg-[#dddddd] my-7"> </div>
@@ -70,7 +69,7 @@ const UserProfile = () => {
                     It&apos;s time to create your profile
                   </h2>
                   <p className=" text-sm text-[#717171]">
-                    Your ApnaPG profile is an important part of every
+                    Your Motel profile is an important part of every
                     reservation. Create yours to help other Hosts and guests get
                     to know you.
                   </p>
