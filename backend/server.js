@@ -5,6 +5,7 @@ const connectDB = require("./config/db");
 const morgan = require("morgan");
 
 const auth = require("./routes/auth");
+const room = require("./routes/room");
 
 const app = express();
 
@@ -22,6 +23,7 @@ app.use(morgan("dev"));
 
 // routes
 app.use("/api/v1/auth", auth);
+app.use("/api/v1/room", room);
 
 // get the PORT
 const PORT = process.env.PORT || 8080;

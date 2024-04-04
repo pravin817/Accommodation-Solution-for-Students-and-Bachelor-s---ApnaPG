@@ -10,9 +10,9 @@ const RoomSchema = new mongoose.Schema(
       type: String,
       default: "In Progress",
     },
-    houseType: {
+    roomType: {
       type: String,
-      required: [true, "House type is required"],
+      required: [true, "Room type is required"],
     },
     privacyType: {
       type: String,
