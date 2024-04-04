@@ -287,7 +287,8 @@ const getUserDetails = async (req, res) => {
 // Upload the user profile Image
 const uploadProfileImage = async (req, res) => {
   try {
-    const profileImg = req.body.profileImage;
+    console.log(req.body);
+    const profileImg = req.body.profileImg;
     const userId = req.user;
 
     if (!profileImg) {
