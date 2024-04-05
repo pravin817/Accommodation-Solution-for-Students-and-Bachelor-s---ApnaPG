@@ -14,9 +14,9 @@ const {
   saveDescription,
   saveHighlight,
   saveGuestType,
-  saveBasePrice,
   saveSecurity,
   publishRoom,
+  savePrices,
 } = require("../controllers/roomController");
 
 const verifyJwtToken = require("../middlewares/authMiddleware");
@@ -69,7 +69,7 @@ router.post("/save-highlight", verifyJwtToken, saveHighlight);
 router.post("/save-guest-type", verifyJwtToken, saveGuestType);
 
 // Save the base price for the room || POST
-router.post("/save-base-price", verifyJwtToken, saveBasePrice);
+router.post("/save-prices", verifyJwtToken, savePrices);
 
 // Save the additional security for the room || POST
 router.post("/save-security", verifyJwtToken, saveSecurity);

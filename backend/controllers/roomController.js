@@ -537,7 +537,7 @@ const saveGuestType = async (req, res) => {
 };
 
 // Save the base price for the room || POST
-const saveBasePrice = async (req, res) => {
+const savePrices = async (req, res) => {
   try {
     const payload = req.body;
     const roomId = payload.roomId;
@@ -658,7 +658,7 @@ module.exports = {
   saveDescription,
   saveHighlight,
   saveGuestType,
-  saveBasePrice,
+  savePrices,
   saveSecurity,
   publishRoom,
 };
