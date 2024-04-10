@@ -3,6 +3,7 @@ const bcrypt = require("bcryptjs");
 const jwt = require("jsonwebtoken");
 const mongoose = require("mongoose");
 const User = require("../models/user.model");
+const Room = require("../models/room.model");
 
 const saltRounds = 10;
 
@@ -329,6 +330,7 @@ const uploadProfileImage = async (req, res) => {
 // Update the user profile Inorder to become the host
 const userToHost = async (req, res) => {
   try {
+    console.log(req.body);
     const userId = req.user;
     const role = req.body.role;
 
@@ -352,12 +354,12 @@ const userToHost = async (req, res) => {
       author: updatedUserDetails._id,
     };
 
-    const updateNewHouseAuthor = await House(id).save();
+    const updateNewRoomAuthor = await Room(id).save();
 
     res.status(200).send({
       message: "User role updated successfully",
       success: true,
-      house: updateNewHouseAuthor,
+      room: updateNewRoomAuthor,
       updatedUserDetails,
     });
   } catch (error) {

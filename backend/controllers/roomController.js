@@ -1,4 +1,6 @@
+const mongoose = require("mongoose");
 const Room = require("../models/room.model");
+const User = require("../models/user.model");
 
 // Get the list of all Listings
 const getAllListing = async (req, res) => {
@@ -170,7 +172,7 @@ const saveRoomStructure = async (req, res) => {
 
     // Find the user
     const findUserCriteria = {
-      _id: mongoose.Types.ObjectId(userId),
+      _id: new mongoose.Types.ObjectId(userId),
     };
 
     const userDetails = await User.findById(findUserCriteria);
@@ -185,7 +187,7 @@ const saveRoomStructure = async (req, res) => {
 
     // Find the room and update the structure
     const findRoomCriteria = {
-      _id: mongoose.Types.ObjectId(roomId),
+      _id: new mongoose.Types.ObjectId(roomId),
     };
 
     if (roomType !== undefined) {
@@ -221,7 +223,7 @@ const savePrivacyType = async (req, res) => {
 
     // Find the room and update the privacy type
     const findRoomCriteria = {
-      _id: mongoose.Types.ObjectId(roomId),
+      _id: new mongoose.Types.ObjectId(roomId),
     };
 
     if (privacyType !== undefined) {
@@ -255,7 +257,7 @@ const saveRoomLocation = async (req, res) => {
     const location = payload.location;
 
     const findRoomCriteria = {
-      _id: mongoose.Types.ObjectId(roomId),
+      _id: new mongoose.Types.ObjectId(roomId),
     };
 
     if (location !== undefined) {
@@ -273,7 +275,7 @@ const saveRoomLocation = async (req, res) => {
     }
   } catch (error) {
     console.log(error);
-    re.status(500).json({
+    res.status(500).json({
       message: "Error while saving the room location",
       success: false,
       error,
@@ -290,7 +292,7 @@ const saveFloorPlan = async (req, res) => {
 
     // define the room finding criteria
     const findRoomCriteria = {
-      _id: mongoose.Types.ObjectId(roomId),
+      _id: new mongoose.Types.ObjectId(roomId),
     };
 
     // Update the room and save the floor plan
@@ -321,7 +323,7 @@ const saveFloorPlan = async (req, res) => {
 const saveAmenities = async (req, res) => {
   try {
     const payload = req.body;
-    const roomId = paylood.roomId;
+    const roomId = payload.roomId;
     const amenities = payload.amenities;
 
     const findRoomCriteria = {
@@ -360,7 +362,7 @@ const savePhotos = async (req, res) => {
     const photos = payload.photos;
 
     const findCriteria = {
-      _id: mongoose.Types.ObjectId(roomId),
+      _id: new mongoose.Types.ObjectId(roomId),
     };
 
     // Update the room and photos
@@ -400,7 +402,7 @@ const saveTitle = async (req, res) => {
     }
 
     const findCriteria = {
-      _id: mongoose.Types.ObjectId(roomId),
+      _id: new mongoose.Types.ObjectId(roomId),
     };
 
     // update the room and save the title
@@ -440,7 +442,7 @@ const saveDescription = async (req, res) => {
     }
 
     const findCriteria = {
-      _id: mongoose.Types.ObjectId(roomId),
+      _id: new mongoose.Types.ObjectId(roomId),
     };
 
     // Update the room and save the description
@@ -474,7 +476,7 @@ const saveHighlight = async (req, res) => {
     const highlight = payload.highlight;
 
     const findCriteria = {
-      _id: mongoose.Types.ObjectId(roomId),
+      _id: new mongoose.Types.ObjectId(roomId),
     };
 
     // Update the room and save the highlight
@@ -507,7 +509,7 @@ const saveGuestType = async (req, res) => {
     const guestType = payload.guestType;
 
     const findCriteria = {
-      _id: mongoose.Types.ObjectId(roomId),
+      _id: new mongoose.Types.ObjectId(roomId),
     };
 
     // Update the room and save the guest type
@@ -553,7 +555,7 @@ const savePrices = async (req, res) => {
     }
 
     const findCriteria = {
-      _id: mongoose.Types.ObjectID(roomId),
+      _id: new mongoose.Types.ObjectID(roomId),
     };
 
     // Update the room and save the base price
@@ -586,7 +588,7 @@ const saveSecurity = async (req, res) => {
     const security = payload.security;
 
     const findCriteria = {
-      _id: mongoose.Types.ObjectId(roomId),
+      _id: new mongoose.Types.ObjectId(roomId),
     };
 
     // Update the room and save the room additional security
@@ -612,14 +614,14 @@ const saveSecurity = async (req, res) => {
 };
 
 // Publish the room || POST
-const publishRoom = async(req,res) => {
+const publishRoom = async (req, res) => {
   try {
     const payload = req.body;
     const roomId = payload.roomId;
 
     const findCriteria = {
-      _id:mongoose.Types.ObjectId(roomId)
-    }
+      _id: new mongoose.Types.ObjectId(roomId),
+    };
 
     // Update the status of thr room from the "pending" to the "complete"
     const roomDetails = await Room.findOneAndUpdate(
@@ -629,16 +631,16 @@ const publishRoom = async(req,res) => {
     );
 
     res.status(200).json({
-      message:"Room published successfully",
-      success:true,
-      roomDetails
-    })
+      message: "Room published successfully",
+      success: true,
+      roomDetails,
+    });
   } catch (error) {
     console.log(error);
     res.status(500).json({
       message: "Error while publishing the room",
-      success:false,
-      error
+      success: false,
+      error,
     });
   }
 };

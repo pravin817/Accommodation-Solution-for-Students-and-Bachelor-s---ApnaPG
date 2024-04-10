@@ -4,7 +4,7 @@ const RoomSchema = new mongoose.Schema(
   {
     author: {
       type: String,
-      required: [true, "Author is required"],
+      // required: [true, "Author is required"],
     },
     status: {
       type: String,
@@ -12,7 +12,7 @@ const RoomSchema = new mongoose.Schema(
     },
     roomType: {
       type: String,
-      required: [true, "Room type is required"],
+      // required: [true, "Room type is required"],
     },
     privacyType: {
       type: String,
@@ -56,15 +56,15 @@ const RoomSchema = new mongoose.Schema(
     },
     photos: {
       type: Array,
-      required: [true, "Photos are required"],
+      // required: [true, "Photos are required"],
     },
     title: {
       type: String,
-      required: [true, "Title is required"],
+      // required: [true, "Title is required"],
     },
     description: {
       type: String,
-      required: [true, "Description is required"],
+      // required: [true, "Description is required"],
     },
     highlight: {
       type: String,
@@ -77,7 +77,7 @@ const RoomSchema = new mongoose.Schema(
     },
     basePrice: {
       type: Number,
-      required: [true, "Base price is required"],
+      // required: [true, "Base price is required"],
     },
     priceAfterTaxes: {
       type: Number,
