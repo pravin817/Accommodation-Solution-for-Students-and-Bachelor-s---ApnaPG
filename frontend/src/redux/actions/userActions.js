@@ -46,8 +46,50 @@ export const getUser = () => async (dispatch, getState) => {
         type: "GET_USER_DETAILS",
         payload: response.data.user_details,
       });
+
+      // Save the room data from the database
+      dispatch({
+        type: "SAVE_ROOM_DATA",
+        payload: response.data.room_data,
+      });
     } else {
       dispatch({ type: "USER_LOG_OUT" });
+    }
+  } catch (error) {
+    console.log(error);
+  }
+};
+
+// Change the user Role
+export const userRole = () => async (dispatch, getState) => {
+  const { userDetails } = getState().user;
+
+  if (userDetails?.role === "host") {
+    console.log("Already a host");
+  }
+
+  try {
+    const res = await api.post(`/auth/become-a-host`, { role: "host" });
+
+    console.log(res);
+
+    const currentRoomId = res.data?.room?._id;
+
+    // Save the currentRoomId in localStorage
+    if (currentRoomId) {
+      JSON.stringify(localStorage.setItem("currentRoomId", currentRoomId));
+    }
+
+    if (res.data?.success) {
+      dispatch({
+        type: "CHANGE_USER_ROLE",
+        payload: res.data,
+      });
+
+      dispatch({
+        type: "CURRENT_NEW_ROOM",
+        payload: res.data.room,
+      });
     }
   } catch (error) {
     console.log(error);

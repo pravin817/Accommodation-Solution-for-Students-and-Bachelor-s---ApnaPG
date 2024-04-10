@@ -1,4 +1,4 @@
-import api from "../../backend";
+import api, { API } from "../../backend";
 
 export const getRoomDetails = (id) => async (dispatch) => {
   try {
@@ -119,9 +119,9 @@ export const savePrivacyType = (privacyType) => async (dispatch) => {
   }
 };
 
-export const saveRoomLocation = (roomLocation) => async (dispatch) => {
+export const saveRoomLocation = (locationData) => async (dispatch) => {
   try {
-    const res = await api.post(`/room/save-room-location`, roomLocation, {
+    const res = await api.post(`/room/save-room-location`, locationData, {
       headers: {
         "Content-Type": "application/json",
       },
@@ -138,9 +138,9 @@ export const saveRoomLocation = (roomLocation) => async (dispatch) => {
   }
 };
 
-export const saveFloorPlan = (floorPlan) => async (dispatch) => {
+export const saveFloorPlan = (floorPlanData) => async (dispatch) => {
   try {
-    const res = await api.post(`/room/save-floor-plan`, floorPlan, {
+    const res = await api.post(`/room/save-floor-plan`, floorPlanData, {
       headers: {
         "Content-Type": "application/json",
       },
@@ -306,9 +306,9 @@ export const saveSecurity = (securityData) => async (dispatch) => {
   }
 };
 
-export const publishRoom = (publishRoom) => async (dispatch) => {
+export const publishRoom = (publishRoomData) => async (dispatch) => {
   try {
-    const res = await api.post(`/room/publish-room`, publishRoom, {
+    const res = await api.post(`/room/publish-room`, publishRoomData, {
       headers: { "Content-Type": "application/json" },
     });
 
