@@ -290,6 +290,8 @@ const saveFloorPlan = async (req, res) => {
     const roomId = payload.roomId;
     const floorPlan = payload.floorPlan;
 
+    console.log("The floor plan", payload);
+
     // define the room finding criteria
     const findRoomCriteria = {
       _id: new mongoose.Types.ObjectId(roomId),
@@ -297,7 +299,7 @@ const saveFloorPlan = async (req, res) => {
 
     // Update the room and save the floor plan
     if (floorPlan !== undefined) {
-      const roomDetails = await Room.findOneAndUpdat(
+      const roomDetails = await Room.findOneAndUpdate(
         findRoomCriteria,
         { floorPlan },
         { new: true }
@@ -324,25 +326,35 @@ const saveAmenities = async (req, res) => {
   try {
     const payload = req.body;
     const roomId = payload.roomId;
-    const amenities = payload.amenities;
+    const amenitiesData = payload.amenities;
+
+    console.log("The amenities", payload);
 
     const findRoomCriteria = {
-      _id: mongoose.Types.ObjectId(roomId),
+      _id: new mongoose.Types.ObjectId(roomId),
+    };
+
+    const updateCriteria = {
+      amenities: amenitiesData,
     };
 
     // Update the room and save the amenities
-    if (amenities !== undefined) {
+    if (amenitiesData !== undefined) {
+      console.log("The amenities data inside", amenitiesData);
       const roomDetails = await Room.findOneAndUpdate(
         findRoomCriteria,
-        { amenities },
+        updateCriteria,
         { new: true }
       );
-
       res.status(200).json({
         message: "Room amenities saved successfully",
         success: true,
         roomDetails,
       });
+    } else {
+      return res
+        .status(400)
+        .json({ message: "Amenities are required", success: false });
     }
   } catch (error) {
     console.log(error);
@@ -430,6 +442,7 @@ const saveTitle = async (req, res) => {
 // Save the description for the room || POST
 const saveDescription = async (req, res) => {
   try {
+    console.log("The description", req.body);
     const payload = req.body;
     const roomId = payload.roomId;
     const description = payload.description;
@@ -473,24 +486,35 @@ const saveHighlight = async (req, res) => {
   try {
     const payload = req.body;
     const roomId = payload.roomId;
-    const highlight = payload.highlight;
+    const highlightData = payload.highlight;
+    console.log("The highlight", payload);
 
     const findCriteria = {
       _id: new mongoose.Types.ObjectId(roomId),
     };
 
-    // Update the room and save the highlight
-    const roomDetails = await Room.findOneAndUpdate(
-      findCriteria,
-      { highlight },
-      { new: true }
-    );
+    const updateCriteria = {
+      highlight: highlightData,
+    };
 
-    res.status(200).json({
-      message: "Room highlight saved successfully",
-      success: true,
-      roomDetails,
-    });
+    // Update the room and save the amenities
+    if (highlightData !== undefined) {
+      console.log("The highlight data inside", highlightData);
+      const roomDetails = await Room.findOneAndUpdate(
+        findCriteria,
+        updateCriteria,
+        { new: true }
+      );
+      res.status(200).json({
+        message: "Room highlight saved successfully",
+        success: true,
+        roomDetails,
+      });
+    } else {
+      return res
+        .status(400)
+        .json({ message: "Room highlight are required", success: false });
+    }
   } catch (error) {
     console.log(error);
     res.status(500).json({
@@ -555,7 +579,7 @@ const savePrices = async (req, res) => {
     }
 
     const findCriteria = {
-      _id: new mongoose.Types.ObjectID(roomId),
+      _id: new mongoose.Types.ObjectId(roomId),
     };
 
     // Update the room and save the base price

@@ -67,7 +67,7 @@ const RoomSchema = new mongoose.Schema(
       // required: [true, "Description is required"],
     },
     highlight: {
-      type: String,
+      type: Array,
     },
     visiblity: {
       type: String,
