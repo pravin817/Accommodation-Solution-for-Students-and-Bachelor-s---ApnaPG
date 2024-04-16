@@ -10,6 +10,7 @@ import { createNewRoom } from "../../redux/actions/roomActions";
 
 const ListingRoomStepTwoHighlight = () => {
   const newRoomData = useSelector((state) => state.room.newRoom);
+  console.log("New Room Data from Room Highlight ", newRoomData);
   const [storedCardData, setStoredCardData] = useState([]);
   const dispatch = useDispatch();
   const svgSize = 24;
@@ -38,7 +39,7 @@ const ListingRoomStepTwoHighlight = () => {
     );
   }, [storedCardData, dispatch]);
 
-  console.log(storedCardData, "from descriptions");
+  console.log("Highlight ", storedCardData);
   return (
     <div className=" flex flex-col gap-10 max-w-screen-md mx-auto my-8 xl:py-[15vh] min-h-[70vh]">
       <div className="flex flex-col gap-3 md:gap-0">

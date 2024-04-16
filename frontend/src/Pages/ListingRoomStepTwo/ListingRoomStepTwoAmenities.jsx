@@ -52,12 +52,15 @@ const ListingRoomStepTwoAmenities = () => {
       createNewRoom(
         newRoomData?.roomType,
         newRoomData?.privacyType,
-        newRoomData?.address,
+        newRoomData?.location,
         newRoomData?.floorPlan,
         storedCardData
       )
     );
   }, [storedCardData, dispatch]);
+
+  console.log("amenities : ", storedCardData);
+
   return (
     <div className=" flex flex-col gap-10 max-w-screen-md mx-auto my-6">
       <div>

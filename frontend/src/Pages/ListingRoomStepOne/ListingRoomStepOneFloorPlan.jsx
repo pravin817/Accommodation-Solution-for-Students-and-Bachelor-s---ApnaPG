@@ -20,9 +20,10 @@ const ListingRoomStepOneFloorPlan = () => {
       guests: guestNumber,
       bedrooms: bedroomsNumber,
       beds: bedsNumber,
-      bathroomsNumber: bathroomsNumber,
+      bathRoomsNumber: bathroomsNumber,
     };
 
+    console.log("Floor Plan", floorPlan);
     if (
       guestNumber !== 0 ||
       bedroomsNumber !== 0 ||

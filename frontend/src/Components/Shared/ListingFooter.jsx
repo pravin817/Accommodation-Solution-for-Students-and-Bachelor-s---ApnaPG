@@ -79,7 +79,7 @@ const ListingFooter = () => {
         // Handle action related to the user
         await dispatch(userRole());
       } else if (currentStepIndex === 2) {
-        // Handle action related to the room
+        // Handle action related to the room structure
         const roomData = {
           roomType: createRoomData?.newRoom?.roomType,
           roomId: currentListingRoomId,
@@ -110,14 +110,14 @@ const ListingFooter = () => {
         // Save the floor plan data in the database
         await dispatch(saveFloorPlan(floorPlanData));
       } else if (currentStepIndex === 7) {
-        // get the anemities data
-        const anemitiesData = {
-          anemities: createRoomData?.newRoom?.anemities,
+        // get the amenities data
+        const amenitiesData = {
+          amenities: createRoomData?.newRoom?.amenities,
           roomId: currentListingRoomId,
         };
-
-        // Save the anemities data in the database
-        await dispatch(saveAmenities(anemitiesData));
+        console.log("Amenities Data form Listing Footer", amenitiesData);
+        // Save the amenities data in the database
+        await dispatch(saveAmenities(amenitiesData));
       } else if (currentStepIndex === 8) {
         // Get the photos data
         const photosData = {
@@ -139,9 +139,12 @@ const ListingFooter = () => {
       } else if (currentStepIndex === 10) {
         // get the room highlight data
         const highlightData = {
-          highlight: createRoomData?.newRoom?.highlight,
+          ///////////////////////////////////////////////// BIG BIGWarning /////////////////////////////////////////////////////
+          highlight: createRoomData?.newRoom?.description,
           roomId: currentListingRoomId,
         };
+
+        console.log("Highlight Data from Listing Footer", highlightData);
 
         // Save the room highlight in DB
         await dispatch(saveHighlight(highlightData));

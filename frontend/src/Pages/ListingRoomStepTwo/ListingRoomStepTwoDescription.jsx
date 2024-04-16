@@ -45,7 +45,7 @@ const ListingRoomStepTwoDescription = () => {
           className="w-full p-3 border-[#b0b0b0] border-[1.3px] rounded-md"
           rows="6"
           autoComplete="off"
-          {...register("title", { maxLength: 1600 })}
+          {...register("description", { maxLength: 1600 })}
           onChange={(e) => {
             setDescription(e.target.value);
             setCharacterCount(e.target.value.replace(/\s/g, " ").length);

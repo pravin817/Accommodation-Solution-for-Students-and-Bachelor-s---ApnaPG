@@ -50,7 +50,7 @@ export const createNewRoom =
     roomPhotos,
     roomTitle,
     roomDescription,
-    roomHighlight,
+    roomHighlights,
     guestType,
     priceBeforeTaxes,
     authorEarnedPrice,
@@ -67,7 +67,7 @@ export const createNewRoom =
       photos: roomPhotos,
       title: roomTitle,
       description: roomDescription,
-      highlight: roomHighlight,
+      highlights: roomHighlights,
       guestType: guestType,
       priceBeforeTaxes: priceBeforeTaxes,
       authorEarnedPrice: authorEarnedPrice,
@@ -234,6 +234,7 @@ export const saveDescription = (descriptionData) => async (dispatch) => {
 };
 
 export const saveHighlight = (highlightData) => async (dispatch) => {
+  console.log("The highlight data from roomActions : ", highlightData);
   try {
     const res = await api.post(`/room/save-highlight`, highlightData, {
       headers: {
