@@ -50,6 +50,19 @@ input[type="checkbox"] {
   accent-color: #222222;
 }
 
+
+/* The css for the Map */
+.leaflet-bottom,
+.leaflet-control,
+.leaflet-pane,
+.leaflet-top {
+  z-index: 0 !important;
+}
+
+.screen__lock {
+  overflow: hidden;
+}
+
 /* popup Sign in and sign up css  */
 
 /* .placeholder-shrink {

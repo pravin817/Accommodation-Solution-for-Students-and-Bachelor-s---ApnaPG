@@ -25,9 +25,9 @@ export const getOneRoomListingDetails = (id) => async (dispatch) => {
   try {
     let listingId = { id: id };
 
-    const res = await api.post(`${API}/room/room-details`, listingId);
+    const res = await api.post(`${API}room/room-details`, listingId);
 
-    console.log(res);
+    console.log(res.data);
 
     if (res.data?.success) {
       dispatch({

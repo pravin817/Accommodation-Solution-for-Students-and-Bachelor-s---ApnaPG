@@ -1,4 +1,4 @@
-import { MapContainer, TileLayer, Marker, Popup } from "react-leaflet";
+import { MapContainer, Marker, Popup, TileLayer } from "react-leaflet";
 import { Icon } from "leaflet";
 
 import "leaflet/dist/leaflet.css"; // Ensure Leaflet CSS is imported
@@ -19,13 +19,15 @@ const Map = ({ latAndLong, zoom }) => {
     '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors';
 
   const position = [17.2865, 74.1979];
+
+  console.log("The lat and long form Map: ", latAndLong);
   return (
     <MapContainer
       key={mapKey}
       center={latAndLong.length !== 0 ? latAndLong : position}
       zoom={zoom ? zoom : 4}
       scrollWheelZoom={false}
-      className="w-full rounded-lg h-full z-[1]"
+      className="w-full rounded-lg h-full "
     >
       <TileLayer url={url} attribution={attribution} />
       <Marker

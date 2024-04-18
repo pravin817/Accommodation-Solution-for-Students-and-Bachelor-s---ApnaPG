@@ -23,12 +23,23 @@ import ListingRoomFinalStepPricing from "../Pages/ListingRoomFinalStep/ListingRo
 import ListingRoomFinalStepLegal from "../Pages/ListingRoomFinalStep/ListingRoomFinalStepLegal";
 import ListingRoomFinalStepReceipt from "../Pages/ListingRoomFinalStep/ListingRoomFinalStepReceipt";
 import ListingRoomFinalStepThankyou from "../Pages/ListingRoomFinalStep/ListingRoomFinalStepThankyou";
+import Home from "../Pages/Home";
+import ListingDetails from "../Pages/ListingDetails";
 
 const router = createBrowserRouter([
   {
     path: "/",
     element: <MainLayout />,
     children: [
+      {
+        path: "/",
+        element: <Home />,
+      },
+      {
+        path: "/rooms/:id",
+        element: <ListingDetails />,
+        loader: ({ params }) => fetch(`${API}room/listing/${params.id}`),
+      },
       {
         path: "/users/show/:id",
         element: <UserProfile />,
