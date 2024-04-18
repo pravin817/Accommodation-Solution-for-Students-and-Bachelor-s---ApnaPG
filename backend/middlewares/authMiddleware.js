@@ -6,7 +6,7 @@ const verifyJwtToken = async (req, res, next) => {
 
   // Bearer TOKEN
   const token = authHeader ? authHeader.split(" ")[1] : null;
-  console.log(`The jwt token is: ${token}`);
+  // console.log(`The jwt token is: ${token}`);
 
   if (!token) {
     return res.send("token is not valid");
@@ -15,7 +15,7 @@ const verifyJwtToken = async (req, res, next) => {
   // verify the jwtToken
   try {
     let decoded = jwt.verify(token, process.env.ACCESS_TOKEN_SECRET);
-    console.log(decoded._id);
+    // console.log(decoded._id);
     req.user = decoded._id;
     next();
   } catch (error) {

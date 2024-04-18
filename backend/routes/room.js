@@ -25,7 +25,7 @@ const router = express.Router();
 
 // Common User Routes
 // Get the list of all rooms || GET
-router.get("/get-all-listings", getAllListing);
+router.get("/get-all-listing", getAllListing);
 
 // Get the single room || POST
 router.post("/room-details", getOneListing);

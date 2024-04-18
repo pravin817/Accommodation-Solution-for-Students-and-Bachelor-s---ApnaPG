@@ -23,7 +23,7 @@ const getAllListing = async (req, res) => {
     res.status(200).json({
       message: "All listing fetched successfully",
       success: true,
-      data: allListingData,
+      allListingData,
     });
   } catch (error) {
     console.log(error);
@@ -41,24 +41,26 @@ const getOneListing = async (req, res) => {
     const payload = req.body;
     const listingId = payload.id;
 
+    // console.log("The listing id", listingId);
+
     const findCriteria = {
-      _id: mongoose.Types.ObjectId(listingId),
+      _id: new mongoose.Types.ObjectId(listingId),
     };
 
-    const listingDetails = await Room.findById(findCriteria);
+    const listingData = await Room.findById(findCriteria);
 
-    if (!listingDetails) {
+    if (!listingData) {
       return res.status(404).json({
         message: "No listing found",
         success: true,
       });
     }
 
-    const authorFindCriteria = {
-      _id: MongooseError.Types.ObjectId(listingDetails.author),
+    const findAuthorCriteria = {
+      _id: new mongoose.Types.ObjectId(listingData.author),
     };
 
-    const authorDetails = await User.findById(authorFindCriteria);
+    const authorDetails = await User.findById(findAuthorCriteria);
 
     if (!authorDetails) {
       return res.status(404).json({
@@ -70,10 +72,8 @@ const getOneListing = async (req, res) => {
     res.status(200).json({
       message: "Single listing fetched successfully",
       success: true,
-      data: {
-        listingDetails,
-        authorDetails,
-      },
+      listing: listingData,
+      listingAuthor: authorDetails,
     });
   } catch (error) {
     console.log(error);
@@ -92,7 +92,7 @@ const getListingDataByCat = async (req, res) => {
     const category = payload.category;
 
     const catBasedListing = await Room.find({
-      houseType: {
+      roomType: {
         $eq: category,
       },
     });
@@ -107,7 +107,7 @@ const getListingDataByCat = async (req, res) => {
     res.status(200).json({
       message: "Listing fetched based on category",
       success: true,
-      data: catBasedListing,
+      catBasedListing,
     });
   } catch (error) {
     console.log(error);
