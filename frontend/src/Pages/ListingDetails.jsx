@@ -6,6 +6,7 @@ import ListingDetailsPageSkeleton from "../Components/skeletonLoading/ListingDet
 import ListingTitle from "../Components/ListingDetails/ListingTitle";
 import ListingsPhotos from "../Components/ListingDetails/ListingsPhotos";
 import ListingDescriptions from "../Components/ListingDetails/ListingDescriptions";
+import ReservationCard from "../Components/ListingDetails/ReservationCard";
 
 const ListingDetails = () => {
   const [isLoading, setIsLoading] = useState(true);
@@ -52,6 +53,9 @@ const ListingDetails = () => {
         </div>
 
         {/* Reservation of the listing  */}
+        <div className="md:col-span-3 lg:col-span-2 order-1 md:order-2 max-h-[900px]">
+          <ReservationCard />
+        </div>
       </section>
     </main>
   );

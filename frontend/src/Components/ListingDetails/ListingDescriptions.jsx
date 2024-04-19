@@ -1,6 +1,7 @@
 import { AiOutlineRight } from "react-icons/ai";
 import { amenities } from "./amenitiesApi";
 import Map from "../Map";
+import ListingDescriptionPopup from "../PopUp/ListingDescriptionPopup";
 
 const ListingDescriptions = ({ listingData, author }) => {
   const latitude = Number(listingData?.location?.city?.latitude);
@@ -106,6 +107,9 @@ const ListingDescriptions = ({ listingData, author }) => {
           )}
         </div>
       </div>
+
+      {/* The listing description popup  */}
+      <ListingDescriptionPopup description={listingData?.description} />
     </>
   );
 };

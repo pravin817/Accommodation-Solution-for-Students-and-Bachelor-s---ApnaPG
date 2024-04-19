@@ -25,6 +25,9 @@ import ListingRoomFinalStepReceipt from "../Pages/ListingRoomFinalStep/ListingRo
 import ListingRoomFinalStepThankyou from "../Pages/ListingRoomFinalStep/ListingRoomFinalStepThankyou";
 import Home from "../Pages/Home";
 import ListingDetails from "../Pages/ListingDetails";
+import Overview from "../Pages/Dashboard/Overview";
+import Reservations from "../Pages/Dashboard/Reservations";
+import Listing from "../Pages/Dashboard/Listing";
 
 const router = createBrowserRouter([
   {
@@ -49,6 +52,18 @@ const router = createBrowserRouter([
         path: "/users/show/:id/editMode=true",
         element: <EditProfile />,
         loader: ({ params }) => fetch(`${API}${params.id}`),
+      },
+      {
+        path: "/users/dashboard/:id/overview=true",
+        element: <Overview />,
+      },
+      {
+        path: "/users/dashboard/:id/reservations",
+        element: <Reservations />,
+      },
+      {
+        path: "/users/dashboard/:id/listing=true",
+        element: <Listing />,
       },
       {
         path: "/host/rooms",
