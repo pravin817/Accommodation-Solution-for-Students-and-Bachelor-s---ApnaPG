@@ -45,7 +45,7 @@ const ListingRoomStepTwoDescription = () => {
           className="w-full p-3 border-[#b0b0b0] border-[1.3px] rounded-md"
           rows="6"
           autoComplete="off"
-          {...register("description", { maxLength: 1600 })}
+          {...register("description", { maxLength: 3000 })}
           onChange={(e) => {
             setDescription(e.target.value);
             setCharacterCount(e.target.value.replace(/\s/g, " ").length);
@@ -57,10 +57,10 @@ const ListingRoomStepTwoDescription = () => {
         <div className=" mt-2 mb-3">
           <p
             className={` text-xs font-semibold mt-1 flex flex-row-reverse ${
-              characterCount > 1600 ? " text-red-400" : "text-[#717171]"
+              characterCount > 3000 ? " text-red-400" : "text-[#717171]"
             }`}
           >
-            {characterCount}/1600 characters
+            {characterCount}/3000 characters
           </p>
         </div>
       </div>
