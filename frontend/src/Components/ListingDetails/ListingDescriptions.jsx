@@ -15,7 +15,7 @@ const ListingDescriptions = ({ listingData, author }) => {
 
   return (
     <>
-      {/* Listing Floorplan +Room Owner (author) */}
+      {/* Listing Floorplan + Room Owner (author) */}
       <div className=" flex flex-row justify-between items-center max-h-16">
         <div className=" flex flex-col gap-1 text-[#222222]">
           <h2 className=" text-xl md:text-[22px] font-medium">
@@ -100,8 +100,11 @@ const ListingDescriptions = ({ listingData, author }) => {
           Where you&apos;ll be
         </h2>
         {/* load map here */}
-
-        {!latLongNaN && <Map latAndLong={latLong} zoom={6} key="listingMap" />}
+        <div className=" w-full min-h-[400px]">
+          {!latLongNaN && (
+            <Map latAndLong={latLong} zoom={6} key="RoomLocation" />
+          )}
+        </div>
       </div>
     </>
   );
