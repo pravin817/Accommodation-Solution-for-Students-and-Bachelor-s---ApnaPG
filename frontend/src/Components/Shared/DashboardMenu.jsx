@@ -51,7 +51,7 @@ const DashboardMenu = () => {
             {showDashboardMenu && (
               <div
                 ref={userDashboardMenu}
-                className="shadow-md absolute right-28 top-16 sm:-right-12 sm:top-12 bg-[#ffffff] rounded-lg flex flex-col py-2 w-[230px] transition-all user-menu "
+                className="shadow-md absolute right-28 top-16 sm:right-12 sm:top-12 bg-[#ffffff] rounded-lg flex flex-col py-2 w-[205px] transition-all user-menu "
               >
                 {dashboardNabvarItem.map((item, i) => {
                   return (
