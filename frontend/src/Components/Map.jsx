@@ -20,7 +20,6 @@ const Map = ({ latAndLong, zoom }) => {
 
   const position = [17.2865, 74.1979];
 
-  console.log("The lat and long form Map: ", latAndLong);
   return (
     <MapContainer
       key={mapKey}

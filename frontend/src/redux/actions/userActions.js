@@ -39,7 +39,7 @@ export const getUser = () => async (dispatch, getState) => {
 
   try {
     const response = await api.post(`/auth/get-user-details`);
-    // console.log(response.data, "GET USER DETAILS");
+    console.log("The user data from the userActions ", response);
 
     if (response.data.success) {
       dispatch({

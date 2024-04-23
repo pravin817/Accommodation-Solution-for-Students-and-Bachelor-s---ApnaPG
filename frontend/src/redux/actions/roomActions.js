@@ -10,7 +10,7 @@ export const getRoomDetails = (id) => async (dispatch) => {
       },
     });
 
-    if (res.data.success) {
+    if (res.data?.success) {
       dispatch({
         type: "CURRENT_NEW_ROOM",
         payload: res.data?.roomDetails,
