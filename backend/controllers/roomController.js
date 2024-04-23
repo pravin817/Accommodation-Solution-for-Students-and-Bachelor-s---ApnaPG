@@ -124,6 +124,8 @@ const getListingDataByCat = async (req, res) => {
 // Get the details of the room || POST
 const getRoomDetails = async (req, res) => {
   try {
+    console.log("The user from the get Room Details", req.user);
+    console.log(req.body);
     const payload = req.body;
     const roomId = payload.roomId;
 
@@ -135,7 +137,7 @@ const getRoomDetails = async (req, res) => {
     }
 
     const findCriteria = {
-      _id: mongoose.Types.ObjectId(roomId),
+      _id: new mongoose.Types.ObjectId(roomId),
     };
 
     const roomDetails = await Room.findById(findCriteria);
@@ -150,7 +152,7 @@ const getRoomDetails = async (req, res) => {
     res.status(200).json({
       message: "Room details fetched successfully",
       success: true,
-      data: roomDetails,
+      roomDetails,
     });
   } catch (error) {
     console.log(error);

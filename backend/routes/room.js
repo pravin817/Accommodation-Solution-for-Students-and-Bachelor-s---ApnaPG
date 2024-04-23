@@ -36,7 +36,7 @@ router.post("/get-listing-by-cat", getListingDataByCat);
 // Routes for the Room Owner
 
 // Get Room details || POST
-router.get("/get-room-details", verifyJwtToken, getRoomDetails);
+router.post("/get-room-details", verifyJwtToken, getRoomDetails);
 
 // Save the room structure || POST
 router.post("/save-structure", verifyJwtToken, saveRoomStructure);

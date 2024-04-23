@@ -275,10 +275,17 @@ const getUserDetails = async (req, res) => {
     };
 
     const userDetails = await User.findById(findCriteria);
+
+    // return the list of the rooms that are hosted by the user (Room Owner)
+    const roomsData = await Room.find({
+      author: userId,
+    });
+
     res.status(200).json({
       message: "User details found successfully",
       success: true,
       user_details: userDetails,
+      room_data: roomsData,
     });
   } catch (error) {
     console.log("Error while getting the user details :-> ", error);
