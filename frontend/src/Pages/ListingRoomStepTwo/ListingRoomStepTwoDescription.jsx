@@ -27,7 +27,7 @@ const ListingRoomStepTwoDescription = () => {
       )
     );
   };
-  console.log("title", description);
+  console.log("Description", description);
 
   return (
     <div className=" flex flex-col gap-10 max-w-screen-sm mx-auto my-6 min-h-[80vh]">
@@ -49,7 +49,7 @@ const ListingRoomStepTwoDescription = () => {
           onChange={(e) => {
             setDescription(e.target.value);
             setCharacterCount(e.target.value.replace(/\s/g, " ").length);
-            handleChange(e);
+            handleChange();
           }}
           onBlur={handleChange}
           placeholder="Write your house description here..."

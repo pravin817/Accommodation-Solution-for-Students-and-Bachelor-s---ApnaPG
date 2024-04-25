@@ -28,7 +28,7 @@ const ListingRoomStepOneStructure = () => {
   const svgSize = window.innerWidth < 768 ? 30 : 40;
 
   const handleStoreCardData = (name) => {
-    console.log("The selected structure is: ", name );
+    console.log("The selected structure is: ", name);
     setStoredCardData(name);
     dispatch(createNewRoom(name));
   };
@@ -57,7 +57,7 @@ const ListingRoomStepOneStructure = () => {
           svgSize={svgSize}
           ptagStyle={structurePtagClass}
         />
-        <StructureCard
+        {/* <StructureCard
           style={structureCardStyle}
           Img={GiTreehouse}
           name={"Tree house"}
@@ -65,8 +65,8 @@ const ListingRoomStepOneStructure = () => {
           storedCardData={storedCardData}
           svgSize={svgSize}
           ptagStyle={structurePtagClass}
-        />
-        <StructureCard
+        /> */}
+        {/* <StructureCard
           style={structureCardStyle}
           Img={TbSailboat2}
           name={"Boat"}
@@ -74,7 +74,7 @@ const ListingRoomStepOneStructure = () => {
           storedCardData={storedCardData}
           svgSize={svgSize}
           ptagStyle={structurePtagClass}
-        />
+        /> */}
         <StructureCard
           style={structureCardStyle}
           Img={MdOutlineCabin}
@@ -84,7 +84,7 @@ const ListingRoomStepOneStructure = () => {
           svgSize={svgSize}
           ptagStyle={structurePtagClass}
         />
-        <StructureCard
+        {/* <StructureCard
           style={structureCardStyle}
           Img={TbCamper}
           name={"Camper"}
@@ -92,8 +92,8 @@ const ListingRoomStepOneStructure = () => {
           storedCardData={storedCardData}
           svgSize={svgSize}
           ptagStyle={structurePtagClass}
-        />
-        <StructureCard
+        /> */}
+        {/* <StructureCard
           style={structureCardStyle}
           Img={MdOutlineCastle}
           name={"Castle"}
@@ -101,8 +101,8 @@ const ListingRoomStepOneStructure = () => {
           storedCardData={storedCardData}
           svgSize={svgSize}
           ptagStyle={structurePtagClass}
-        />
-        <StructureCard
+        /> */}
+        {/* <StructureCard
           style={structureCardStyle}
           Img={GiMountainCave}
           name={"Cave"}
@@ -110,7 +110,7 @@ const ListingRoomStepOneStructure = () => {
           storedCardData={storedCardData}
           svgSize={svgSize}
           ptagStyle={structurePtagClass}
-        />
+        /> */}
         <StructureCard
           style={structureCardStyle}
           Img={GoContainer}
@@ -120,7 +120,7 @@ const ListingRoomStepOneStructure = () => {
           svgSize={svgSize}
           ptagStyle={structurePtagClass}
         />
-        <StructureCard
+        {/* <StructureCard
           style={structureCardStyle}
           Img={GiLightningDome}
           name={"Dome"}
@@ -128,16 +128,16 @@ const ListingRoomStepOneStructure = () => {
           storedCardData={storedCardData}
           svgSize={svgSize}
           ptagStyle={structurePtagClass}
-        />
-        <StructureCard
+        /> */}
+        {/* <StructureCard
           style={structureCardStyle}
           Img={RiEarthquakeLine}
           name={"Earth home"}
           onClick={handleStoreCardData}
           svgSize={svgSize}
           ptagStyle={structurePtagClass}
-        />
-        <StructureCard
+        /> */}
+        {/* <StructureCard
           style={structureCardStyle}
           Img={PiTent}
           name={"Tent"}
@@ -145,8 +145,8 @@ const ListingRoomStepOneStructure = () => {
           storedCardData={storedCardData}
           svgSize={svgSize}
           ptagStyle={structurePtagClass}
-        />
-        <StructureCard
+        /> */}
+        {/* <StructureCard
           style={structureCardStyle}
           Img={GiControlTower}
           name={"Tower"}
@@ -154,7 +154,7 @@ const ListingRoomStepOneStructure = () => {
           storedCardData={storedCardData}
           svgSize={svgSize}
           ptagStyle={structurePtagClass}
-        />
+        /> */}
         <StructureCard
           style={structureCardStyle}
           Img={LiaHotelSolid}

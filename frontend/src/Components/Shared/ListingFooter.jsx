@@ -155,6 +155,8 @@ const ListingFooter = () => {
           roomId: currentListingRoomId,
         };
 
+        console.log("The description of the room", descriptionData);
+
         // Save the room description in DB
         await dispatch(saveDescription(descriptionData));
       } else if (currentStepIndex === 13) {

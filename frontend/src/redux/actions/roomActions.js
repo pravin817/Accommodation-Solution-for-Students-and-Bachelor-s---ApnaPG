@@ -27,13 +27,15 @@ export const getOneRoomListingDetails = (id) => async (dispatch) => {
 
     const res = await api.post(`${API}room/room-details`, listingId);
 
-    console.log(res.data);
+    // console.log(res.data);
 
     if (res.data?.success) {
       dispatch({
         type: "GET_LISTING_DETAILS",
         payload: res.data,
       });
+
+      // console.log("The listing details are: ", res.data);
     }
   } catch (error) {
     console.log(error);

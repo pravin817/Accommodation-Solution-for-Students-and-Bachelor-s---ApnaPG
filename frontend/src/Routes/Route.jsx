@@ -28,6 +28,7 @@ import ListingDetails from "../Pages/ListingDetails";
 import Overview from "../Pages/Dashboard/Overview";
 import Reservations from "../Pages/Dashboard/Reservations";
 import Listing from "../Pages/Dashboard/Listing";
+import Book from "../Pages/Book";
 
 const router = createBrowserRouter([
   {
@@ -42,6 +43,10 @@ const router = createBrowserRouter([
         path: "/rooms/:id",
         element: <ListingDetails />,
         loader: ({ params }) => fetch(`${API}room/listing/${params.id}`),
+      },
+      {
+        path: "/book/stays/:id",
+        element: <Book />,
       },
       {
         path: "/users/show/:id",

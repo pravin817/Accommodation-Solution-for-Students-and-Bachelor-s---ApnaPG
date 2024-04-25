@@ -1,7 +1,6 @@
 import { useState, useEffect, useRef } from "react";
 
 // Import the icons
-import closeIcon from "../../..//assets/BasicIcon/closeIcon.svg";
 import backIcon from "../../../assets/BasicIcon/backIcon.png";
 
 // Import the components
