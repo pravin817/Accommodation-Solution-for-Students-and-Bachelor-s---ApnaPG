@@ -5,6 +5,7 @@
 @tailwind components;
 @tailwind utilities;
 
+
 /* CSS Reset  */
 body {
   margin: 0;
@@ -16,6 +17,22 @@ body {
 
 p {
   color: #222222;
+}
+
+html {
+  scroll-behavior: smooth;
+}
+
+/* The css for the Map */
+.leaflet-bottom,
+.leaflet-control,
+.leaflet-pane,
+.leaflet-top {
+  z-index: 0 !important;
+}
+
+.screen-lock {
+  overflow: hidden;
 }
 
 /* Navbar CSS  */
@@ -30,6 +47,7 @@ p {
   color: #222222;
 }
 
+/* User menu  */
 .user-menu>a {
   padding: 10px 16px;
   width: 100%;
@@ -41,7 +59,6 @@ p {
 .user-menu>a:hover {
   background-color: #f3f3f3;
   transition: all 0.2s ease-in;
-
 }
 
 input[type="checkbox"] {
@@ -50,22 +67,8 @@ input[type="checkbox"] {
   accent-color: #222222;
 }
 
-
-/* The css for the Map */
-.leaflet-bottom,
-.leaflet-control,
-.leaflet-pane,
-.leaflet-top {
-  z-index: 0 !important;
-}
-
-.screen__lock {
-  overflow: hidden;
-}
-
 /* popup Sign in and sign up css  */
-
-/* .placeholder-shrink {
+.placeholder-shrink {
   transform: translate(4px, 0) scale(1);
   transition: transform 0.3s;
 }
@@ -73,18 +76,17 @@ input[type="checkbox"] {
 .placeholder-restore {
   transform: translate(0, 0) scale(1);
   transition: transform 0.3s;
-} */
+}
 
 .popup-overlay {
   background-color: rgba(0, 0, 0, 0.36);
-  /* opacity: 0; */
+  opacity: 0;
   animation: fadeIn 0.4s forwards;
 }
 
 .popup-container {
   box-shadow: 0px 2px 10px rgba(0, 0, 0, 0.1);
-
-  /* opacity: 0; */
+  opacity: 0;
   animation: slideIn 0.4s cubic-bezier(0.68, -0.55, 0.27, 1.55) forwards;
 }
 
@@ -103,7 +105,6 @@ input[type="checkbox"] {
 }
 
 /* Animations goes Here  */
-
 @keyframes fadeIn {
   0% {
     opacity: 0;
@@ -136,7 +137,6 @@ input[type="checkbox"] {
     top: 10vh;
     opacity: 1;
   }
-
 }
 
 /* edit profile CSS  */
