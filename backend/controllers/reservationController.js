@@ -14,7 +14,6 @@ const getStripePublishableKey = async (req, res) => {
 };
 
 // Create the payment Intent
-
 const createPaymentIntent = async (req, res) => {
   try {
     console.log("hit, payment");
@@ -140,11 +139,15 @@ const getAllReservations = async (req, res) => {
     const payload = req.body;
     const listingId = payload.id;
 
+    console.log("The req body from the get-reservations: ", req.body);
+
     const findCriteria = {
       listingId: listingId,
     };
 
     const reservations = await reservation.find(findCriteria);
+
+    console.log("The reservations are: ", reservations);
 
     if (!reservations) {
       res.status(404).json({
