@@ -19,7 +19,6 @@ const Book = () => {
   const [clientSecret, setClientSecret] = useState("");
   const [isLoading, setIsLoading] = useState(true);
 
-
   console.log("The stripe promise is: ", stripePromise);
   console.log("The client secret is: ", clientSecret);
 
@@ -40,13 +39,13 @@ const Book = () => {
 
   // Get the one listing details for the display at the payment page
   useEffect(() => {
-    const fetchListingDetails = async () => {
+    const fetchData = async () => {
       setIsLoading(true);
       await dispatch(getOneRoomListingDetails(listingId));
       setIsLoading(false);
     };
 
-    fetchListingDetails();
+    fetchData();
   }, [listingId, dispatch, setIsLoading]);
 
   // Stripe provider configuration
@@ -74,8 +73,8 @@ const Book = () => {
 
   if (isLoading) {
     return (
-      <div className="flex justify-center items-center w-full h-[60dvh]">
-        <FadeLoader color={"#000"} />
+      <div className=" flex justify-center items-center w-full h-[60dvh]">
+        <FadeLoader color="#000" />
       </div>
     );
   }
@@ -93,7 +92,7 @@ const Book = () => {
             >
               <MdKeyboardArrowLeft size={28} />
             </div>
-            <h2 className="text-lg sm:text-xl md:text-[32px] text-[#222222] font-medium font-center">
+            <h2 className="text-lg sm:text-xl md:text-[32px] text-[#222222] font-medium text-center">
               Confirm and pay
             </h2>
           </div>

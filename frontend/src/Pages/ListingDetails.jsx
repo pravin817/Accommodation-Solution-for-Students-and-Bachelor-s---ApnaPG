@@ -23,14 +23,21 @@ const ListingDetails = () => {
   const listingData = data?.listing;
   const listedAuthor = data?.listingAuthor;
 
+  console.log("The listing data : ", listingData);
+  console.log("The author data : ", listedAuthor);
+
+
   useEffect(() => {
     const getOneRoomDetails = async () => {
       await dispatch(getOneRoomListingDetails(params.id));
       setIsLoading(false);
     };
-
     getOneRoomDetails();
   }, [params.id, dispatch]);
+
+    useEffect(() => {
+      window.scrollTo({ top: 0, behavior: "smooth" });
+    }, []);
 
   if (isLoading) return;
   <ListingDetailsPageSkeleton />;

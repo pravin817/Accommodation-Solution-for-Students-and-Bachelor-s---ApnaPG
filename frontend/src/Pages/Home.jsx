@@ -7,7 +7,9 @@ import axios from "axios";
 import { API } from "../backend";
 import ListingPreviewCard from "../Components/Home/ListingPreviewCard";
 import { useEffect, useState } from "react";
-import HomePageSkeleton from "../Components/Home/HomePageSkeleton";
+import HomePageSkeleton from "../Components/skeletonLoading/HomePageSkeleton";
+import Category from "../Components/Home/Category";
+import PriceWithTaxCard from "../Components/Home/PriceWithTaxCard";
 
 const Home = () => {
   const [hasScroll, setHasScroll] = useState(false);
@@ -57,7 +59,6 @@ const Home = () => {
         const removeSpaceValue = location.search
           .split("=")[1]
           .replace(/%20/g, " ");
-
         JSON.stringify(localStorage.setItem("category", removeSpaceValue));
       } else {
         JSON.stringify(localStorage.setItem("category", catValue[1]));
@@ -78,12 +79,25 @@ const Home = () => {
       return <HomePageSkeleton />;
     }
   }
+
   return (
     <main className="max-w-screen-2xl xl:px-10 px-5 sm:px-16 mx-auto">
-      {/* <section className="flex justify-between items-center">
-        <p>Category</p>
-        <p>GST Price</p>
-      </section> */}
+      <section
+        className={` pt-8 grid md:grid-cols-12 gap-5 bg-white sticky top-16 z-30 ${
+          hasScroll ? " shadow" : " shadow-none"
+        }`}
+      >
+        {/* Category section  */}
+        <Category styleGrid={"md:col-span-8 lg:col-span-9"} />
+
+        {/* Tax toggle buttons  */}
+        <PriceWithTaxCard
+          style={
+            " md:col-span-4 lg:col-span-3 border-[#e2e2e2] border rounded-xl h-14 md:flex justify-around items-center hidden"
+          }
+          setShowBeforeTaxPrice={setShowBeforeTaxPrice}
+        />
+      </section>
 
       {/* show the actual room Data  */}
       <section>
@@ -130,7 +144,7 @@ const Home = () => {
                       return (
                         <Link
                           key={listing._id}
-                          className=" flex flex-col gap-3 rounded-xl w-full sm:max-w-[300px] md:w-full mx-auto"
+                          className="flex flex-col gap-3 rounded-xl w-[320px] md:w-[264px] mx-auto"
                         >
                           <ListingPreviewCard
                             listingData={listing}

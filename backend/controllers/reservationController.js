@@ -42,6 +42,7 @@ const createPaymentIntent = async (req, res) => {
 const newReservation = async (req, res) => {
   try {
     const payload = req.body;
+
     const listingId = payload.listingId;
     const authorId = payload.authorId;
     const guestNumber = payload.guestNumber;
@@ -56,7 +57,7 @@ const newReservation = async (req, res) => {
 
     const listingDetails = await Room.findById(findCriteria);
 
-    const basePrice = parseInt(listingDetails.price);
+    const basePrice = parseInt(listingDetails.basePrice);
     const tax = Math.round((parseInt(basePrice) * 14) / 100);
     const authorEarnedPrice =
       basePrice - Math.round((parseInt(basePrice) * 3) / 100);
