@@ -7,13 +7,13 @@ import { API } from "../../../backend";
 // Import the icons
 import googleIcon from "../../../assets/BasicIcon/googleIcon.svg";
 import facebookIcon from "../../../assets/BasicIcon/facebookIcon.svg";
+import { PulseLoader } from "react-spinners";
 
 const WelcomePopUp = ({
   setDefaultPopup,
   setShowLoginPopup,
   setShowCreateUserPopup,
   setLoginEmail,
-  signInDivRef,
 }) => {
   const { handleSubmit, register, reset } = useForm();
   const [inputFocused, setInputFocused] = useState(false);
@@ -58,6 +58,10 @@ const WelcomePopUp = ({
         setDefaultPopup(false);
         setShowCreateUserPopup(true);
       }
+
+      setTimeout(() => {
+        reset();
+      }, 300);
 
       // Use this data for the further process
     } catch (error) {
@@ -124,13 +128,16 @@ const WelcomePopUp = ({
         <form onSubmit={handleSubmit(handleCheckEmail)}>
           <input
             type="email"
-            placeholder="Enter Email"
-            className={`w-full border-[1.5px] border-[#dddddd] p-3 rounded-lg transition-all duration-300 mt-3 ${
+            placeholder="Email"
+            className={`w-full border-[1.5px] border-[#dddddd] p-3 rounded-lg mt-4 ${
               inputFocused ? "placeholder-shrink" : "placeholder-restore"
             }`}
             onFocus={handleInputFocus}
             onBlur={handleInputBlur}
-            {...register("email", { required: true })}
+            {...register("email", {
+              required: true,
+              onBlur: handleInputBlur,
+            })}
           />
 
           <p className="text-xs text-[#222222] pt-3 mb-5 opacity-80 ml-[2px]">
@@ -139,8 +146,23 @@ const WelcomePopUp = ({
             <Link className="font-semibold underline">Privacy Policy</Link>
           </p>
 
-          <button className="bg-[#ff385c] hover:bg-[#d90b63] transition-all duration-300 text-white font-medium rounded-lg p-3 w-full">
-            Continue
+          <button
+            className={`bg-[#ff385c] hover:bg-[#d90b63] transition-all duration-300 text-white font-medium rounded-lg p-3 w-full disabled:bg-[#dddddd] ${
+              isLoading ? " cursor-not-allowed" : ""
+            }`}
+            type="submit"
+            disabled={isLoading}
+          >
+            {isLoading ? (
+              <PulseLoader
+                color="#f7f7f7"
+                size={7}
+                margin={4}
+                speedMultiplier={0.6}
+              />
+            ) : (
+              "Continue"
+            )}
           </button>
         </form>
         <div className=" pt-4 px-8 italic pb-7">

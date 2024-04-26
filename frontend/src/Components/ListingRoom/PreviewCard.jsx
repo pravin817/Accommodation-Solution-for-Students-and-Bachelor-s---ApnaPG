@@ -1,8 +1,11 @@
 import { useSelector } from "react-redux";
+
 import { AiFillStar } from "react-icons/ai";
 
 const PreviewCard = () => {
-  const currentRoomData = useSelector((state) => state.room.currentListingRoom);
+  const currentHouseData = useSelector(
+    (state) => state.room.currentListingRoom
+  );
   return (
     <>
       <div
@@ -10,16 +13,14 @@ const PreviewCard = () => {
         onClick={() => window.my_modal_4.showModal()}
       >
         <div className=" relative ">
-          {currentRoomData?.photos[0] ? (
+          {currentHouseData?.photos[0] ? (
             <img
-              src={currentRoomData?.photos[0]}
+              src={currentHouseData?.photos[0]}
               alt="Beautiful house for hositng"
               className=" aspect-square object-cover rounded-xl"
             />
           ) : (
-            <div className=" bg-gray-500 blur-md opacity-30 aspect-square rounded-xl">
-              {" "}
-            </div>
+            <div className=" bg-gray-500 blur-md opacity-30 aspect-square rounded-xl"></div>
           )}
           <p className=" text-sm text-[#222222] px-3 py-1 rounded-md bg-white absolute top-3 left-3">
             Show preview
@@ -28,10 +29,10 @@ const PreviewCard = () => {
         <div className=" grid grid-cols-2 justify-between relative px-1">
           <div className=" text-sm text-[#222222]">
             <p className=" font-medium truncate w-[200px]">
-              {currentRoomData?.title}
+              {currentHouseData?.title}
             </p>
             <span className=" flex flex-row gap-1">
-              <p className=" font-bold">${currentRoomData?.basePrice}</p>
+              <p className=" font-bold">${currentHouseData?.basePrice}</p>
               <span>night</span>
             </span>
           </div>
@@ -42,32 +43,32 @@ const PreviewCard = () => {
         </div>
       </div>
       {/* modal data for Preview Card */}
-      <dialog id="my_modal_4" className="modal">
-        <form method="dialog" className="modal-box w-11/12 max-w-5xl">
-          <button className="btn btn-sm btn-circle btn-ghost absolute right-2 top-2">
-            ✕
+      <dialog id="my_modal_4" className="modal rounded-lg">
+        <form method="dialog" className="modal-box w-11/12 max-w-5xl m-5">
+          <button className="btn btn-sm btn-circle btn-ghost absolute right-4 top-3 p-1">
+            ✕ 
           </button>
           <h3 className="font-bold text-lg text-center">Full preview</h3>
           <div className=" grid grid-cols-1 md:grid-cols-2 gap-10 overflow-y-auto py-7">
             <div>
               <img
-                src={currentRoomData?.photos[0]}
+                src={currentHouseData?.photos[0]}
                 alt="Houses"
                 className=" max-w-md rounded-xl object-cover"
               />
             </div>
             <div className=" flex flex-col gap-3">
               <h6 className=" text-3xl text-[#222222] font-semibold">
-                {currentRoomData?.title}
+                {currentHouseData?.title}
               </h6>
               <p className=" text-xl font-medium text-[#222222] mt-3">
                 Entire rental unit is hosted.
               </p>
               <p className="text-base text-[#222222]">
-                {currentRoomData?.floorPlan?.guests} guests ·{" "}
-                {currentRoomData?.floorPlan?.bedrooms} bedrooms ·{" "}
-                {currentRoomData?.floorPlan?.beds} bed ·{" "}
-                {currentRoomData?.floorPlan?.bathroomsNumber} bath
+                {currentHouseData?.floorPlan?.guests} guests ·{" "}
+                {currentHouseData?.floorPlan?.bedrooms} bedrooms ·{" "}
+                {currentHouseData?.floorPlan?.beds} bed ·{" "}
+                {currentHouseData?.floorPlan?.bathroomsNumber} bath
               </p>
               <hr className=" h-[1px] bg-[#dddddd] my-5" />
               <p className=" text-base text-[#222222]">
@@ -78,11 +79,11 @@ const PreviewCard = () => {
                 Location
               </p>
               <p>
-                {currentRoomData?.location?.addressLineOne
-                  ? currentRoomData?.location?.addressLineOne
-                  : currentRoomData?.location?.addressLineTwo
-                  ? currentRoomData?.location?.addressLineTwo
-                  : currentRoomData?.location?.country?.name}
+                {currentHouseData?.location?.addressLineOne
+                  ? currentHouseData?.location?.addressLineOne
+                  : currentHouseData?.location?.addressLineTwo
+                  ? currentHouseData?.location?.addressLineTwo
+                  : currentHouseData?.location?.country?.name}
               </p>
               <p className=" text-xs text-[#222222] opacity-60">
                 We’ll only share your address with guests who are booked as

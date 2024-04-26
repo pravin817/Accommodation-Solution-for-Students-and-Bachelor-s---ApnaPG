@@ -7,6 +7,7 @@ import ListingTitle from "../Components/ListingDetails/ListingTitle";
 import ListingsPhotos from "../Components/ListingDetails/ListingsPhotos";
 import ListingDescriptions from "../Components/ListingDetails/ListingDescriptions";
 import ReservationCard from "../Components/ListingDetails/ReservationCard";
+import { FadeLoader } from "react-spinners";
 
 const ListingDetails = () => {
   const [isLoading, setIsLoading] = useState(true);
@@ -26,7 +27,6 @@ const ListingDetails = () => {
   console.log("The listing data : ", listingData);
   console.log("The author data : ", listedAuthor);
 
-
   useEffect(() => {
     const getOneRoomDetails = async () => {
       await dispatch(getOneRoomListingDetails(params.id));
@@ -35,12 +35,21 @@ const ListingDetails = () => {
     getOneRoomDetails();
   }, [params.id, dispatch]);
 
-    useEffect(() => {
-      window.scrollTo({ top: 0, behavior: "smooth" });
-    }, []);
+  useEffect(() => {
+    window.scrollTo({ top: 0, behavior: "smooth" });
+  }, []);
 
-  if (isLoading) return;
-  <ListingDetailsPageSkeleton />;
+  if (isLoading) {
+    if (window.innerWidth <= 1080) {
+      return (
+        <div className="flex justify-center items-center h-[80dvh]">
+          <FadeLoader color="#000" />
+        </div>
+      );
+    } else {
+      return <ListingDetailsPageSkeleton />;
+    }
+  }
 
   return (
     <main className="max-w-screen-xl xl:px-12 mx-auto py-7 px-5 sm:px-16 md:px-8">

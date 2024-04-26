@@ -1,22 +1,20 @@
-import React, { useState } from "react";
-import Carousel from "react-elastic-carousel";
+import { FadeLoader } from "react-spinners";
+import HomePageSkeleton from "../Components/skeletonLoading/HomePageSkeleton";
+import SkeletonLoadingCards from "../Components/skeletonLoading/SkeletonLoadingCards";
+import ListingDetailsPageSkeleton from "../Components/skeletonLoading/ListingDetailsPageSkeleton";
 
 const Test = () => {
-  const [items] = useState([
-    { id: 1, title: "item #1" },
-    { id: 2, title: "item #2" },
-    { id: 3, title: "item #3" },
-    { id: 4, title: "item #4" },
-    { id: 5, title: "item #5" },
-  ]);
+  // return <HomePageSkeleton />;
+  // return (
+  //   <div className="flex justify-center items-center h-[80dvh]">
+  //     <FadeLoader color="#000" />
+  //   </div>
+  // );
 
-  return (
-    <Carousel>
-      {items.map((item) => (
-        <div key={item.id}>{item.title}</div>
-      ))}
-    </Carousel>
-  );
+  // return <SkeletonLoadingCards />;
+
+  // return <ListingDetailsPageSkeleton />;
+  return <ListingDetailsPageSkeleton />;
 };
 
 export default Test;

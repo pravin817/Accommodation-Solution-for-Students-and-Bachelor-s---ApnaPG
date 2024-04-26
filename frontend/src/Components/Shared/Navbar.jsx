@@ -214,8 +214,8 @@ const Navbar = () => {
                             Login
                           </Link>
                           <hr className="h-[1.5px] bg-[#ddddd] my-1" />
-                          <Link>Rent your Room</Link>
-                          <Link>Help</Link>
+                          <Link to={"/host/rooms"}>Rent your Room</Link>
+                          <Link to={"/help"}>Help</Link>
                         </div>
                       ) : (
                         // Logged In User Menu
@@ -272,7 +272,7 @@ const Navbar = () => {
                           <Link to={"/host/rooms"}>Rent Your Room</Link>
                           <Link to={`/users/show/${user._id}`}>Account</Link>
                           <hr className="h-[1.5px] bg-[#dddddd] my-1" />
-                          <Link>Help</Link>
+                          <Link to={"/help"}>Help</Link>
                           <Link
                             onClick={() => {
                               handleLogOut();

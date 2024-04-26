@@ -3,7 +3,7 @@ import { useQuery } from "@tanstack/react-query";
 import { useGetSubCatListing } from "../hooks/useGetSubCatListing";
 import { FadeLoader } from "react-spinners";
 import SkeletonLoadingCards from "../Components/skeletonLoading/SkeletonLoadingCards";
-import axios from "axios";
+import axios, { all } from "axios";
 import { API } from "../backend";
 import ListingPreviewCard from "../Components/Home/ListingPreviewCard";
 import { useEffect, useState } from "react";
@@ -36,7 +36,6 @@ const Home = () => {
 
   useEffect(() => {
     window.addEventListener("scroll", handleScrollTracking);
-
     return () => {
       window.removeEventListener("scroll", handleScrollTracking);
     };
@@ -89,14 +88,15 @@ const Home = () => {
       >
         {/* Category section  */}
         <Category styleGrid={"md:col-span-8 lg:col-span-9"} />
+        {/* <Category styleGrid={"md:col-span-12 lg:col-span-12"} /> */}
 
         {/* Tax toggle buttons  */}
-        <PriceWithTaxCard
+        {/* <PriceWithTaxCard
           style={
             " md:col-span-4 lg:col-span-3 border-[#e2e2e2] border rounded-xl h-14 md:flex justify-around items-center hidden"
           }
           setShowBeforeTaxPrice={setShowBeforeTaxPrice}
-        />
+        /> */}
       </section>
 
       {/* show the actual room Data  */}

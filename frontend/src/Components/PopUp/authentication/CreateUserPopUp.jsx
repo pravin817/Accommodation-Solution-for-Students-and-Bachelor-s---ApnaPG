@@ -9,8 +9,7 @@ import { toast } from "react-hot-toast";
 import { useDispatch } from "react-redux";
 import { userSignUp } from "../../../redux/actions/userActions";
 
-const CreateUserPopUp = ({
-  onBack,
+const CreateUserPopup = ({
   loginEmail,
   setProfilePopup,
   showCreatePopUp,
@@ -65,7 +64,7 @@ const CreateUserPopUp = ({
       let accessToken = localStorage.getItem("accessToken");
       let refreshToken = localStorage.getItem("refreshToken");
 
-      if (responseData?.success === 1) {
+      if (responseData?.success) {
         toast.success(responseData?.message);
         if (!accessToken) {
           localStorage.setItem(
@@ -94,7 +93,8 @@ const CreateUserPopUp = ({
       setTimeout(() => {
         setProfilePopup(true);
         setPopup(true);
-      }, 2500);
+      }, 3000);
+
       setTimeout(() => {
         reset();
       }, 100);
@@ -102,7 +102,7 @@ const CreateUserPopUp = ({
       console.log(error);
       localStorage.removeItem("accessToken");
       localStorage.removeItem("refreshToken");
-      toast.error("Network Error! Please try again later.");
+      toast.error("Network error please try again later!");
       setIsLoading(false);
     } finally {
       setIsLoading(false);
@@ -115,6 +115,7 @@ const CreateUserPopUp = ({
         onSubmit={handleSubmit(handleCreateUser)}
         className="px-8 flex flex-col gap-6"
       >
+        {/* Get the First Name and Last Name of the User  */}
         <div className=" flex flex-col gap-3">
           <input
             type="text"
@@ -152,7 +153,8 @@ const CreateUserPopUp = ({
             Make sure it matches the name on your government ID.
           </p>
         </div>
-        {/* <div>
+        {/* Get the Birthdate of the User */}
+        <div>
           <input
             className="w-full border-[1.4px] border-[#dddddd] p-3 rounded-lg"
             type={`${inputDateFocused ? "date" : "text"}`}
@@ -186,7 +188,9 @@ const CreateUserPopUp = ({
             To sign up, you need to be at least 18. Your birthday won’t be
             shared with other people who use ApnaPG.
           </p>
-        </div> */}
+        </div>
+
+        {/* Get the user Email Id  */}
         <div>
           <input
             className="w-full border-[1.4px] border-[#dddddd] p-3 rounded-lg"
@@ -218,6 +222,7 @@ const CreateUserPopUp = ({
           </p>
         </div>
 
+        {/* Get the Mobile Number of the User for the Notification purpose*/}
         <div>
           <input
             className="w-full border-[1.4px] border-[#dddddd] p-3 rounded-lg"
@@ -243,12 +248,14 @@ const CreateUserPopUp = ({
           )}
           <p
             className={`text-xs text-[#717171] mt-1 ${
-              errors.email ? "hidden" : "block"
+              errors.mobileno ? "hidden" : "block"
             }`}
           >
             We&apos;ll send you trip confirmations and receipts messages.
           </p>
         </div>
+
+        {/* Get the password for the user account  */}
         <div className="relative">
           <input
             type={passwordVisible ? "text" : "password"}
@@ -275,7 +282,9 @@ const CreateUserPopUp = ({
                 alt="Last name is requires"
                 className="w-5"
               />
-              <p className="text-xs text-[#c13515]">Password required</p>
+              <p className="text-xs text-[#c13515]">
+                At least 8 characters & Contains a number or symbol
+              </p>
             </div>
           )}
           <p
@@ -283,7 +292,7 @@ const CreateUserPopUp = ({
               errors.password ? "hidden" : "block opacity-60"
             }`}
           >
-            Must be 8 character long.
+            At least 8 characters & Contains a number or symbol
           </p>
         </div>
         <div>
@@ -330,4 +339,4 @@ const CreateUserPopUp = ({
   );
 };
 
-export default CreateUserPopUp;
+export default CreateUserPopup;

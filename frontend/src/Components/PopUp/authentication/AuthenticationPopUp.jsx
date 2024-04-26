@@ -2,6 +2,7 @@ import { useState, useEffect, useRef } from "react";
 
 // Import the icons
 import backIcon from "../../../assets/BasicIcon/backIcon.png";
+import closeIcon from "../../../assets/BasicIcon/closeIcon.svg";
 
 // Import the components
 import LoginPopUp from "./LoginPopUp";
@@ -27,7 +28,7 @@ const AuthenticationPopUp = ({ popup, setPopup }) => {
 
   // Close the popup when clicked outside of the popup
   useEffect(() => {
-    const handleOutSideClick = (event) => {
+    const handleOutsideClick = (event) => {
       if (popUpRef.current && !popUpRef.current.contains(event.target)) {
         setPopup(false);
         setShowCreateUserPopup(false);
@@ -37,19 +38,19 @@ const AuthenticationPopUp = ({ popup, setPopup }) => {
       }
     };
 
-    document.addEventListener("mouseup", handleOutSideClick);
+    document.addEventListener("mousedown", handleOutsideClick);
     return () => {
-      document.removeEventListener("mouseup", handleOutSideClick);
+      document.removeEventListener("mousedown", handleOutsideClick);
     };
   }, []);
 
   return (
     <>
       {popup !== true ? null : (
-        <div className="absolute inset-0 w-screen h-screen bg-[#0000005c] popup-overlay">
+        <div className=" absolute inset-0 w-screen h-screen bg-[#0000005c] popup-overlay">
           <div
             ref={popUpRef}
-            className={`absolute left-[27.5%] right-[27.5%] top-[12%]  w-[45vw] bg-[#ffffff] shadow-2xl rounded-xl  overflow-hidden
+            className={`absolute left-[27.5%] right-[27.5%] top-[12%]  w-[45vw] bg-[#ffffff] shadow-2xl rounded-xl overflow-hidden
             ${
               (showLoginPopup || profilePopup) && !showErrorMessage
                 ? "h-[60vh] popup-container-login"
@@ -63,9 +64,9 @@ const AuthenticationPopUp = ({ popup, setPopup }) => {
             <div className=" flex items-center w-full py-4 border-b-[1px] px-8 sticky top-0 bg-[#ffffff]">
               {defaultPopup || profilePopup ? (
                 <img
-                  src={backIcon}
+                  src={closeIcon}
                   alt="close Icon"
-                  className="w-8 hover:bg-[#f1f1f1] transition-colors rounded-fyll p-2 cursor-pointer"
+                  className="w-8 hover:bg-[#f1f1f1] transition-colors rounded-full p-2 cursor-pointer"
                   onClick={() => {
                     setPopup(false);
                   }}

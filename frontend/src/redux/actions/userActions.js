@@ -2,6 +2,7 @@ import api from "../../backend";
 
 // SignUp the user
 export const userSignUp = (userData) => async (dispatch) => {
+  console.log("User sign up action", userData);
   dispatch({
     type: "USER_SIGN_UP",
     payload: userData,
@@ -12,7 +13,10 @@ export const userSignUp = (userData) => async (dispatch) => {
 export const userLogin = (userData) => async (dispatch) => {
   console.log("User login action", userData);
 
-  dispatch({ type: "USER_LOG_IN", payload: userData });
+  dispatch({
+    type: "USER_LOG_IN",
+    payload: userData,
+  });
 };
 
 // get the user details
@@ -31,9 +35,9 @@ export const userLogin = (userData) => async (dispatch) => {
 // };
 
 export const getUser = () => async (dispatch, getState) => {
-  const { user } = getState().user;
+  const { userDetails } = getState().user;
 
-  if (user) {
+  if (userDetails) {
     return;
   }
 
