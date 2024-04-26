@@ -29,6 +29,9 @@ import Overview from "../Pages/Dashboard/Overview";
 import Reservations from "../Pages/Dashboard/Reservations";
 import Listing from "../Pages/Dashboard/Listing";
 import Book from "../Pages/Book";
+import PaymentConfirmed from "../Pages/PaymentConfirmed";
+import HelloWorld from "../Pages/HelloWorld";
+import Test from "../Pages/Test";
 
 const router = createBrowserRouter([
   {
@@ -74,6 +77,18 @@ const router = createBrowserRouter([
         path: "/host/rooms",
         element: <HostYourRoom />,
         loader: ({ params }) => fetch(`${API}${params.id}`),
+      },
+      {
+        path: "/payment-confirmed",
+        element: <PaymentConfirmed />,
+      },
+      {
+        path: "/helloworld",
+        element: <HelloWorld />,
+      },
+      {
+        path: "/test",
+        element: <Test />,
       },
     ],
   },
