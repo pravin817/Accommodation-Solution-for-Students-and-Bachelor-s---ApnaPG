@@ -13,8 +13,8 @@ const UserProfile = () => {
         <section className=" flex flex-row gap-16 items-start flex-auto">
           {user?.profileImg ? (
             <>
-              <div className="w-[350px] flex flex-col profile__container">
-                <div className="flex flex-col gap-4 justify-center items-center min-w-[100%] shadow-xl rounded-3xl p-7 border sticky top-[128px] profile__container__div">
+              <div className="w-[350px] flex flex-col profile-container">
+                <div className="flex flex-col gap-4 justify-center items-center min-w-[100%] shadow-xl rounded-3xl p-7 border sticky top-[128px] profile-container-div">
                   <div className=" min-w-[114px] min-h-[114px] bg-[#222222] rounded-full flex justify-center itmes-center">
                     <img
                       src={user?.profileImg}
@@ -36,8 +36,8 @@ const UserProfile = () => {
               </div>
             </>
           ) : (
-            <div className="w-[350px] flex flex-col profile__container">
-              <div className="flex flex-col gap-4 justify-center items-center min-w-[100%] shadow-xl rounded-3xl p-7 border sticky top-[128px] profile__container__div">
+            <div className="w-[350px] flex flex-col profile-container">
+              <div className="flex flex-col gap-4 justify-center items-center min-w-[100%] shadow-xl rounded-3xl p-7 border sticky top-[128px] profile-container-div">
                 <div className=" min-w-[114px] min-h-[114px] bg-[#222222] rounded-full flex justify-center itmes-center">
                   <p className="text-4xl text-white font-semibold m-auto">
                     {user?.name.firstName.slice(0, 1)}

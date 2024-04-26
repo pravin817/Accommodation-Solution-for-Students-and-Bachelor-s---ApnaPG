@@ -4,6 +4,8 @@ const UserProfileOptions = ({ setShowPopup, setSelectedOption }) => {
   const userProfile = useSelector(
     (state) => state.user?.userDetails?.profileDetails.profile
   );
+
+  console.log("User Profile: ", userProfile);
   return (
     <>
       <div className="flex flex-col">
