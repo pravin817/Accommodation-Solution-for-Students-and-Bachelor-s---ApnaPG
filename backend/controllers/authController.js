@@ -6,6 +6,8 @@ const User = require("../models/user.model");
 const Room = require("../models/room.model");
 
 const saltRounds = 10;
+const daysToSeconds = 1 * 60 * 60; //   days * hours *  minutes *  seconds
+const expirationTimeInSeconds = Math.floor(Date.now() / 1000) + daysToSeconds;
 
 // Signup the user
 const signup = async (req, res) => {
@@ -25,9 +27,9 @@ const signup = async (req, res) => {
       throw new Error("please provide the mobile number");
     }
 
-    // if (!payload.birthDate) {
-    //   throw new Error("please provide the birth date");
-    // }
+    if (!payload.birthDate) {
+      throw new Error("please provide the birth date");
+    }
 
     // Hashed the password before storing to the database
     const hashedPasword = await bcrypt.hash(payload.password, saltRounds);
@@ -39,26 +41,49 @@ const signup = async (req, res) => {
       },
       emailId: payload.emailId,
       mobileNo: payload.mobileNo,
-      // birthDate: payload.birthDate,
+      birthDate: payload.birthDate,
       password: hashedPasword,
     };
 
     const user = await User(userObj).save();
 
-    if (user) {
-      res.status(201).json({
-        message: "User created successfully",
-        success: 1,
-        user,
-      });
-    } else {
-      throw new Error("Failed to signup the user. Please try again later.");
-    }
+    const findCriteria = {
+      emailId: payload.emailId,
+    };
+
+    const userDetails = await User.find(findCriteria);
+
+    const accessToken = jwt.sign(
+      {
+        _id: userDetails[0]._id,
+        role: userDetails[0].role,
+      },
+      process.env.ACCESS_TOKEN_SECRET,
+      { expiresIn: expirationTimeInSeconds }
+    );
+    const refreshToken = jwt.sign(
+      { _id: userDetails[0]._id, role: userDetails[0].role },
+      process.env.REFRESH_TOKEN_SECRET
+    );
+
+    const updatedUser = await User.findOneAndUpdate(
+      findCriteria,
+      { accessToken: accessToken, refreshToken: refreshToken },
+      { new: true }
+    );
+
+    res.status(200).json({
+      message: "Welcome to the ApanaPG.",
+      success: true,
+      accessToken: accessToken,
+      refreshToken: refreshToken,
+      user_details: updatedUser,
+    });
   } catch (error) {
     console.log(error);
     res.status(500).json({
       message: "Failed to signup the user. Please try again later.",
-      success: 0,
+      success: false,
       error,
     });
   }
@@ -91,31 +116,26 @@ const login = async (req, res) => {
           role: userDetails[0].role,
         },
         process.env.ACCESS_TOKEN_SECRET,
-        {
-          expiresIn: "1h",
-        }
+        { expiresIn: expirationTimeInSeconds }
       );
 
       // generate the refresh token
       const refreshToken = jwt.sign(
-        {
-          _id: userDetails[0]._id,
-          role: userDetails[0].role,
-        },
+        { _id: userDetails[0]._id, role: userDetails[0].role },
         process.env.REFRESH_TOKEN_SECRET
       );
 
-      // update the user with the accessToken and refreshToken
-      const updatedUser = await User.findOneAndUpdate(findCriteria, {
-        accessToken: accessToken,
-        refreshToken: refreshToken,
-      });
+      const updatedUser = await User.findOneAndUpdate(
+        findCriteria,
+        { accessToken: accessToken, refreshToken: refreshToken },
+        { new: true }
+      );
 
       // Hide the password from the user details
       updatedUser.password = undefined;
       res.status(200).json({
         message: "User logged in successfully",
-        success: 1,
+        success: true,
         accessToken: accessToken,
         refreshToken: refreshToken,
         user_details: updatedUser,
@@ -123,7 +143,7 @@ const login = async (req, res) => {
     } else if (!isMatched) {
       res.status(401).json({
         message: "Invalid credentials",
-        success: 0,
+        success: false,
       });
     } else {
       res.send("Not Allowed!!!");
@@ -132,7 +152,7 @@ const login = async (req, res) => {
     console.log(error);
     res.status(500).json({
       message: "Failed to login the user. Please try again later.",
-      success: 0,
+      success: false,
       error,
     });
   }

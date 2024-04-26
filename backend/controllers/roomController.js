@@ -90,6 +90,7 @@ const getListingDataByCat = async (req, res) => {
   try {
     const payload = req.body;
     const category = payload.category;
+    console.log("The category", category);
 
     const catBasedListing = await Room.find({
       roomType: {
