@@ -8,16 +8,15 @@ import {
 import {
   MdOutlineKitchen,
   MdOutlinePool,
-  MdOutlineOutdoorGrill,
   MdDinnerDining,
 } from "react-icons/md";
+import { GiLift } from "react-icons/gi";
+import { TbSunElectricity } from "react-icons/tb";
 import { BiSolidWasher, BiSolidFirstAid } from "react-icons/bi";
 import { AiOutlineCar, AiOutlineAlert } from "react-icons/ai";
 import { CgPiano } from "react-icons/cg";
 import { CiDumbbell } from "react-icons/ci";
-import { FaShower } from "react-icons/fa";
-import { TbBrandCarbon } from "react-icons/tb";
-import { GiBathtub, GiTennisCourt, GiSkier } from "react-icons/gi";
+import { GiBathtub } from "react-icons/gi";
 import { BsSpeedometer2, BsSnow, BsPersonWorkspace } from "react-icons/bs";
 
 import { useDispatch, useSelector } from "react-redux";
@@ -103,7 +102,7 @@ const ListingRoomStepTwoAmenities = () => {
         <StructureCard
           style={amenitisCardStyle}
           Img={BiSolidWasher}
-          name={"Washer"}
+          name={"Washing Machine"}
           onClick={handleStoreCardData}
           storedCardData={storedCardData}
           svgSize={svgSize}
@@ -165,16 +164,7 @@ const ListingRoomStepTwoAmenities = () => {
           <StructureCard
             style={amenitisCardStyle}
             Img={GiBathtub}
-            name={"Buthub"}
-            onClick={handleStoreCardData}
-            storedCardData={storedCardData}
-            svgSize={svgSize}
-            ptagStyle={amenitesPtagClass}
-          />
-          <StructureCard
-            style={amenitisCardStyle}
-            Img={MdOutlineOutdoorGrill}
-            name={"Grill"}
+            name={"Bathtub"}
             onClick={handleStoreCardData}
             storedCardData={storedCardData}
             svgSize={svgSize}
@@ -183,7 +173,7 @@ const ListingRoomStepTwoAmenities = () => {
           <StructureCard
             style={amenitisCardStyle}
             Img={PiCampfireLight}
-            name={"Campfire"}
+            name={"Heater"}
             onClick={handleStoreCardData}
             storedCardData={storedCardData}
             svgSize={svgSize}
@@ -201,7 +191,7 @@ const ListingRoomStepTwoAmenities = () => {
           <StructureCard
             style={amenitisCardStyle}
             Img={CgPiano}
-            name={"Piano"}
+            name={"Music System"}
             onClick={handleStoreCardData}
             storedCardData={storedCardData}
             svgSize={svgSize}
@@ -210,7 +200,7 @@ const ListingRoomStepTwoAmenities = () => {
           <StructureCard
             style={amenitisCardStyle}
             Img={CiDumbbell}
-            name={"Exercise equipment"}
+            name={"Nearby Gym"}
             onClick={handleStoreCardData}
             storedCardData={storedCardData}
             svgSize={svgSize}
@@ -218,8 +208,8 @@ const ListingRoomStepTwoAmenities = () => {
           />
           <StructureCard
             style={amenitisCardStyle}
-            Img={FaShower}
-            name={"Outdoor Shower"}
+            Img={GiLift}
+            name={"Lift Service"}
             onClick={handleStoreCardData}
             storedCardData={storedCardData}
             svgSize={svgSize}
@@ -227,17 +217,8 @@ const ListingRoomStepTwoAmenities = () => {
           />
           <StructureCard
             style={amenitisCardStyle}
-            Img={GiTennisCourt}
-            name={"Tennis court"}
-            onClick={handleStoreCardData}
-            storedCardData={storedCardData}
-            svgSize={svgSize}
-            ptagStyle={amenitesPtagClass}
-          />
-          <StructureCard
-            style={amenitisCardStyle}
-            Img={GiSkier}
-            name={"Ski in/ Ski out"}
+            Img={TbSunElectricity}
+            name={"24/7 Electricity"}
             onClick={handleStoreCardData}
             storedCardData={storedCardData}
             svgSize={svgSize}
@@ -255,7 +236,7 @@ const ListingRoomStepTwoAmenities = () => {
           <StructureCard
             style={amenitisCardStyle}
             Img={AiOutlineAlert}
-            name={"Safety alerm"}
+            name={"Safety alarm"}
             onClick={handleStoreCardData}
             storedCardData={storedCardData}
             svgSize={svgSize}
@@ -274,15 +255,6 @@ const ListingRoomStepTwoAmenities = () => {
             style={amenitisCardStyle}
             Img={PiFireExtinguisher}
             name={"Fire extinguisher"}
-            onClick={handleStoreCardData}
-            storedCardData={storedCardData}
-            svgSize={svgSize}
-            ptagStyle={amenitesPtagClass}
-          />
-          <StructureCard
-            style={amenitisCardStyle}
-            Img={TbBrandCarbon}
-            name={"Carbon monoxide alerm"}
             onClick={handleStoreCardData}
             storedCardData={storedCardData}
             svgSize={svgSize}

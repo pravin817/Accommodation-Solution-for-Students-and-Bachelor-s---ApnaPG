@@ -11,12 +11,12 @@ const ModalPopup = () => {
           devices, or devices that observe the interior of bedrooms and
           bathrooms, are prohibited.
         </p>
-        <h3 className="text-base font-medium text-[#222222]">Weapons</h3>
+        {/* <h3 className="text-base font-medium text-[#222222]">Weapons</h3>
         <p className="py-4 text-sm text-[#717171]">
           All weapons at a listing must be properly disclosed, stored and
           secured
-        </p>
-        <h3 className="text-base font-medium text-[#222222]">
+        </p> */}
+        {/* <h3 className="text-base font-medium text-[#222222]">
           Dangerous animals
         </h3>
         <p className="py-4 text-sm text-[#717171]">
@@ -24,7 +24,7 @@ const ModalPopup = () => {
           capable of causing serious harm to humans or other animals) in a
           listing without properly disclosing its presence and securing it in a
           safe and secure accommodation.
-        </p>
+        </p> */}
         <div className="modal-action">
           {/* if there is a button in form, it will close the modal */}
           <button className="btn">Close</button>

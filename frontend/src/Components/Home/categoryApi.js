@@ -26,7 +26,7 @@ export const categoryApi = [
   // { id: 6, name: "Camper", svg: TbCamper },
   // { id: 7, name: "Castle", svg: MdOutlineCastle },
   // { id: 8, name: "Cave", svg: GiMountainCave },
-  { id: 9, name: "Container", svg: GoContainer },
+  // { id: 9, name: "Container", svg: GoContainer },
   // { id: 10, name: "Dome", svg: GiLightningDome },
   // { id: 11, name: "Earth home", svg: RiEarthquakeLine },
   // { id: 12, name: "Tent", svg: PiTent },

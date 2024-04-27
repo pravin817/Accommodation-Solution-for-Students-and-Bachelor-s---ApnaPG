@@ -44,7 +44,6 @@ const ListingDescriptions = ({ listingData, author }) => {
             </>
           ) : (
             <>
-              {" "}
               <div className=" w-14 h-14 bg-[#222222] flex items-center justify-center rounded-full">
                 <p className=" text-[#efefef] text-lg font-semibold">
                   {author?.name?.firstName?.slice(0, 1)}

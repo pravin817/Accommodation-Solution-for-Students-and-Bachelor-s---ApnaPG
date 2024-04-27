@@ -34,6 +34,7 @@ import Listing from "../Pages/Dashboard/Listing";
 import Book from "../Pages/Book";
 import PaymentConfirmed from "../Pages/PaymentConfirmed";
 import Help from "../Pages/Help";
+import VerifyAccount from "../Pages/VerifyAccount";
 
 // import HelloWorld from "../Pages/HelloWorld";
 // import Test from "../Pages/Test";
@@ -100,6 +101,8 @@ const ListingDetails = lazy(() => import("../Pages/ListingDetails"));
 const HelloWorld = lazy(() => import("../Pages/HelloWorld"));
 
 const Test = lazy(() => import("../Pages/Test"));
+
+// const VerifyAccount = lazy(() => import("../Pages/VerifyAccount"));
 
 const router = createBrowserRouter([
   {
@@ -191,16 +194,50 @@ const router = createBrowserRouter([
         ),
       },
       {
+        path: "/users/show/:id/verify-account",
+        element: <VerifyAccount />,
+      },
+      {
         path: "/help",
-        element: <Help />,
+        element: (
+          <Suspense
+            fallback={
+              <div className=" flex justify-center items-center w-full h-[60dvh]">
+                <FadeLoader color="#000" />
+              </div>
+            }
+          >
+            <Help />
+          </Suspense>
+        ),
       },
       {
         path: "/helloworld",
-        element: <HelloWorld />,
+        element: (
+          <Suspense
+            fallback={
+              <div className=" flex justify-center items-center w-full h-[60dvh]">
+                <FadeLoader color="#000" />
+              </div>
+            }
+          >
+            <HelloWorld />
+          </Suspense>
+        ),
       },
       {
         path: "/test",
-        element: <Test />,
+        element: (
+          <Suspense
+            fallback={
+              <div className=" flex justify-center items-center w-full h-[60dvh]">
+                <FadeLoader color="#000" />
+              </div>
+            }
+          >
+            <Test />
+          </Suspense>
+        ),
       },
     ],
   },

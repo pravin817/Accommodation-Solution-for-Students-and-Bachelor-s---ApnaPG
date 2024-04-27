@@ -75,7 +75,7 @@ const ListingRoomFinalStepLegal = () => {
           </div>
           <div className="flex flex-row justify-between items-center">
             <label htmlFor="checkbox2" className=" cursor-pointer">
-              Weapons
+              Security Compound Wall
             </label>
             <input
               type="checkbox"
@@ -84,7 +84,7 @@ const ListingRoomFinalStepLegal = () => {
               onChange={handleCheckboxChange}
             />
           </div>
-          <div className="flex flex-row justify-between items-center">
+          {/* <div className="flex flex-row justify-between items-center">
             <label htmlFor="checkbox3" className=" cursor-pointer">
               Dangerous animals
             </label>
@@ -94,7 +94,7 @@ const ListingRoomFinalStepLegal = () => {
               className=" cursor-pointer w-6 h-6"
               onChange={handleCheckboxChange}
             />
-          </div>
+          </div> */}
         </div>
 
         <hr className="h-[1px] bg-[#dddddd] my-12" />

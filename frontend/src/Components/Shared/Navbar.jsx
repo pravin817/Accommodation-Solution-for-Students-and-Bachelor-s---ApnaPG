@@ -36,6 +36,11 @@ const Navbar = () => {
   const user = useSelector((state) => state.user.userDetails);
   console.log("user : ", user);
 
+  // Get the user id
+
+  const userId = user?._id;
+  console.log("The user Id is ", userId);
+
   const dispatch = useDispatch();
 
   const handleLogOut = () => {
@@ -188,7 +193,7 @@ const Navbar = () => {
                     )}
                   </div>
 
-                  {/* show the user menu based on the condition  */}
+                  {/* show the below user menu if the user is not login */}
                   {showUserMenu ? (
                     <div>
                       {!user ? (
@@ -270,6 +275,9 @@ const Navbar = () => {
 
                           <hr className="h-[1.5px] bg-[#dddddd] my-1" />
                           <Link to={"/host/rooms"}>Rent Your Room</Link>
+                          <Link to={`/users/show/${userId}/verify-account`}>
+                            Verify Account
+                          </Link>
                           <Link to={`/users/show/${user._id}`}>Account</Link>
                           <hr className="h-[1.5px] bg-[#dddddd] my-1" />
                           <Link to={"/help"}>Help</Link>

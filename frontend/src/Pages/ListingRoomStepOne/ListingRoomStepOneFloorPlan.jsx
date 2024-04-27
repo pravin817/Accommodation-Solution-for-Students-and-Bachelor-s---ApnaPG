@@ -62,28 +62,28 @@ const ListingRoomStepOneFloorPlan = () => {
       </div>
       <div className="flex flex-col gap-5 mt-5">
         <FloorPlanCard
-          name={"Guests"}
+          name={"Number of Guests"}
           number={guestNumber}
           setNumber={setGuestNumber}
           filter={false}
         />
         <hr className="bg-[#dddddd] my-2" />
         <FloorPlanCard
-          name={"Bedrooms"}
+          name={"Number of Bedrooms"}
           number={bedroomsNumber}
           setNumber={setBedroomsNumber}
           filter={false}
         />
         <hr className="bg-[#dddddd] my-2" />
         <FloorPlanCard
-          name={"Beds"}
+          name={"Number of Beds"}
           number={bedsNumber}
           setNumber={setBedsNumber}
           filter={false}
         />
         <hr className="bg-[#dddddd] my-2" />
         <FloorPlanCard
-          name={"Bathrooms"}
+          name={"Number of Bathrooms"}
           number={bathroomsNumber}
           setNumber={setBathroomsNumber}
           filter={false}
