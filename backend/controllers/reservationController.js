@@ -85,7 +85,11 @@ const newReservation = async (req, res) => {
 
     if (!listing.includes(true)) {
       const saveReservation = new reservation(newReservation).save();
-      res.status(200).send("Payment confirmed.");
+      res.status(200).json({
+        message: "Payment confirmed.",
+        success: true,
+        data: saveReservation,
+      });
     } else {
       res.status(404).send("Something went wrong try again later.");
     }

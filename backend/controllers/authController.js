@@ -312,6 +312,45 @@ const getUserDetails = async (req, res) => {
   }
 };
 
+// Verify the user government ID
+const verifyGovernmentId = async (req, res) => {
+  console.log("Hit the verify government ID route", req.body);
+  try {
+    const payload = req.body;
+    const userId = payload.user;
+
+    const findCriteria = {
+      _id: new mongoose.Types.ObjectId(userId),
+    };
+
+    const userDetails = await User.findByIdAndUpdate(
+      findCriteria,
+      {
+        isGovernmentIdVerified: true,
+      },
+      {
+        new: true,
+      }
+    );
+    res.status(200).json({
+      message: "User Government ID verified successfully",
+      success: true,
+    });
+  } catch (error) {
+    console.log(error);
+  }
+};
+
+// Verify the user email
+const verifyEmail = async (req, res) => {
+  console.log(req.body);
+};
+
+// Verify the userr phone number
+const verifyPhoneNumber = async (req, res) => {
+  console.log(req.body);
+};
+
 // Upload the user profile Image
 const uploadProfileImage = async (req, res) => {
   try {
@@ -504,6 +543,9 @@ module.exports = {
   signup,
   login,
   logOutUser,
+  verifyGovernmentId,
+  verifyEmail,
+  verifyPhoneNumber,
   refreshToken,
   checkEmail,
   postUser,

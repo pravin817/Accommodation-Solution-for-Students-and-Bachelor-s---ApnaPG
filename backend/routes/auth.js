@@ -11,6 +11,9 @@ const {
   userToHost,
   userProfileDetails,
   userProfileAbout,
+  verifyGovernmentId,
+  verifyEmail,
+  verifyPhoneNumber,
 } = require("../controllers/authController");
 const verifyJwtToken = require("../middlewares/authMiddleware");
 const router = express.Router();
@@ -18,6 +21,9 @@ const router = express.Router();
 router.post("/sign-up", signup);
 router.post("/log-in", login);
 router.post("/logout", verifyJwtToken, logOutUser);
+router.post("/verify-government-document", verifyJwtToken, verifyGovernmentId);
+router.post("/verify-email", verifyJwtToken, verifyEmail);
+router.post("/verify-phone", verifyJwtToken, verifyPhoneNumber);
 router.post("/get-user-details", verifyJwtToken, getUserDetails);
 router.post("/post", verifyJwtToken, postUser);
 router.post("/uploadImage", verifyJwtToken, uploadProfileImage);

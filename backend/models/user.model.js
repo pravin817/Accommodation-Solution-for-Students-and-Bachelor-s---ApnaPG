@@ -122,6 +122,36 @@ const userSchema = new mongoose.Schema(
         type: String,
       },
     },
+    emailVerification: {
+      verified: {
+        type: Boolean,
+        default: false,
+      },
+      verificationCode: {
+        type: String,
+      },
+    },
+    mobileVerification: {
+      verified: {
+        type: Boolean,
+        default: false,
+      },
+      verificationCode: {
+        type: String,
+      },
+    },
+    governmentDocumentVerification: {
+      verified: {
+        type: Boolean,
+        default: false,
+      },
+      documentType: {
+        type: String,
+      },
+      documentNumber: {
+        type: String,
+      },
+    },
   },
   { timestamps: { createdAt: "created_at", updatedAt: "updated_at" } }
 );
