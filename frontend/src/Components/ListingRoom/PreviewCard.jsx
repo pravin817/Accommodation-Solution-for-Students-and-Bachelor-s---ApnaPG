@@ -1,6 +1,8 @@
 import { useSelector } from "react-redux";
 
 import { AiFillStar } from "react-icons/ai";
+import { PiCurrencyInrBold } from "react-icons/pi";
+
 
 const PreviewCard = () => {
   const currentHouseData = useSelector(
@@ -32,7 +34,10 @@ const PreviewCard = () => {
               {currentHouseData?.title}
             </p>
             <span className=" flex flex-row gap-1">
-              <p className=" font-bold">${currentHouseData?.basePrice}</p>
+              <p className=" font-bold flex items-center justify-between">
+                <PiCurrencyInrBold />
+                {currentHouseData?.basePrice}
+              </p>
               <span>night</span>
             </span>
           </div>
@@ -46,7 +51,7 @@ const PreviewCard = () => {
       <dialog id="my_modal_4" className="modal rounded-lg">
         <form method="dialog" className="modal-box w-11/12 max-w-5xl m-5">
           <button className="btn btn-sm btn-circle btn-ghost absolute right-4 top-3 p-1">
-            ✕ 
+            ✕
           </button>
           <h3 className="font-bold text-lg text-center">Full preview</h3>
           <div className=" grid grid-cols-1 md:grid-cols-2 gap-10 overflow-y-auto py-7">

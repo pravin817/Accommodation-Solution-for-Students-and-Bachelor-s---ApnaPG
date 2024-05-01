@@ -1,5 +1,6 @@
 import { useSelector } from "react-redux";
 import { AiFillStar } from "react-icons/ai";
+import { PiCurrencyInrBold } from "react-icons/pi";
 
 const Listing = ({ searchParamsObj }) => {
   //   console.log("The search params obj in the listing is: ", searchParamsObj);
@@ -79,20 +80,29 @@ const Listing = ({ searchParamsObj }) => {
             )}
 
             {/* calculate price  */}
-            <p>${basePrice === 0 ? listingData?.basePrice : basePrice}</p>
+            <p className="flex items-center">
+              <PiCurrencyInrBold />
+              {basePrice === 0 ? listingData?.basePrice : basePrice}
+            </p>
           </span>
 
           <span className="flex flex-row items-center justify-between text-base text-[#222]">
             <p>Taxes</p>
-            <p>${tax}</p>
+            <p className="flex items-center">
+              <PiCurrencyInrBold />
+              {tax}
+            </p>
           </span>
         </div>
 
         <hr className="w-full h-[1.3px] bg-[#dddddd] my-6" />
         {/* total price */}
         <div className="flex flex-row items-center justify-between text-base text-[#222] font-medium">
-          <p>Total(USD)</p>
-          <p>${totalPrice}</p>
+          <p>Total(INR)</p>
+          <p className="flex items-center">
+            <PiCurrencyInrBold />
+            {totalPrice}
+          </p>
         </div>
       </div>
     </>

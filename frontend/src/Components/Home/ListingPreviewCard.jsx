@@ -1,4 +1,5 @@
 import { AiFillStar } from "react-icons/ai";
+import { PiCurrencyInrBold } from "react-icons/pi";
 
 const ListingPreviewCard = ({ listingData, showBeforeTaxPrice }) => {
   const taxes = Math.round((listingData?.basePrice * 14) / 100);
@@ -22,13 +23,15 @@ const ListingPreviewCard = ({ listingData, showBeforeTaxPrice }) => {
           </p>
           {showBeforeTaxPrice && (
             <p className="text-sm text-[#717171]">
-              After tax ${priceAfterTaxes}{" "}
-              <span className=" font-normal">night</span>
+              After tax <PiCurrencyInrBold />
+              {priceAfterTaxes} <span className=" font-normal"> per night</span>
             </p>
           )}
-          <p className="text-sm text-[#222222] font-semibold">
-            ${listingData?.basePrice}{" "}
-            <span className=" font-normal">night</span>
+          <p className="text-sm text-[#222222] font-semibold flex items-center">
+            <PiCurrencyInrBold />
+            <span></span>
+            {listingData?.basePrice}{" "}
+            <span className=" font-normal pl-1">per night</span>
           </p>
         </div>
 

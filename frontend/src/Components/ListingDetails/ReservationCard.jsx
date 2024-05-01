@@ -4,6 +4,7 @@ import { useNavigate } from "react-router-dom";
 import axios from "axios";
 import { parseISO } from "date-fns";
 import { AiFillStar, AiOutlineMinus, AiOutlinePlus } from "react-icons/ai";
+import { PiCurrencyInrBold } from "react-icons/pi";
 
 import { useOutsideClick } from "../../hooks/useOutsideClick";
 import { newReservation } from "../../redux/actions/reservationsActions";
@@ -202,8 +203,9 @@ const ReservationCard = ({ listingData }) => {
     <div className="border w-full border-[#dddddd]  min-h-[315px] rounded-xl sticky top-32 shadow p-6 ">
       <div className="flex flex-row justify-between items-start">
         <div className="flex flex-col">
-          <h3 className="text-[22px] text-[#222222] font-semibold">
-            ${reservationBasePrice}
+          <h3 className="flex items-center gap-1  text-[22px] text-[#222222] font-semibold">
+            <PiCurrencyInrBold />
+            {reservationBasePrice}
           </h3>
           <p className="text-xs text-[#313131]">Total Price Before Taxes</p>
         </div>
@@ -283,14 +285,14 @@ const ReservationCard = ({ listingData }) => {
       {showDropdown && (
         <div
           ref={dropdownRef}
-          className="min-h-[200px] w-72 shadow-lg border absolute z-[90] bg-white px-4 py-5 rounded-md"
+          className="min-h-[150px] w-72 shadow-lg border absolute z-[90] bg-white px-4 py-5 rounded-md"
         >
           <div className=" flex flex-col gap-5">
             <div className=" flex felx-row items-center justify-between">
               {/* adults number here */}
               <span>
                 <p className=" text-base text-[#222222] font-medium">Adults</p>
-                <p className=" text-sm text-[#313131]">Age 13+</p>
+                <p className=" text-sm text-[#313131]">Age 18+</p>
               </span>
               {/* icons */}
               <span className=" flex flex-row-reverse items-center gap-2">
@@ -316,40 +318,8 @@ const ReservationCard = ({ listingData }) => {
                 </button>
               </span>
             </div>
-            <div className=" flex felx-row items-center justify-between">
-              {/* children number here */}
-              <span>
-                <p className=" text-base text-[#222222] font-medium">
-                  Children
-                </p>
-                <p className=" text-sm text-[#313131]">Ages 2-12</p>
-              </span>
-              {/* icons */}
-              <span className=" flex flex-row-reverse items-center gap-2">
-                <button
-                  onClick={() => {
-                    setChildrenNumber((prev) => prev + 1);
-                  }}
-                  disabled={listingData?.floorPlan?.guests === totalGuest}
-                  className=" p-2 rounded-full border border-[#c0c0c0] opacity-90 disabled:cursor-not-allowed disabled:opacity-20"
-                >
-                  <AiOutlinePlus size={16} />
-                </button>
-                <p className=" w-[30px] flex justify-center">
-                  {childrenNumber}
-                </p>
 
-                <button
-                  onClick={() => {
-                    setChildrenNumber((prev) => prev - 1);
-                  }}
-                  disabled={childrenNumber === 0}
-                  className=" p-2 rounded-full border border-[#c0c0c0] disabled:cursor-not-allowed disabled:opacity-20"
-                >
-                  <AiOutlineMinus size={16} />
-                </button>
-              </span>
-            </div>
+            <hr />
           </div>
           {/* close btn */}
           <div className=" flex justify-end absolute bottom-3 right-2">
@@ -405,4 +375,3 @@ const ReservationCard = ({ listingData }) => {
 };
 
 export default ReservationCard;
-

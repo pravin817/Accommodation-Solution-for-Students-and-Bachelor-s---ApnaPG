@@ -1,8 +1,10 @@
 import { useState } from "react";
 import search from "../../assets/BasicIcon/searchRed.svg";
+import { PiCurrencyInrBold } from "react-icons/pi";
+
 
 const RoomHostingDetails = () => {
-  const ratePerNight = 20;
+  const ratePerNight = 100;
   const [perNight, setPerNight] = useState(1);
   const [isTooltipActive, setIsTooltipActive] = useState(false);
 
@@ -20,18 +22,24 @@ const RoomHostingDetails = () => {
         <h1>You could earn</h1>
       </div>
       {/* Add the amount  */}
-      <p className=" text-center text-[#222222] font-semibold text-3xl my-2 md:text-7xl md:my-4">
-        $ {perNightEarning}
+      <p className=" flex items-center justify-center text-center text-[#222222] font-semibold text-3xl my-2 md:text-7xl md:my-4">
+        <PiCurrencyInrBold />
+        {perNightEarning}
       </p>
       {/* description of the amount  */}
 
-      <div className="text-sm md:text-base text-[#222222] flex gap-1 justify-center h-5">
+      <div className="text-sm md:text-base text-[#222222] gap-1 justify-center h-5 flex items-center">
         {!isTooltipActive && (
           <>
             <span className=" font-medium underline underline-offset-3">
               {perNight} nights
             </span>
-            <span> at an estimated $37 a night</span>
+            <span className="flex items-center">
+              {" "}
+              at an estimated
+              <PiCurrencyInrBold />
+              {ratePerNight} a night
+            </span>
           </>
         )}
       </div>
