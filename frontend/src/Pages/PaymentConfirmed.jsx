@@ -53,12 +53,12 @@ const PaymentConfirmed = () => {
     }
   }, []);
 
-  if (!isLoading)
-    return (
-      <div className="flex flex-col justify-center items-center w-full h-[60dvh]">
-        <FadeLoader color="#000" />
-      </div>
-    );
+  // if (isLoading)
+  //   return (
+  //     <div className="flex flex-col justify-center items-center w-full h-[60dvh]">
+  //       <FadeLoader color="#000" />
+  //     </div>
+  //   );
 
   return (
     <div className=" min-w-md mx-auto text-center ">

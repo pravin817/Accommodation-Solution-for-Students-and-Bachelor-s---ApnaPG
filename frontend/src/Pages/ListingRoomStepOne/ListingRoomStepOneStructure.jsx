@@ -111,7 +111,7 @@ const ListingRoomStepOneStructure = () => {
           svgSize={svgSize}
           ptagStyle={structurePtagClass}
         /> */}
-        <StructureCard
+        {/* <StructureCard
           style={structureCardStyle}
           Img={GoContainer}
           name={"Container"}
@@ -119,7 +119,7 @@ const ListingRoomStepOneStructure = () => {
           storedCardData={storedCardData}
           svgSize={svgSize}
           ptagStyle={structurePtagClass}
-        />
+        /> */}
         {/* <StructureCard
           style={structureCardStyle}
           Img={GiLightningDome}

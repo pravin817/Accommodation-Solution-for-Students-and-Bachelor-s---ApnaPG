@@ -1,10 +1,6 @@
 import { useEffect, useState } from "react";
 import { useSelector } from "react-redux";
-// import { useHistory } from "react-router-dom";
-import PhotoCard from "../Components/ListingRoom/PhotoCard";
 
-// import { FaGreaterThan } from "react-icons/fa";
-import { FaGreaterThan } from "react-icons/fa6";
 import { LiaGreaterThanSolid } from "react-icons/lia";
 import { Link } from "react-router-dom";
 
@@ -39,31 +35,25 @@ const VerifyAccount = () => {
   console.log("The user Id is ", userId);
 
   const [roomPhotos, setRoomPhotos] = useState([]);
-  // const history = useHistory();
 
   useEffect(() => {
     setRoomPhotos([...roomPhotos, photos]);
   }, [photos]);
 
-  const handleVerifyGovtID = () => {
-    // Redirect to the new page for document options
-    // history.push("/verify-documents");
-  };
-
   return (
-    <div className="flex flex-col gap-20 max-w-screen-md mx-auto my-6 min-h-[70vh]">
-      <div className="flex flex-col gap-3 md:gap-0 mt-10">
+    <div className="flex flex-col gap-8 max-w-screen-md mx-auto my-6 min-h-[70vh]">
+      <div className="flex flex-col gap-3 md:gap-0 mt-10 m-2">
         <h1 className="text-[#222222] text-2xl md:text-[32px] font-medium">
           Verify Your Profile
         </h1>
-        <p className="text-base md:text-lg mt-2 text-[#717171]">
-          You'll need 5 photos to get started. You can add more or make changes
-          later.
+        <p className="text-base mt-2 text-[#717171]">
+          Verify your account with the government documents , phone number and
+          email to increase the trust of the users.
         </p>
       </div>
 
       {/* The list goes here  */}
-      <div>
+      <div className="m-2">
         {verificationOptions.map((option) => {
           return (
             <Link
@@ -80,17 +70,20 @@ const VerifyAccount = () => {
                 </p>
               </div>
               <div>
-                {/* <FaGreaterThan /> */}
-                {/* <FaGreaterThan /> */}
                 <LiaGreaterThanSolid />
               </div>
             </Link>
           );
         })}
-      </div>
 
-      {/* Take the photos of the room  */}
-      {/* <PhotoCard /> */}
+        <div className="m-2 mt-8">
+          <p className="text-sm md:text-xs">
+            The data collected by ApnaPG is neccessary in the verifying the your
+            identity. For more informations and to exercise your right, see our
+            <span className="text-red-700 font-semibold"> Privacy Policy</span>
+          </p>
+        </div>
+      </div>
     </div>
   );
 };

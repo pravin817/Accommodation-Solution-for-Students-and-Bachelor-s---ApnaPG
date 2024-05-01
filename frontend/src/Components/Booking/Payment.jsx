@@ -9,9 +9,12 @@ import { useState } from "react";
 import { useDateFormatting } from "../../hooks/useDateFormatting";
 import toast from "react-hot-toast";
 import { PulseLoader } from "react-spinners";
+import { useNavigate } from "react-router-dom";
+
 
 const Payment = ({ searchParamsObj }) => {
   console.log("The search params obj is: ", searchParamsObj);
+
   // get the reservations data
   const newReservationsData = useSelector(
     (state) => state.reservations.newReservationsData
@@ -20,13 +23,13 @@ const Payment = ({ searchParamsObj }) => {
 
   // get the listing Data
   const listingData = useSelector((state) => state.room.listingDetails.listing);
-  //   console.log("The listing data from the payment is : ", listingData);
+  console.log("The listing data from the payment is : ", listingData);
 
   // get the stripe
-  const stripe = useStripe();
-  const elements = useElements();
-  const [isProcessing, setIsProcessing] = useState(false);
-  const [message, setMessage] = useState("");
+  // const stripe = useStripe();
+  // const elements = useElements();
+  // const [isProcessing, setIsProcessing] = useState(false);
+  // const [message, setMessage] = useState("");
 
   // Get the required data
   const dateObj = {
@@ -70,29 +73,41 @@ const Payment = ({ searchParamsObj }) => {
 
   const orderId = Math.round(Math.random() * 10000000000);
   console.log("The order id is: ", orderId);
+  const navigate = useNavigate();
+
+
+  // const handlePayment = async (e) => {
+  //   e.preventDefault();
+
+  // if (!stripe || !elements) {
+  //   return;
+  // }
+
+  // setIsProcessing(true);
+
+  // const { error } = await stripe.confirmPayment({
+  //   elements,
+  //   confirmParams: {
+  //     return_url: `${window.location.origin}/payment-confirmed?guestNumber=${guestNumber}&checkIn=${checkin}&checkOut=${checkout}&listingId=${listingData?._id}&authorId=${listingData?.author}&nightStaying=${nightStaying}&orderId=${orderId}`,
+  //   },
+  // });
+  // if (error) {
+  //   setMessage(error.message);
+  //   toast.error("Payment failed. Try again!");
+  //   console.log("[error from the payment]", error);
+  // }
+
+  // setIsProcessing(false);
+  // };
 
   const handlePayment = async (e) => {
     e.preventDefault();
 
-    if (!stripe || !elements) {
-      return;
-    }
+    // Construct the URL for payment confirmation
+    const paymentConfirmationURL = `${window.location.origin}/payment-confirmed?guestNumber=${guestNumber}&checkIn=${checkin}&checkOut=${checkout}&listingId=${listingData?._id}&authorId=${listingData?.author}&nightStaying=${nightStaying}&orderId=${orderId}`;
 
-    setIsProcessing(true);
-
-    const { error } = await stripe.confirmPayment({
-      elements,
-      confirmParams: {
-        return_url: `${window.location.origin}/payment-confirmed?guestNumber=${guestNumber}&checkIn=${checkin}&checkOut=${checkout}&listingId=${listingData?._id}&authorId=${listingData?.author}&nightStaying=${nightStaying}&orderId=${orderId}`,
-      },
-    });
-    if (error) {
-      setMessage(error.message);
-      toast.error("Payment failed. Try again!");
-      console.log("[error from the payment]", error);
-    }
-
-    setIsProcessing(false);
+    // Redirect to the payment confirmation page
+    window.location.href = paymentConfirmationURL;
   };
 
   return (
@@ -111,7 +126,6 @@ const Payment = ({ searchParamsObj }) => {
           </span>
 
           {/* Guest Number  */}
-
           <span className="text-sm md:text-base text-[#2222222] ">
             <p className="font-medium">Guests </p>
             <p>
@@ -128,7 +142,10 @@ const Payment = ({ searchParamsObj }) => {
             pay with
           </h5>
           {/* fire the stripe payment here */}
-          <PaymentElement />
+          {/* <PaymentElement /> */}
+          <div className="border rounded-md h-[120px]  flex items-center justify-center mt-4">
+            The payment dialog will be here
+          </div>
           <hr className="w-full h-[1.3px] bg-[#dddddd] my-4" />
 
           {/* The ground rules  */}
@@ -157,16 +174,9 @@ const Payment = ({ searchParamsObj }) => {
 
           <button
             type="submit"
-            disabled={isProcessing}
             className="w-full md:max-w-[180px] mt-7 px-5 py-3 rounded-md bg-[#ff385c] hover:bg-[#d90b63] transition duration-200 ease-in text-white font-medium cursor-pointer disabled:cursor-not-allowed disabled:opacity-30 disabled:bg-gray-400 min-w-[180px]"
           >
-            {isProcessing ? (
-              <>
-                <PulseLoader size={8} color="#000000" speedMultiplier={0.5} />
-              </>
-            ) : (
-              "Confirm and pay"
-            )}
+            Confirm and pay
           </button>
         </form>
       </div>

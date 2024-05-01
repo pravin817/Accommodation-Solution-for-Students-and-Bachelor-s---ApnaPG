@@ -1,7 +1,7 @@
 import api from "../../backend";
 
 export const newReservation = (data) => async (dispatch) => {
-  console.log(data);
+  console.log("The new reservation data called from the newReservation actions : ", data);
 
   const reservationData = {
     listingId: data?.listingData?._id,

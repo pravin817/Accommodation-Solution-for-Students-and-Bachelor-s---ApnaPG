@@ -1,11 +1,13 @@
 import { useEffect, useState } from "react";
 
 import { MdEdit, MdKeyboardArrowDown, MdKeyboardArrowUp } from "react-icons/md";
+import { PiCurrencyInrBold } from "react-icons/pi";
+
 import { useDispatch, useSelector } from "react-redux";
 import { createNewRoom } from "../../redux/actions/roomActions";
 
 const ListingRoomFinalStepPricing = () => {
-  const [inputValue, setInputValue] = useState("160");
+  const [inputValue, setInputValue] = useState("100");
   const [showEdit, setShowEdit] = useState(true);
   const [showPricingTable, setShowPricingTable] = useState(false);
 
@@ -26,7 +28,7 @@ const ListingRoomFinalStepPricing = () => {
   // Price calculation
   const basePrice = parseInt(inputValue ? inputValue : 0);
   const taxesPercentValue = 14;
-  const hostServiceFee = 3;
+  const hostServiceFee = 2;
   const taxBasedOnBasePrice = Math.round((basePrice * taxesPercentValue) / 100);
   const serviceFeeBasedOnBasePrice = Math.round(
     (basePrice * hostServiceFee) / 100
@@ -72,7 +74,7 @@ const ListingRoomFinalStepPricing = () => {
       <div className=" mx-auto mt-10">
         <div className=" flex flex-row items-center relative">
           <span className=" text-[#222222] text-4xl sm:text-6xl md:text-9xl font-semibold">
-            $
+            <PiCurrencyInrBold />
           </span>
           <input
             type="text"
@@ -104,10 +106,11 @@ const ListingRoomFinalStepPricing = () => {
         {!showPricingTable && (
           <div className=" flex justify-center items-center cursor-pointer">
             <p
-              className=" text-sm text-[#717171]"
+              className=" text-sm text-[#717171] flex items-center "
               onClick={handleShowPricingTable}
             >
-              Guest price before taxes ${priceBeforeTaxes}
+              Guest price before taxes <PiCurrencyInrBold />
+              {priceBeforeTaxes}
             </p>
             <div onClick={handleShowPricingTable}>
               <MdKeyboardArrowDown size={24} />
@@ -122,19 +125,26 @@ const ListingRoomFinalStepPricing = () => {
             {/* house price calculation */}
             <div className=" flex flex-row justify-between items-center">
               <p className=" text-sm text-[#717171]">Base Price</p>
-              <p className=" text-sm text-[#717171]">${basePrice}</p>
+              <p className=" text-sm text-[#717171] flex items-center">
+                <PiCurrencyInrBold />
+                {basePrice}
+              </p>
             </div>
             <div className=" flex flex-row justify-between items-center">
               <p className=" text-sm text-[#717171]">Guest service fee</p>
-              <p className=" text-sm text-[#717171]">${taxBasedOnBasePrice}</p>
+              <p className=" text-sm text-[#717171] flex items-center">
+                <PiCurrencyInrBold />
+                {taxBasedOnBasePrice}
+              </p>
             </div>
             <hr className=" bg-[#b0b0b0] h-[1px]" />
             <div className=" flex flex-row justify-between items-center">
               <p className=" text-sm text-[#222222] font-medium">
                 Guest price before taxes
               </p>
-              <p className=" text-sm text-[#222222] font-medium">
-                ${priceBeforeTaxes}
+              <p className=" text-sm text-[#222222] font-medium flex items-center">
+                <PiCurrencyInrBold />
+                {priceBeforeTaxes}
               </p>
             </div>
           </div>
@@ -143,19 +153,24 @@ const ListingRoomFinalStepPricing = () => {
           <div className=" flex flex-col gap-3 px-4 py-6 rounded-xl border border-[#b0b0b0] ">
             <div className=" flex flex-row justify-between items-center">
               <p className=" text-sm text-[#717171]">Base Price</p>
-              <p className=" text-sm text-[#717171]">${basePrice}</p>
+              <p className=" text-sm text-[#717171] flex items-center">
+                <PiCurrencyInrBold />
+                {basePrice}
+              </p>
             </div>
             <div className=" flex flex-row justify-between items-center">
               <p className=" text-sm text-[#717171]">Host service fee</p>
-              <p className=" text-sm text-[#717171]">
-                - ${serviceFeeBasedOnBasePrice}
+              <p className=" text-sm text-[#717171] flex items-center">
+                - <PiCurrencyInrBold />
+                {serviceFeeBasedOnBasePrice}
               </p>
             </div>
             <hr className=" bg-[#b0b0b0] h-[1px]" />
             <div className=" flex flex-row justify-between items-center">
               <p className=" text-sm text-[#222222] font-medium">You earn</p>
-              <p className=" text-sm text-[#222222] font-medium">
-                ${authorEarnedPrice}
+              <p className=" text-sm text-[#222222] font-medium flex items-center">
+                <PiCurrencyInrBold />
+                {authorEarnedPrice}
               </p>
             </div>
           </div>

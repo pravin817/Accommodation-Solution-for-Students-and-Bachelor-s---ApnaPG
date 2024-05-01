@@ -34,7 +34,12 @@ import Listing from "../Pages/Dashboard/Listing";
 import Book from "../Pages/Book";
 import PaymentConfirmed from "../Pages/PaymentConfirmed";
 import Help from "../Pages/Help";
-import VerifyAccount from "../Pages/VerifyAccount";
+import VerifyAccount from "../Pages/VerifyUser/VerifyAccount";
+import VerifyDocuments from "../Pages/VerifyUser/VerifyDocuments";
+import VerifyMobileNo from "../Pages/VerifyUser/VerifyMobileNo";
+import VerifyEmail from "../Pages/VerifyUser/VerifyEmail";
+import VerifyDoc from "../Pages/VerifyUser/VerifyDoc";
+// import VerifyAccount from "../Pages/VerifyAccount";
 
 // import HelloWorld from "../Pages/HelloWorld";
 // import Test from "../Pages/Test";
@@ -193,10 +198,29 @@ const router = createBrowserRouter([
           </Suspense>
         ),
       },
+
+      // The verification section
       {
         path: "/users/show/:id/verify-account",
         element: <VerifyAccount />,
       },
+      {
+        path: "/users/show/:id/verify-account/verify-documents",
+        element: <VerifyDocuments />,
+      },
+      {
+        path: "/users/show/:id/verify-account/verify-phone",
+        element: <VerifyMobileNo />,
+      },
+      {
+        path: "/users/show/:id/verify-account/verify-email",
+        element: <VerifyEmail />,
+      },
+      {
+        path: "/users/show/:id/verify-account/verify-documents/doc/:id",
+        element: <VerifyDoc />,
+      },
+
       {
         path: "/help",
         element: (

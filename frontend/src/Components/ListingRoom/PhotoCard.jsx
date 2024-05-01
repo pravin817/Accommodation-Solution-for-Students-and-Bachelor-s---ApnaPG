@@ -7,7 +7,6 @@ import { createNewRoom } from "../../redux/actions/roomActions";
 
 const PhotoCard = () => {
   const newRoomData = useSelector((state) => state.room.newRoom);
-
   const [images, setImages] = useState([]);
   const [inputImage, setInputImage] = useState(null);
   const [isImageUploading, setIsImageUploading] = useState(false);

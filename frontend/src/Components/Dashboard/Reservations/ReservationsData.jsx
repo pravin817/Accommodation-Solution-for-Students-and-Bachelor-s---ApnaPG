@@ -11,6 +11,7 @@ const ReservationsData = ({ active }) => {
   const authorReservations = useSelector(
     (state) => state.reservations.authorReservations
   );
+  console.log("The author reservations are ", authorReservations);
   const [reservations, setReservations] = useState([]);
   const [upcomingReservations, setUpcomingReservations] = useState([]);
   const [completedReservations, setCompletedReservations] = useState([]);

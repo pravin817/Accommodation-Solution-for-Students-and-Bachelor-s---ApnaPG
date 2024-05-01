@@ -55,7 +55,7 @@ export const userProfileOptions = [
     popUpContent: {
       header: "What are you obsessed with?",
       subHeader:
-        "Share whatever you can’t get enough of—in a good way. Example: Baking rosemary focaccia.",
+        "Share whatever you can’t get enough of—in a good way. Example: cooking exotic dishes from different cultures",
     },
     fieldName: "obsessedWith",
   },
