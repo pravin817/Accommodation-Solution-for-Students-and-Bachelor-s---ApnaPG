@@ -1,15 +1,10 @@
-import { useEffect, useState } from "react";
-import { useDispatch, useSelector } from "react-redux";
+import React, { useEffect, useState } from "react";
+import { useNavigate, useParams } from "react-router-dom";
 import backIcon from "../../assets/BasicIcon/backIcon.png";
 import { LiaPhotoVideoSolid } from "react-icons/lia";
-
-import { LiaGreaterThanSolid } from "react-icons/lia";
-import { useNavigate, useParams } from "react-router-dom";
-import { createNewRoom } from "../../redux/actions/roomActions";
 import toast from "react-hot-toast";
-import { PropagateLoader } from "react-spinners";
-import axios from "axios";
-import api, { API } from "../../backend";
+import { PulseLoader } from "react-spinners";
+import api from "../../backend";
 
 const governmentDocumentDetail = [
   {
@@ -30,135 +25,96 @@ const governmentDocumentDetail = [
 ];
 
 const VerifyDoc = () => {
-  // get the house photos from redux
-  const photos = useSelector((state) => state.room.newRoom?.photos);
-  const user = useSelector((state) => state.user.userDetails);
-
   const navigate = useNavigate();
-
   const { id } = useParams();
-
-  const newRoomData = useSelector((state) => state.room.newRoom);
   const [image, setImage] = useState(null);
-  const [inputImage, setInputImage] = useState(null);
+  const [selectedImage, setSelectedImage] = useState(null);
   const [isImageUploading, setIsImageUploading] = useState(false);
 
   const handleImageSelect = (event) => {
-    const selectedImage = event.target.files[0];
-    if (selectedImage) {
-      setInputImage(selectedImage);
+    const img = event.target.files[0];
+    if (img) {
+      setSelectedImage(URL.createObjectURL(img));
+      setImage(img);
     }
   };
 
-  // upload Image to DB
-  useEffect(() => {
-    async function uploadImagetoDB() {
-      setIsImageUploading(true);
-      if (image) {
-        let document = {
-          image: image,
-          docType: governmentDocumentDetail[id - 1].title,
-        };
-
-        const res = await api.post("/auth/verify-id", document, {
-          headers: {
-            "Content-Type": "application/json",
-          },
-        });
-
-        console.log("The response is ", res);
-        toast.success("Image uploaded successfully");
-
-        setIsImageUploading(false);
-      }
-    }
-    // const uploadImagetoDB = async () => {
-    //   try {
-    //     console.log("upload Image to db called", image);
-    //     const res = await axios.post(
-    //       `${api}auth/verify-id`,
-    //       {
-    //         image: image,
-    //         docType: governmentDocumentDetail[id - 1].title,
-    //       },
-    //       {
-    //         headers: {
-    //           "Content-Type": "application/json",
-    //         },
-    //       }
-    //     );
-
-    //     console.log("The response is ", res.data);
-    //     if (res?.data?.success) {
-    //       toast.success("Image uploaded successfully");
-    //     } else {
-    //       toast.error("Image upload failed");
-    //     }
-    //   } catch (error) {
-    //     console.log(error);
-    //   }
-    // };
-
-    uploadImagetoDB();
-  }, [image]);
+  const handleRemoveImage = () => {
+    setSelectedImage(null);
+    setImage(null);
+  };
 
   const handleUploadImage = async () => {
-    if (!inputImage) {
+    setIsImageUploading(true);
+
+    if (!image) {
       toast.error("Please select an image to upload.");
+      setIsImageUploading(false);
       return;
     }
 
-    setIsImageUploading(true);
-
     const imageFormData = new FormData();
-    imageFormData.append("file", inputImage);
+    imageFormData.append("file", image);
     imageFormData.append("upload_preset", "ApnaPG_preset");
     imageFormData.append(
       "cloud_name",
       import.meta.env.VITE_APP_CLOUDINARY_CLOUD_NAME
     );
 
-    // saving to cloudinary
     try {
-      let cloudName = import.meta.env.VITE_APP_CLOUDINARY_CLOUD_NAME;
-      let url = `https://api.cloudinary.com/v1_1/${cloudName}/image/upload`;
-      await fetch(url, {
-        method: "POST",
-        body: imageFormData,
-      })
-        .then((res) => res.json())
-        .then((data) => {
-          // console.log(data);
-          setImage(data.url);
+      const response = await fetch(
+        `https://api.cloudinary.com/v1_1/${
+          import.meta.env.VITE_APP_CLOUDINARY_CLOUD_NAME
+        }/image/upload`,
+        {
+          method: "POST",
+          body: imageFormData,
+        }
+      );
+      const data = await response.json();
+      console.log("The data is ", data);
+      console.log("The url of the image is from verify doc ", data.url);
+      if (data.error) {
+        toast.error(data.error.message);
+      } else {
+        // Send request to backend to handle document verification
+        const document = {
+          image: data.url,
+          docType: governmentDocumentDetail[id - 1].title,
+        };
 
-          if (data.error) {
-            toast.error(data?.error?.message);
-            setIsImageUploading(false);
-          } else {
-            setIsImageUploading(false);
+        const res = await api.post(
+          "/auth/verify-government-document",
+          document,
+          {
+            headers: {
+              "Content-Type": "application/json",
+            },
           }
-        })
-        .catch((err) => {
-          toast.error(err.message + "try again");
-          setIsImageUploading(false);
-        });
+        );
+
+        console.log("The response is ", res);
+        toast.success(
+          "Document sent for verification. You will receive an email about the verification."
+        );
+      }
     } catch (error) {
-      console.log(error);
-      toast.error(error);
-      setIsImageUploading(false);
+      console.error("Error uploading image:", error);
+      toast.error(
+        "An error occurred while uploading the image. Please try again."
+      );
     } finally {
       setIsImageUploading(false);
-      setInputImage(null);
     }
   };
 
   return (
-    <section className=" max-w-[1200px] mx-auto px-4 sm:px-8 md:px-10 xl:px-20 py-8 md:py-12">
+    <section className="max-w-[1200px] mx-auto px-4 sm:px-8 md:px-10 xl:px-20 py-8 md:py-12">
       <div
         onClick={() => {
           navigate(-1);
         }}
-        className=" flex flex-rows gap-3 items-center"
+        className="flex flex-rows gap-3 items-center"
       >
         <img
           src={backIcon}
@@ -174,53 +130,74 @@ const VerifyDoc = () => {
         <hr className="mt-2 w-full h-[1px] bg-[#dddddd] z-0" />
 
         <div className="mt-10 w-11/12 mx-auto">
-          <div className="w-11/12 mx-auto flex flex-col items-center justify-center ">
+          <div className="w-11/12 mx-auto flex flex-col items-center justify-center">
             <h2 className="text-xl font-semibold p-2 text-center">
               {governmentDocumentDetail[id - 1].title}
-            </h2>{" "}
+            </h2>
             <p className="text-base text-center">
               {governmentDocumentDetail[id - 1].description}
             </p>
             <label
               htmlFor="houseImage"
-              className=" py-20 mt-3 mb-4 bg-white border-dashed border-[#b0b0b0] border flex justify-center items-center max-h-[250px] w-10/12"
+              className="py-20 mt-3 mb-4 bg-white border-dashed border-[#2e2a2a] border flex justify-center items-center max-h-[250px] w-full md:w-9/12 lg:w-2/3 xl:w-1/2 relative rounded-lg"
             >
-              {/* {isImageUploading ? (
+              {selectedImage ? (
                 <>
-                  <PropagateLoader loading color="#717171" />
+                  <img
+                    src={selectedImage}
+                    alt="Selected Document"
+                    className="max-h-[250px] p-2"
+                  />
+                  <button
+                    className="text-sm absolute bottom-2 right-2 bg-red-500 text-white px-2 py-1 rounded-lg"
+                    onClick={handleRemoveImage}
+                  >
+                    Remove
+                  </button>
                 </>
-              ) : ( */}
-              <div className=" flex flex-col justify-center items-center gap-3">
-                <div>
-                  <LiaPhotoVideoSolid size={72} />
+              ) : (
+                <div className="flex flex-col justify-center items-center gap-3">
+                  <div>
+                    <LiaPhotoVideoSolid size={72} />
+                  </div>
+                  <div className="text-center h-[100px]">
+                    <h6 className="text-xl text-black font-medium py-2">
+                      Select your photo of{" "}
+                      {governmentDocumentDetail[id - 1].title} here
+                    </h6>
+                    <p className="text-black text-sm underline underline-offset-2 font-medium cursor-pointer">
+                      Upload from your device
+                    </p>
+                  </div>
                 </div>
-                <div className="text-center h-[100px]">
-                  <h6 className=" text-xl text-black font-medium py-2">
-                    Select your photo of{" "}
-                    {governmentDocumentDetail[id - 1].title} here
-                  </h6>
-
-                  <p className=" text-black text-sm underline underline-offset-2 font-medium cursor-pointer">
-                    Upload from your device
-                  </p>
-                </div>
-              </div>
-              {/* )} */}
+              )}
               <input
                 type="file"
                 name="photos"
-                className=" hidden"
+                className="hidden"
                 onChange={handleImageSelect}
                 id="houseImage"
                 multiple
                 accept=".jpg,.jpeg,.png,image/jpeg,image/jpg,image/png"
               />
             </label>
-            <div
-              className="btn bg-black px-2 py-1 rounded-md text-white cursor-pointer"
-              onClick={handleUploadImage}
-            >
-              Upload
+            <div className="relative">
+              <button
+                className="btn bg-black px-2 py-1 rounded-md text-white cursor-pointer w-full"
+                onClick={handleUploadImage}
+                disabled={isImageUploading}
+                style={{ minWidth: "120px" }} // Set a minimum width for the button
+              >
+                {isImageUploading ? (
+                  <PulseLoader
+                    color="#ff3f62ff"
+                    size={10}
+                    speedMultiplier={0.8}
+                  />
+                ) : (
+                  "Upload"
+                )}
+              </button>
             </div>
           </div>
         </div>
