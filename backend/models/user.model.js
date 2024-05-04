@@ -130,6 +130,9 @@ const userSchema = new mongoose.Schema(
       verificationCode: {
         type: String,
       },
+      otpExpiration: {
+        type: Date, // Date when OTP will expire
+      },
     },
     mobileVerification: {
       verified: {
@@ -138,6 +141,9 @@ const userSchema = new mongoose.Schema(
       },
       verificationCode: {
         type: String,
+      },
+      otpExpiration: {
+        type: Date, // Date when OTP will expire
       },
     },
     governmentDocumentVerification: {
@@ -148,7 +154,7 @@ const userSchema = new mongoose.Schema(
       documentType: {
         type: String,
       },
-      documentNumber: {
+      documentUrl: {
         type: String,
       },
     },

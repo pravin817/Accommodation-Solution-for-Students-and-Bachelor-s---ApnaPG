@@ -14,6 +14,8 @@ const {
   verifyGovernmentId,
   verifyEmail,
   verifyPhoneNumber,
+  generateOtpCodeForMobile,
+  generateOtpCodeForEmail,
 } = require("../controllers/authController");
 const verifyJwtToken = require("../middlewares/authMiddleware");
 const router = express.Router();
@@ -28,6 +30,23 @@ router.post("/get-user-details", verifyJwtToken, getUserDetails);
 router.post("/post", verifyJwtToken, postUser);
 router.post("/uploadImage", verifyJwtToken, uploadProfileImage);
 router.post("/become-a-host", verifyJwtToken, userToHost);
+
+// Security - User Account verification
+router.post(
+  "/mobile/generate-otp-code",
+  verifyJwtToken,
+  generateOtpCodeForMobile
+);
+
+router.post("/mobile/verify-otp-code", verifyJwtToken, verifyPhoneNumber);
+
+router.post(
+  "/email/generate-otp-code",
+  verifyJwtToken,
+  generateOtpCodeForEmail
+);
+
+router.post("/email/verify-otp-code", verifyJwtToken, verifyEmail);
 
 router.post("/refresh-token", refreshToken);
 router.post("/check-email", checkEmail);

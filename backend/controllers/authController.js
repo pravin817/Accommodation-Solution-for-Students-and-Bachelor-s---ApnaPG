@@ -4,6 +4,9 @@ const jwt = require("jsonwebtoken");
 const mongoose = require("mongoose");
 const User = require("../models/user.model");
 const Room = require("../models/room.model");
+const {
+  sendVerificationOTPEmail,
+} = require("../utils/sendOTPVerificationEmail");
 
 const saltRounds = 10;
 const daysToSeconds = 1 * 60 * 60; //   days * hours *  minutes *  seconds
@@ -341,14 +344,255 @@ const verifyGovernmentId = async (req, res) => {
   }
 };
 
-// Verify the user email
-const verifyEmail = async (req, res) => {
-  console.log(req.body);
+// generate the OTP
+function generateOTP() {
+  const digits = "0123456789";
+  let otp = "";
+  for (let i = 0; i < 6; i++) {
+    otp += digits[Math.floor(Math.random() * 10)];
+  }
+  return otp;
+}
+
+const generateOtpCodeForMobile = async (req, res) => {
+  try {
+    // get the userId
+    const payload = req.body;
+    const userId = req.user;
+    let isUpdated = false;
+
+    console.log(
+      "The payload from the generate OTP code for mobile is ",
+      payload
+    );
+
+    const mobileNo = payload.mobileNo;
+
+    if (!mobileNo) {
+      return res.status(400).send({
+        message: "Please provide the mobile number",
+        success: false,
+      });
+    }
+
+    // find the user by the id
+    const user = await User.findById(userId);
+
+    // check if the users mobile number and mobile number saved in db is same or not
+    if (user.mobileNo !== mobileNo) {
+      isUpdated = true;
+      // update the mobile number
+      user.mobileNo = mobileNo;
+      await user.save();
+    }
+
+    // generate the OTP code
+    const otpCode = generateOTP();
+
+    // save the OTP code to the user
+    user.mobileVerification.verificationCode = otpCode;
+
+    // Set OTP expiration to 10 minutes from current time
+    user.mobileVerification.otpExpiration = new Date(
+      Date.now() + 10 * 60 * 1000
+    );
+
+    await user.save();
+
+    let msg1 = isUpdated
+      ? `Mobile number updated , otp send on the ${mobileNo} mobile number`
+      : `OTP code send successfully on ${mobileNo} mobile number`;
+
+    res.status(200).json({
+      message: msg1,
+      success: true,
+    });
+  } catch (error) {
+    console.log(
+      "Error occured while generating the OTP code for mobile :-> ",
+      error
+    );
+    res.status(500).json({
+      message: "Error occured while generating the OTP code for mobile",
+      success: false,
+      error,
+    });
+  }
 };
 
-// Verify the userr phone number
+// Verify the user phone number
 const verifyPhoneNumber = async (req, res) => {
-  console.log(req.body);
+  try {
+    const payload = req.body;
+    const userId = req.user;
+
+    const { otp } = payload;
+
+    console.log("the data from the verify otp for mobile is ", payload);
+
+    // find the user
+    const user = await User.findById(userId);
+
+    // console.log("The user from the verify OTP for mobile is ", user);
+
+    if (!user) {
+      return res.status(404).json({
+        message: "User not found",
+        success: false,
+      });
+    }
+
+    const currenttime = new Date(Date.now());
+
+    // check if the OTP code is expired or not
+    if (currenttime > user.mobileVerification.otpExpiration) {
+      return res.status(400).json({
+        message: "OTP code is expired",
+        success: false,
+      });
+    } else {
+      // check if the OTP code is correct or not
+      if (otp === user.mobileVerification.verificationCode) {
+        // update the mobile number verification status
+        user.mobileVerification.verified = true;
+        await user.save();
+
+        res.status(200).json({
+          message: "Mobile number verified successfully",
+          success: true,
+        });
+      } else {
+        return res.status(400).json({
+          message: "Invalid OTP code",
+          success: false,
+        });
+      }
+    }
+  } catch (error) {
+    console.log("Error while verifying the mobile number");
+    res.status(500).json({
+      message: "Error while verifying the mobile number",
+      success: false,
+    });
+  }
+};
+
+const generateOtpCodeForEmail = async (req, res) => {
+  try {
+    // Get the userId
+    const payload = req.body;
+    const userId = req.user;
+    let isUpdated = false;
+
+    console.log("The payload from generate OTP code for email is ", payload);
+
+    const email = payload.email;
+
+    if (!email) {
+      return res.status(400).send({
+        message: "Please provide the email address",
+        success: false,
+      });
+    }
+
+    // Find the user by the id
+    const user = await User.findById(userId);
+
+    // Check if the user's email and email saved in the database are the same or not
+    if (user.emailId !== email) {
+      isUpdated = true;
+      // Update the email address
+      user.emailId = email;
+      await user.save();
+    }
+
+    // Generate the OTP code
+    const otpCode = generateOTP();
+
+    // Save the OTP code to the user
+    user.emailVerification.verificationCode = otpCode;
+
+    // Set OTP expiration to 10 minutes from the current time
+    user.emailVerification.otpExpiration = new Date(
+      Date.now() + 10 * 60 * 1000
+    );
+
+    await user.save();
+
+    let msg = isUpdated
+      ? `Email address updated, OTP sent to ${email}`
+      : `OTP code sent successfully to ${email}`;
+
+    await sendVerificationOTPEmail(user, otpCode);
+    res.status(200).json({
+      message: msg,
+      success: true,
+    });
+  } catch (error) {
+    console.log(
+      "Error occurred while generating the OTP code for email:",
+      error
+    );
+    res.status(500).json({
+      message: "Error occurred while generating the OTP code for email",
+      success: false,
+      error,
+    });
+  }
+};
+
+const verifyEmail = async (req, res) => {
+  try {
+    const payload = req.body;
+    const userId = req.user;
+
+    const { otp } = payload;
+
+    console.log("The data from verify OTP for email is ", payload);
+
+    // Find the user
+    const user = await User.findById(userId);
+
+    if (!user) {
+      return res.status(404).json({
+        message: "User not found",
+        success: false,
+      });
+    }
+
+    const currentTime = new Date(Date.now());
+
+    // Check if the OTP code is expired or not
+    if (currentTime > user.emailVerification.otpExpiration) {
+      return res.status(400).json({
+        message: "OTP code is expired",
+        success: false,
+      });
+    } else {
+      // Check if the OTP code is correct or not
+      if (otp === user.emailVerification.verificationCode) {
+        // Update the email verification status
+        user.emailVerification.verified = true;
+        await user.save();
+
+        res.status(200).json({
+          message: "Email verified successfully",
+          success: true,
+        });
+      } else {
+        return res.status(400).json({
+          message: "Invalid OTP code",
+          success: false,
+        });
+      }
+    }
+  } catch (error) {
+    console.log("Error while verifying the email address:", error);
+    res.status(500).json({
+      message: "Error while verifying the email address",
+      success: false,
+    });
+  }
 };
 
 // Upload the user profile Image
@@ -544,7 +788,9 @@ module.exports = {
   login,
   logOutUser,
   verifyGovernmentId,
+  generateOtpCodeForEmail,
   verifyEmail,
+  generateOtpCodeForMobile,
   verifyPhoneNumber,
   refreshToken,
   checkEmail,
