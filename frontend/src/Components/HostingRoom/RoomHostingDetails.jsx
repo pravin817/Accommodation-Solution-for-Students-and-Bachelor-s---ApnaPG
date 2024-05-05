@@ -72,13 +72,13 @@ const RoomHostingDetails = () => {
         Learn how we estimates you earnings
       </p>
       {/* selected places */}
-      <div className=" flex flex-row gap-4 items-center min-w-[300px] md:min-w-[400px] rounded-full border border-[#dddddd] mx-auto mt-3 px-7 py-3 cursor-pointer">
+      {/* <div className=" flex flex-row gap-4 items-center min-w-[300px] md:min-w-[400px] rounded-full border border-[#dddddd] mx-auto mt-3 px-7 py-3 cursor-pointer">
         <img src={search} alt="search" className="w-4 md:w-6" />
         <div className=" flex flex-col text-sm md:text-xs">
           <p>Where&apos;s your place?</p>
           <p>Entire Place{"•"} 0 bedrooms</p>
         </div>
-      </div>
+      </div> */}
     </div>
   );
 };

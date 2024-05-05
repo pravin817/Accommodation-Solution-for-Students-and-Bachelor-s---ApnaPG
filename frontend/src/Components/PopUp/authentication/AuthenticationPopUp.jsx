@@ -50,7 +50,10 @@ const AuthenticationPopUp = ({ popup, setPopup }) => {
         <div className=" absolute inset-0 w-screen h-screen bg-[#0000005c] popup-overlay">
           <div
             ref={popUpRef}
-            className={`absolute left-[27.5%] right-[27.5%] top-[12%]  w-[45vw] bg-[#ffffff] shadow-2xl rounded-xl overflow-hidden
+            className={`absolute top-[12%]  w-[100vw] bg-[#ffffff] shadow-2xl rounded-xl overflow-hidden border-4 border-green-500
+            md:left-[20.5%] md:right-[20.5%] md:w-[65vw] md:border-4 md:border-blue-500
+            lg:left-[25.5%] lg:right-[25.5%] lg:w-[45vw] lg:border-4 lg:border-yellow-500
+            sm:left-[27.5%] sm:right-[27.5%] sm:w-[50vw] sm:border-4 sm:border-red-500
             ${
               (showLoginPopup || profilePopup) && !showErrorMessage
                 ? "h-[60vh] popup-container-login"

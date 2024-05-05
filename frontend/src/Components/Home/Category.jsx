@@ -22,7 +22,7 @@ const Category = ({ styleGrid }) => {
   ];
 
   return (
-    <div className={` flex flex-row gap-2 ${styleGrid}`}>
+    <div className={` flex flex-row gap-1 ${styleGrid}`}>
       <Carousel
         // itemsToShow={8}
         breakPoints={breakPoints}

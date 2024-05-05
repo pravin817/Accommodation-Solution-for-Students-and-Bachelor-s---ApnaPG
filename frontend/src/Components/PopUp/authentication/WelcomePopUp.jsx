@@ -182,7 +182,7 @@ const WelcomePopUp = ({
       </div>
 
       {/* continue with Google  */}
-      <div className="flex flex-col gap-4 px-8">
+      <div className="flex flex-col gap-4 px-8 mb-8">
         <div className="w-full flex flex-row items-center border border-[#222222] rounded-lg py-[10px] bg-[#ffffff] hover:bg-[#f7f7f7] cursor-pointer transition-colors">
           <img src={googleIcon} alt="Log in With Google" className="w-6 ml-5" />
           <p className="text-sm mx-auto font-medium text-[#222222]">

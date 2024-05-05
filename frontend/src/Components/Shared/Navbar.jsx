@@ -19,6 +19,23 @@ import DashboardMenu from "./DashboardMenu";
 const Navbar = () => {
   const [showUserMenu, setShowUserMenu] = useState(false);
   const [popup, setPopup] = useState(false);
+  const [searchQuery, setSearchQuery] = useState("");
+  const [showExtendedSearch, setShowExtendedSearch] = useState(true);
+  const [hideSmallSearch, setHideSmallSearch] = useState(true);
+
+  // Search
+  const [city, setCity] = useState("");
+  const [checkInDate, setCheckInDate] = useState("");
+  const [checkOutDate, setCheckOutDate] = useState("");
+  const [guestCount, setGuestCount] = useState("");
+
+  const handleSearchClick = () => {
+    setSearchPopupOpen(true);
+  };
+
+  const handleCloseSearchPopup = () => {
+    setSearchPopupOpen(false);
+  };
 
   const navigate = useNavigate();
   const userMenuRef = useRef(null);
@@ -34,10 +51,9 @@ const Navbar = () => {
 
   // get the user
   const user = useSelector((state) => state.user.userDetails);
-  console.log("user : ", user);
+  console.log("The user form navbar : ", user);
 
   // Get the user id
-
   const userId = user?._id;
   console.log("The user Id is ", userId);
 
@@ -59,12 +75,39 @@ const Navbar = () => {
         setShowUserMenu(false);
       }
     };
-
     document.addEventListener("mouseup", handleOutSideClick);
     return () => {
       document.removeEventListener("mouseup", handleOutSideClick);
     };
   }, []);
+
+  const handleCitySelect = (selectedCity) => {
+    setCity(selectedCity);
+    // Close the city dropdown or perform other actions
+  };
+
+  const handleSearch = () => {
+    // Perform search with selected parameters
+  };
+
+  // UseEffect for the scroll
+  useEffect(() => {
+    const handleScroll = () => {
+      const scrollPosition = window.scrollY;
+      console.log("scrollPosition : ", scrollPosition);
+      if (scrollPosition > 10) {
+        setShowExtendedSearch(false);
+      } else {
+        setShowExtendedSearch(true);
+      }
+    };
+
+    window.addEventListener("scroll", handleScroll);
+
+    return () => {
+      window.removeEventListener("scroll", handleScroll);
+    };
+  }, [showExtendedSearch]);
 
   return (
     <nav
@@ -73,7 +116,7 @@ const Navbar = () => {
       }`}
     >
       <div
-        className={`xl:px-10 py-4 xl:mx-auto items-center px-5 relative ${
+        className={`xl:px-10 py-5 xl:mx-auto items-start px-5 relative ${
           inUserProfile ||
           inUserDashboard ||
           inHostRoomsLandingPage ||
@@ -90,7 +133,7 @@ const Navbar = () => {
         `}
       >
         {/* The Company logo */}
-        <div className=" md:w-[160px]">
+        <div className="md:w-[160px]">
           <span className="flex flex-row gap-2 items-center max-w-[120px]">
             <Link
               className="text-xl text-[#ff385c] font-bold"
@@ -101,11 +144,6 @@ const Navbar = () => {
             >
               Apna<span className="text-black">PG</span>
             </Link>
-
-            {/* if user is in hosting homes page we want only logo */}
-            {/* {inHostRoomsLandingPage || isSmallDevice ? null : (
-              <p className="text-xl text-[#ff385c] font-bold">ApanaPG</p>
-            )} */}
           </span>
         </div>
 
@@ -116,20 +154,99 @@ const Navbar = () => {
           <>
             {/* searchbar */}
             {inUserProfile || inUserDashboard || inHostRoomsLandingPage ? (
-              // if user is in dahsboard
+              // if user is in dashboard
               <div>{inUserDashboard && <DashboardMenu />} </div>
             ) : (
-              <div className="mx-auto lg:block hidden">
-                <div className="border-[1px] border-[#dddddd] rounded-full px-3 py-2 flex items-center shadow hover:shadow-md transition-all cursor-pointer">
-                  <input
-                    type="search"
-                    className=" focus:outline-none pl-2"
-                    placeholder="Search for places"
-                  />
-                  <div className="bg-[#ff385c] rounded-full p-2">
-                    <img src={searchIcon} alt="Search Rooms" className="w-4" />
+              <div className="lg:block hidden">
+                <div className="px-1 py-2 flex items-center justify-between transition-all cursor-pointer">
+                  <div className="flex flex-col w-full  transition duration-200">
+                    {/* The main search bar  */}
+                    {showExtendedSearch && !hideSmallSearch ? (
+                      <>
+                        <h1
+                          className="text-base text-center"
+                          onClick={() => {
+                            setHideSmallSearch((prev) => !prev);
+                          }}
+                        >
+                          Search the best place to live
+                        </h1>
+                      </>
+                    ) : (
+                      <>
+                        <div
+                          className="w-[75%] mx-auto cursor-pointer"
+                          onClick={() => {
+                            setHideSmallSearch((prev) => !prev);
+                          }}
+                        >
+                          <div className="flex items-center justify-between border-[1px] border-[#dddddd] rounded-full px-3 py-2 shadow hover:shadow-md transition-all cursor-pointer">
+                            <p className="text-sm">
+                              <span className="font-semibold px-2">
+                                Anywhere
+                              </span>{" "}
+                              <span className="text-gray-400"> | </span>{" "}
+                              <span className="font-semibold px-2">
+                                Any week
+                              </span>{" "}
+                              <span className="text-gray-400"> | </span>{" "}
+                              <span className="px-2 text-gray-400">
+                                Add guests
+                              </span>{" "}
+                            </p>
+                            <button className="bg-[#ff385c] rounded-full p-1">
+                              <img
+                                src={searchIcon}
+                                alt="Search"
+                                className="w-5  "
+                              />
+                            </button>
+                          </div>
+                        </div>
+                      </>
+                    )}
                   </div>
                 </div>
+
+                {/* The extended search bar  */}
+                {(showExtendedSearch || hideSmallSearch) && (
+                  <div className="mt-10">
+                    <div className="w-5/4 mx-auto">
+                      <div className="flex items-center justify-between border-[1px] border-[#dddddd] rounded-full px-3 py-1 shadow hover:shadow-md transition-all cursor-pointer">
+                        <input
+                          type="text"
+                          placeholder="AnyWhere"
+                          value={city}
+                          onChange={(e) => setCity(e.target.value)}
+                          className="text-sm py-2 w-24 focus:border-[#ff385c] focus:outline-none pl-2  text-black"
+                        />
+                        <span className="text-gray-400">|</span>
+
+                        <input
+                          type="text"
+                          placeholder="AnyWhere"
+                          value={city}
+                          onChange={(e) => setCity(e.target.value)}
+                          className="text-sm py-2 w-24 focus:border-[#ff385c] focus:outline-none pl-2  text-black"
+                        />
+                        <span className="text-gray-400">|</span>
+                        <input
+                          type="text"
+                          placeholder="Add guest"
+                          value={guestCount}
+                          onChange={(e) => setGuestCount(e.target.value)}
+                          className="text-sm py-2 w-24 focus:border-[#ff385c] focus:outline-none pl-2"
+                        />
+                        <button
+                          className="bg-[#ff385c] rounded-full p-2"
+                          onClick={handleSearch}
+                        >
+                          <img src={searchIcon} alt="Search" className="w-5" />
+                        </button>
+                      </div>
+                    </div>
+                  </div>
+                )}
               </div>
             )}
           </>

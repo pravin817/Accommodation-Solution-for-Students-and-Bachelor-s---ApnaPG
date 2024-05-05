@@ -82,13 +82,15 @@ const Home = () => {
   return (
     <main className="max-w-screen-2xl xl:px-10 px-5 sm:px-16 mx-auto">
       <section
-        className={` pt-8 grid md:grid-cols-12 gap-5 bg-white sticky top-16 z-30 ${
+        className={` pt-8 grid md:grid-cols-12 gap-5 bg-white sticky top-20 z-30 ${
           hasScroll ? " shadow" : " shadow-none"
         }`}
       >
         {/* Category section  */}
-        <Category styleGrid={"md:col-span-8 lg:col-span-9"} />
-        {/* <Category styleGrid={"md:col-span-12 lg:col-span-12"} /> */}
+        {/* <Category styleGrid={"md:col-span-8 lg:col-span-9"} /> */}
+        <Category styleGrid={"md:col-span-12 lg:col-span-12"} />
+
+        <hr />
 
         {/* Tax toggle buttons  */}
         {/* <PriceWithTaxCard
