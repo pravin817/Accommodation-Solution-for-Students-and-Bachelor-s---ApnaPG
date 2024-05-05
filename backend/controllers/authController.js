@@ -7,6 +7,7 @@ const Room = require("../models/room.model");
 const {
   sendVerificationOTPEmail,
 } = require("../utils/sendOTPVerificationEmail");
+const { sendSMS } = require("../utils/SMS/sendSMS");
 
 const saltRounds = 10;
 const daysToSeconds = 1 * 60 * 60; //   days * hours *  minutes *  seconds
@@ -55,6 +56,15 @@ const signup = async (req, res) => {
     };
 
     const userDetails = await User.find(findCriteria);
+
+    const userByMobileNumber = await User.findOne(payload.mobileNo);
+
+    if (userByMobileNumber) {
+      return res.status(404).json({
+        message: "Mobile number already exist",
+        success: false,
+      });
+    }
 
     const accessToken = jwt.sign(
       {
@@ -399,12 +409,13 @@ const generateOtpCodeForMobile = async (req, res) => {
 
     await user.save();
 
-    let msg1 = isUpdated
+    let msg = isUpdated
       ? `Mobile number updated , otp send on the ${mobileNo} mobile number`
       : `OTP code send successfully on ${mobileNo} mobile number`;
 
+    await sendSMS(mobileNo, `Your OTP code is ${otpCode}`);
     res.status(200).json({
-      message: msg1,
+      message: msg,
       success: true,
     });
   } catch (error) {
